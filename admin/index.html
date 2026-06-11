@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin - Rumah Digital</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <h1>⚙️ Admin Panel</h1>
+    <p><a href="/">← Kembali ke beranda</a></p>
+
+    <h2>Tambah Artikel Baru</h2>
+    <form id="post-form" style="display: grid; gap: 0.5rem; max-width: 400px">
+      <input type="text" id="judul" placeholder="Judul" required />
+      <input type="text" id="slug" placeholder="Slug (biarkan kosong)" />
+      <textarea id="ringkasan" rows="2" placeholder="Ringkasan"></textarea>
+      <textarea id="konten" rows="5" placeholder="Isi artikel"></textarea>
+      <button type="submit">Terbitkan</button>
+    </form>
+
+    <h2>Tambah Foto</h2>
+    <form id="photo-form" style="display: grid; gap: 0.5rem; max-width: 400px">
+      <input type="text" id="photo-judul" placeholder="Judul foto" required />
+      <input type="url" id="photo-url" placeholder="URL gambar" required />
+      <button type="submit">Upload</button>
+    </form>
+
+    <script>
+      // Ganti dengan secret yang sama di server
+      const ADMIN_SECRET = "rahasia-super-kuat-123";
+
+      // Fungsi panggil API admin
+      async function apiAdmin(action, table, data) {
+        const res = await fetch("/api/admin", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token: ADMIN_SECRET, action, table, data }),
+        });
+        return res.json();
+      }
+
+      document
+        .getElementById("post-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const judul = document.getElementById("judul").value;
+          const slug =
+            document.getElementById("slug").value ||
+            judul.toLowerCase().replace(/\s+/g, "-");
+          const ringkasan = document.getElementById("ringkasan").value;
+          const konten = document.getElementById("konten").value;
+
+          const result = await apiAdmin("insert", "posts", {
+            judul,
+            slug,
+            ringkasan,
+            konten,
+            published_at: new Date().toISOString(),
+          });
+
+          if (result.error) alert("Gagal: " + result.error.message);
+          else {
+            alert("Artikel terbit!");
+            e.target.reset();
+          }
+        });
+
+      document
+        .getElementById("photo-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const judul = document.getElementById("photo-judul").value;
+          const image_url = document.getElementById("photo-url").value;
+
+          const result = await apiAdmin("insert", "gallery", {
+            judul,
+            image_url,
+          });
+          if (result.error) alert("Gagal: " + result.error.message);
+          else {
+            alert("Foto tersimpan!");
+            e.target.reset();
+          }
+        });
+    </script>
+  </body>
+</html>

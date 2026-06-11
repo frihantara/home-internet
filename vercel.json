@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/blog", "destination": "/blog/index.html" },
+    { "source": "/galeri", "destination": "/galeri/index.html" },
+    { "source": "/admin", "destination": "/admin/index.html" }
+  ]
+}

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Galeri - Rumah Digital</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  </head>
+  <body>
+    <nav>
+      <a href="/">🏠 Beranda</a>
+      <a href="/blog">Blog</a>
+      <a href="/galeri">Galeri</a>
+      <a href="/admin">⚙️ Admin</a>
+    </nav>
+
+    <h1>🖼️ Galeri</h1>
+    <div
+      id="gallery-grid"
+      style="
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+      "
+    ></div>
+
+    <script src="../js/supabase.js"></script>
+    <script>
+      async function loadGallery() {
+        const { data } = await supabase
+          .from("gallery")
+          .select("*")
+          .order("created_at", { ascending: false });
+
+        const grid = document.getElementById("gallery-grid");
+        if (data && data.length > 0) {
+          grid.innerHTML = data
+            .map(
+              (item) => `
+          <div class="card" style="padding:0.5rem;">
+            <img src="${item.image_url}" style="width:100%; border-radius:8px;" alt="${item.judul}">
+            <p style="margin-top:0.5rem; font-weight:500;">${item.judul}</p>
+          </div>
+        `,
+            )
+            .join("");
+        } else {
+          grid.innerHTML = "<p>Belum ada foto.</p>";
+        }
+      }
+      loadGallery();
+    </script>
+  </body>
+</html>
