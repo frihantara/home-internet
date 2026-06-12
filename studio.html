@@ -3,38 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Studio — Digital Home</title>
+  <title>Studio Admin</title>
   <link rel="stylesheet" href="/css/global.css">
   <style>
-    /* Admin layout override (simple, clean) */
-    .admin-wrap { display: flex; min-height: 100vh; }
-    .admin-sidebar { width: 240px; background: var(--surface); border-right: 1px solid var(--border); padding: 1.5rem; position: fixed; height: 100vh; overflow-y: auto; }
-    .admin-main { flex: 1; margin-left: 240px; padding: 2rem; }
-    .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-    .admin-title { font-family: var(--font-display); font-size: 1.5rem; margin: 0; }
-    .nav-item { display: block; padding: 0.5rem 0.75rem; border-radius: var(--radius); color: var(--text-2); margin-bottom: 0.25rem; cursor: pointer; transition: all 0.2s; }
-    .nav-item:hover, .nav-item.active { background: var(--surface-2); color: var(--text); }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #0A0A0B; color: #E8E4DC; font-family: system-ui, sans-serif; }
+    .app { display: flex; min-height: 100vh; }
+    .sidebar { width: 260px; background: #111114; border-right: 1px solid #242428; padding: 1.5rem; position: fixed; height: 100vh; overflow-y: auto; }
+    .main { flex: 1; margin-left: 260px; padding: 2rem; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #242428; }
+    .nav-item { display: block; padding: 0.5rem 0.75rem; border-radius: 6px; color: #A8A4A0; cursor: pointer; margin-bottom: 0.25rem; }
+    .nav-item:hover, .nav-item.active { background: #18181C; color: #E8E4DC; }
     .nav-group { margin-bottom: 1.5rem; }
-    .nav-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-3); margin-bottom: 0.5rem; }
-    .form-group { margin-bottom: 1rem; }
-    .form-group label { display: block; margin-bottom: 0.25rem; font-size: 0.85rem; font-weight: 500; }
-    input, textarea, select { width: 100%; padding: 0.5rem; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); }
-    button, .btn { padding: 0.4rem 0.8rem; border-radius: var(--radius); background: var(--surface-2); border: 1px solid var(--border); cursor: pointer; color: var(--text); }
-    .btn-primary { background: var(--gold); color: #000; border: none; }
-    .btn-danger { background: rgba(224,82,82,0.2); color: var(--red); border-color: var(--red); }
+    .nav-label { font-size: 0.7rem; text-transform: uppercase; color: #6B6B7A; margin-bottom: 0.5rem; }
+    button, .btn { padding: 0.4rem 0.8rem; border-radius: 6px; background: #18181C; border: 1px solid #242428; color: #E8E4DC; cursor: pointer; }
+    .btn-primary { background: #C8A96E; color: #000; border: none; }
+    .btn-danger { background: rgba(224,82,82,0.2); color: #E05252; border-color: #E05252; }
     table { width: 100%; border-collapse: collapse; }
-    th, td { padding: 0.6rem; text-align: left; border-bottom: 1px solid var(--border); }
+    th, td { padding: 0.6rem; text-align: left; border-bottom: 1px solid #242428; }
+    input, textarea, select { width: 100%; padding: 0.5rem; background: #18181C; border: 1px solid #242428; border-radius: 6px; color: #E8E4DC; }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; margin-bottom: 0.25rem; font-size: 0.85rem; }
     .stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px,1fr)); gap: 1rem; margin-bottom: 2rem; }
-    .stat-card { background: var(--surface-2); padding: 1rem; border-radius: var(--radius); text-align: center; }
-    .stat-number { font-size: 2rem; font-weight: bold; color: var(--gold); }
-    .image-preview { max-width: 80px; max-height: 80px; object-fit: cover; border-radius: 4px; }
-    @media (max-width: 700px) { .admin-sidebar { display: none; } .admin-main { margin-left: 0; } }
+    .stat-card { background: #18181C; padding: 1rem; border-radius: 12px; text-align: center; }
+    .stat-number { font-size: 2rem; font-weight: bold; color: #C8A96E; }
+    @media (max-width: 700px) { .sidebar { display: none; } .main { margin-left: 0; } }
   </style>
 </head>
 <body>
-<div class="admin-wrap">
-  <aside class="admin-sidebar">
-    <div style="font-size:1.4rem; font-family:var(--font-display); margin-bottom:2rem;">Digital<span style="color:var(--gold)">.</span></div>
+<div class="app">
+  <div class="sidebar">
+    <div style="font-size:1.4rem; margin-bottom:2rem;">Digital<span style="color:#C8A96E;">.</span></div>
     <div class="nav-group"><div class="nav-label">Main</div><div data-view="dashboard" class="nav-item">Dashboard</div></div>
     <div class="nav-group"><div class="nav-label">Blog</div><div data-view="blog" class="nav-item">Posts</div><div data-view="blog_new" class="nav-item">+ New Post</div></div>
     <div class="nav-group"><div class="nav-label">Gallery</div><div data-view="gallery" class="nav-item">Photos</div><div data-view="gallery_upload" class="nav-item">+ Upload</div></div>
@@ -42,77 +41,81 @@
     <div class="nav-group"><div class="nav-label">F1</div><div data-view="f1" class="nav-item">Drivers</div><div data-view="f1_new" class="nav-item">+ Driver</div></div>
     <div class="nav-group"><div class="nav-label">Watchlist</div><div data-view="watchlist" class="nav-item">Items</div><div data-view="watchlist_new" class="nav-item">+ Item</div></div>
     <div class="nav-group"><div class="nav-label">Thoughts</div><div data-view="thoughts" class="nav-item">List</div><div data-view="thoughts_new" class="nav-item">+ Thought</div></div>
-    <div class="nav-group"><div id="logout-btn" class="nav-item" style="color:var(--red)">Sign out</div></div>
-  </aside>
-  <main class="admin-main">
-    <div class="admin-header"><h1 class="admin-title" id="page-title">Dashboard</h1><span id="user-email" style="font-size:0.8rem;"></span></div>
-    <div id="app-content"></div>
-  </main>
+    <div class="nav-group"><div id="logout-btn" class="nav-item" style="color:#E05252;">Sign out</div></div>
+  </div>
+  <div class="main">
+    <div class="header"><h1 id="page-title">Dashboard</h1><span id="user-email"></span></div>
+    <div id="content"></div>
+  </div>
 </div>
 
 <script type="module">
   import { supabase } from '/js/supabase.js';
   import { formatDateShort } from '/js/supabase.js';
 
-  // Auth check
+  // Cek login
   const { data: { session } } = await supabase.auth.getSession();
   if (!session) location.href = '/studio/login';
   document.getElementById('user-email').innerText = session.user.email;
 
-  const content = document.getElementById('app-content');
   let currentView = null;
+  const contentDiv = document.getElementById('content');
 
-  function setActive(viewId) {
+  function setActive(view) {
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-    document.querySelectorAll(`[data-view="${viewId}"]`).forEach(el => el.classList.add('active'));
-    document.getElementById('page-title').innerText = viewId.replace('_',' ').toUpperCase();
+    document.querySelectorAll(`[data-view="${view}"]`).forEach(el => el.classList.add('active'));
+    document.getElementById('page-title').innerText = view.replace(/_/g,' ').toUpperCase();
   }
 
-  // Helper
-  function escape(str) { return String(str ?? '').replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+  function escape(str) { return String(str ?? '').replace(/[&<>]/g, m => m==='&'?'&amp;':m==='<'?'&lt;':'&gt;'); }
 
   // Dashboard
   async function dashboard() {
     setActive('dashboard');
     const tables = ['posts','gallery','football_clubs','f1_drivers','watchlist','thoughts'];
-    let counts = {};
+    let stats = {};
     for (let t of tables) {
       let { count } = await supabase.from(t).select('*', { count: 'exact', head: true });
-      counts[t] = count ?? 0;
+      stats[t] = count ?? 0;
     }
-    content.innerHTML = `<div class="stat-grid">
-      <div class="stat-card"><div class="stat-number">${counts.posts}</div><div>Posts</div></div>
-      <div class="stat-card"><div class="stat-number">${counts.gallery}</div><div>Photos</div></div>
-      <div class="stat-card"><div class="stat-number">${counts.football_clubs}</div><div>Clubs</div></div>
-      <div class="stat-card"><div class="stat-number">${counts.f1_drivers}</div><div>F1 Drivers</div></div>
-      <div class="stat-card"><div class="stat-number">${counts.watchlist}</div><div>Watchlist</div></div>
-      <div class="stat-card"><div class="stat-number">${counts.thoughts}</div><div>Thoughts</div></div>
-    </div><div>Welcome back, ${escape(session.user.email)}</div>`;
+    contentDiv.innerHTML = `<div class="stat-grid">
+      <div class="stat-card"><div class="stat-number">${stats.posts}</div><div>Posts</div></div>
+      <div class="stat-card"><div class="stat-number">${stats.gallery}</div><div>Photos</div></div>
+      <div class="stat-card"><div class="stat-number">${stats.football_clubs}</div><div>Clubs</div></div>
+      <div class="stat-card"><div class="stat-number">${stats.f1_drivers}</div><div>F1 Drivers</div></div>
+      <div class="stat-card"><div class="stat-number">${stats.watchlist}</div><div>Watchlist</div></div>
+      <div class="stat-card"><div class="stat-number">${stats.thoughts}</div><div>Thoughts</div></div>
+    </div><p>Welcome back, ${escape(session.user.email)}</p>`;
   }
 
-  // ---------- Blog ----------
+  // ---------------------- BLOG ----------------------
   async function blogList() {
     setActive('blog');
     let { data } = await supabase.from('posts').select('id,title,status,created_at').order('created_at',{ascending:false});
-    if (!data?.length) { content.innerHTML = '<p>No posts. <button data-view="blog_new" class="btn btn-primary">Create post</button></p>'; attachNavClicks(); return; }
-    content.innerHTML = `
+    if (!data?.length) {
+      contentDiv.innerHTML = `<p>No posts. <button data-view="blog_new" class="btn btn-primary">Create post</button></p>`;
+      attachNavClicks();
+      return;
+    }
+    contentDiv.innerHTML = `
       <table><thead><tr><th>Title</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead><tbody>
-        ${data.map(p => `<tr><td>${escape(p.title)}</td><td>${p.status}</td><td>${formatDateShort(p.created_at)}</td><td><button data-edit="${p.id}" class="btn btn-sm">Edit</button> <button data-delete="${p.id}" class="btn btn-sm btn-danger">Delete</button></td></tr>`).join('')}
+        ${data.map(p => `<tr><td>${escape(p.title)}</td><td>${p.status}</td><td>${formatDateShort(p.created_at)}</td><td><button data-edit="${p.id}" class="btn">Edit</button> <button data-delete="${p.id}" class="btn btn-danger">Delete</button></td></tr>`).join('')}
       </tbody></table>
       <div style="margin-top:1rem"><button data-view="blog_new" class="btn btn-primary">+ New Post</button></div>
     `;
-    attachEditDelete('posts', blogList);
+    attachDeleteAndEdit('posts', blogList);
     attachNavClicks();
   }
-  async function blogForm(id=null) {
+
+  async function blogForm(id = null) {
     let post = { title:'', slug:'', excerpt:'', content:'', cover_image:'', category:'', tags:[], status:'draft', featured:false };
     if (id) {
       let { data } = await supabase.from('posts').select('*').eq('id',id).single();
       if (data) post = data;
       setActive('blog');
     } else setActive('blog_new');
-    content.innerHTML = `
-      <form id="item-form">
+    contentDiv.innerHTML = `
+      <form id="itemForm">
         <div class="form-group"><label>Title</label><input id="title" value="${escape(post.title)}" required></div>
         <div class="form-group"><label>Slug</label><input id="slug" value="${post.slug}"></div>
         <div class="form-group"><label>Excerpt</label><textarea id="excerpt">${escape(post.excerpt)}</textarea></div>
@@ -125,9 +128,9 @@
         <button type="submit" class="btn btn-primary">Save</button> <button type="button" data-view="blog" class="btn">Cancel</button>
       </form>
     `;
-    document.getElementById('item-form').addEventListener('submit', async (e) => {
+    document.getElementById('itemForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      let data = {
+      const data = {
         title: document.getElementById('title').value,
         slug: document.getElementById('slug').value || slugify(document.getElementById('title').value),
         excerpt: document.getElementById('excerpt').value,
@@ -145,108 +148,124 @@
     attachNavClicks();
   }
 
-  // ---------- Gallery (with upload) ----------
+  // ---------------------- GALLERY (upload file) ----------------------
   async function galleryList() {
     setActive('gallery');
     let { data } = await supabase.from('gallery').select('*').order('created_at',{ascending:false});
-    if (!data?.length) { content.innerHTML = '<p>No photos. <button data-view="gallery_upload" class="btn btn-primary">Upload</button></p>'; attachNavClicks(); return; }
-    content.innerHTML = `
+    if (!data?.length) {
+      contentDiv.innerHTML = `<p>No photos. <button data-view="gallery_upload" class="btn btn-primary">Upload</button></p>`;
+      attachNavClicks();
+      return;
+    }
+    contentDiv.innerHTML = `
       <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); gap:1rem;">
-        ${data.map(p => `<div style="border:1px solid var(--border); border-radius:8px; padding:0.5rem; text-align:center"><img src="${p.image_url}" style="width:100%; height:100px; object-fit:cover; border-radius:4px;"><div style="font-size:0.7rem">${escape(p.caption||'')}</div><button data-delete="${p.id}" class="btn btn-sm btn-danger" style="margin-top:0.5rem">Delete</button></div>`).join('')}
+        ${data.map(p => `<div style="border:1px solid #242428; border-radius:8px; padding:0.5rem; text-align:center"><img src="${p.image_url}" style="width:100%; height:100px; object-fit:cover; border-radius:4px;"><div style="font-size:0.7rem">${escape(p.caption||'')}</div><button data-delete="${p.id}" class="btn btn-danger">Delete</button></div>`).join('')}
       </div>
       <div style="margin-top:1rem"><button data-view="gallery_upload" class="btn btn-primary">+ Upload</button></div>
     `;
-    attachDelete('gallery', galleryList);
+    attachDeleteOnly('gallery', galleryList);
     attachNavClicks();
   }
+
   async function galleryUpload() {
     setActive('gallery_upload');
-    content.innerHTML = `
-      <form id="upload-form">
+    contentDiv.innerHTML = `
+      <form id="uploadForm">
         <div class="form-group"><label>Image file</label><input type="file" id="file" accept="image/*" required></div>
         <div class="form-group"><label>Caption</label><input id="caption"></div>
         <div class="form-group"><label>Album ID (optional)</label><input id="album_id"></div>
         <button type="submit" class="btn btn-primary">Upload</button> <button type="button" data-view="gallery" class="btn">Cancel</button>
       </form>
     `;
-    document.getElementById('upload-form').addEventListener('submit', async (e) => {
+    document.getElementById('uploadForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      let file = document.getElementById('file').files[0];
+      const file = document.getElementById('file').files[0];
       if (!file) return;
-      let ext = file.name.split('.').pop();
-      let fileName = `${Date.now()}.${ext}`;
-      let { error: uploadErr } = await supabase.storage.from('gallery').upload(fileName, file);
-      if (uploadErr) { alert(uploadErr.message); return; }
-      let { data: { publicUrl } } = supabase.storage.from('gallery').getPublicUrl(fileName);
+      const ext = file.name.split('.').pop();
+      const fileName = `${Date.now()}.${ext}`;
+      const { error } = await supabase.storage.from('gallery').upload(fileName, file);
+      if (error) { alert(error.message); return; }
+      const { data: { publicUrl } } = supabase.storage.from('gallery').getPublicUrl(fileName);
       await supabase.from('gallery').insert({ image_url: publicUrl, caption: document.getElementById('caption').value, album_id: document.getElementById('album_id').value || null });
       galleryList();
     });
     attachNavClicks();
   }
 
-  // ---------- Generic CRUD helpers ----------
-  async function listItems(table, label, fields, formFields, idField='id') {
+  // ---------------------- GENERIC CRUD (Football, F1, Watchlist, Thoughts) ----------------------
+  async function genericList(table, label, idField = 'id') {
+    setActive(table);
     let { data } = await supabase.from(table).select('*').order('created_at',{ascending:false});
-    if (!data?.length) { content.innerHTML = `<p>No ${label}. <button data-view="${table}_new" class="btn btn-primary">Add</button></p>`; attachNavClicks(); return; }
-    content.innerHTML = `
-      <table><thead><tr>${fields.map(f => `<th>${f.label}</th>`).join('')}<th>Actions</th></tr></thead><tbody>
-        ${data.map(item => `<tr>${fields.map(f => `<td>${escape(item[f.key]?.toString() ?? '')}</td>`).join('')}<td><button data-edit="${item[idField]}" class="btn btn-sm">Edit</button> <button data-delete="${item[idField]}" class="btn btn-sm btn-danger">Delete</button></td></tr>`).join('')}
+    if (!data?.length) {
+      contentDiv.innerHTML = `<p>No ${label}. <button data-view="${table}_new" class="btn btn-primary">Add</button></p>`;
+      attachNavClicks();
+      return;
+    }
+    const firstKey = Object.keys(data[0]).find(k => k !== idField && typeof data[0][k] !== 'object');
+    contentDiv.innerHTML = `
+      <table><thead><tr><th>${firstKey}</th><th>Actions</th></tr></thead><tbody>
+        ${data.map(item => `<tr><td>${escape(item[firstKey]?.toString())}</td><td><button data-edit="${item[idField]}" class="btn">Edit</button> <button data-delete="${item[idField]}" class="btn btn-danger">Delete</button></td></tr>`).join('')}
       </tbody></table>
       <div style="margin-top:1rem"><button data-view="${table}_new" class="btn btn-primary">+ Add ${label}</button></div>
     `;
-    attachEditDelete(table, () => listItems(table, label, fields, formFields, idField));
+    // attach edit/delete
+    document.querySelectorAll('[data-edit]').forEach(btn => {
+      btn.onclick = () => genericForm(table, label, btn.dataset.edit);
+    });
+    document.querySelectorAll('[data-delete]').forEach(btn => {
+      btn.onclick = async () => { if(confirm('Delete?')){ await supabase.from(table).delete().eq(idField, btn.dataset.delete); genericList(table, label, idField); } };
+    });
     attachNavClicks();
   }
 
-  async function formItem(table, id=null, fields, idField='id') {
+  async function genericForm(table, label, id = null) {
     let item = {};
     if (id) {
-      let { data } = await supabase.from(table).select('*').eq(idField,id).single();
+      let { data } = await supabase.from(table).select('*').eq('id',id).single();
       if (data) item = data;
+      setActive(table);
+    } else setActive(`${table}_new`);
+    // build form dynamically from first item's keys (except id, created_at, updated_at)
+    const exclude = ['id','created_at','updated_at'];
+    const fields = Object.keys(item).filter(k => !exclude.includes(k));
+    if (fields.length === 0) {
+      contentDiv.innerHTML = `<p>Cannot edit, no fields.</p><button data-view="${table}" class="btn">Back</button>`;
+      attachNavClicks();
+      return;
     }
-    setActive(id ? table : `${table}_new`);
-    content.innerHTML = `
-      <form id="item-form">
-        ${fields.map(f => `<div class="form-group"><label>${f.label}</label><input type="${f.type||'text'}" id="${f.key}" value="${escape(item[f.key]??'')}" ${f.required?'required':''}></div>`).join('')}
+    contentDiv.innerHTML = `
+      <form id="genericForm">
+        ${fields.map(f => `<div class="form-group"><label>${f}</label><input type="text" id="${f}" value="${escape(item[f]?.toString()??'')}"></div>`).join('')}
         <button type="submit" class="btn btn-primary">Save</button> <button type="button" data-view="${table}" class="btn">Cancel</button>
       </form>
     `;
-    document.getElementById('item-form').addEventListener('submit', async (e) => {
+    document.getElementById('genericForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      let newData = {};
-      for (let f of fields) newData[f.key] = document.getElementById(f.key).value;
-      if (id) await supabase.from(table).update(newData).eq(idField,id);
-      else await supabase.from(table).insert(newData);
-      listItems(table, table.replace('_',' '), fields, fields, idField);
+      let data = {};
+      for (let f of fields) data[f] = document.getElementById(f).value;
+      if (id) await supabase.from(table).update(data).eq('id',id);
+      else await supabase.from(table).insert(data);
+      genericList(table, label);
     });
     attachNavClicks();
   }
 
-  // Specific implementations using generic helpers
-  async function footballList() { await listItems('football_clubs','Club',[{key:'name',label:'Name'},{key:'league',label:'League'}],[{key:'name',label:'Name',required:true},{key:'league',label:'League'},{key:'league_titles',label:'League titles'},{key:'domestic_cups',label:'Domestic cups'},{key:'continental',label:'Continental'},{key:'logo_url',label:'Logo URL'},{key:'notes',label:'Notes'},{key:'sort_order',label:'Sort order'}]); }
-  async function footballForm(id=null) { await formItem('football_clubs',id,[{key:'name',label:'Name',required:true},{key:'league',label:'League'},{key:'league_titles',label:'League titles'},{key:'domestic_cups',label:'Domestic cups'},{key:'continental',label:'Continental'},{key:'logo_url',label:'Logo URL'},{key:'notes',label:'Notes'},{key:'sort_order',label:'Sort order'}]); }
-  async function f1List() { await listItems('f1_drivers','Driver',[{key:'name',label:'Name'},{key:'team',label:'Team'}],[{key:'name',label:'Name',required:true},{key:'number',label:'Number'},{key:'team',label:'Team'},{key:'nationality',label:'Nationality'},{key:'championships',label:'Championships'},{key:'wins',label:'Wins'},{key:'poles',label:'Poles'},{key:'image_url',label:'Image URL'},{key:'team_color',label:'Team color'},{key:'sort_order',label:'Sort order'}]); }
-  async function f1Form(id=null) { await formItem('f1_drivers',id,[{key:'name',label:'Name',required:true},{key:'number',label:'Number'},{key:'team',label:'Team'},{key:'nationality',label:'Nationality'},{key:'championships',label:'Championships'},{key:'wins',label:'Wins'},{key:'poles',label:'Poles'},{key:'image_url',label:'Image URL'},{key:'team_color',label:'Team color'},{key:'sort_order',label:'Sort order'}]); }
-  async function watchlistList() { await listItems('watchlist','Item',[{key:'title',label:'Title'},{key:'type',label:'Type'},{key:'status',label:'Status'}],[{key:'title',label:'Title',required:true},{key:'type',label:'Type'},{key:'status',label:'Status'},{key:'year',label:'Year'},{key:'rating',label:'Rating'},{key:'notes',label:'Notes'},{key:'poster_url',label:'Poster URL'}]); }
-  async function watchlistForm(id=null) { await formItem('watchlist',id,[{key:'title',label:'Title',required:true},{key:'type',label:'Type'},{key:'status',label:'Status'},{key:'year',label:'Year'},{key:'rating',label:'Rating'},{key:'notes',label:'Notes'},{key:'poster_url',label:'Poster URL'}]); }
-  async function thoughtsList() { await listItems('thoughts','Thought',[{key:'content',label:'Content'}],[{key:'content',label:'Content',required:true},{key:'tags',label:'Tags'}]); }
-  async function thoughtsForm(id=null) { await formItem('thoughts',id,[{key:'content',label:'Content',required:true},{key:'tags',label:'Tags'}]); }
-
-  // Helper delete & edit
-  function attachDelete(table, refresh) {
-    document.querySelectorAll('[data-delete]').forEach(btn => {
-      btn.onclick = async () => { if(confirm('Delete?')){ await supabase.from(table).delete().eq('id', btn.dataset.delete); refresh(); } };
-    });
-  }
-  function attachEditDelete(table, refresh) {
+  // Helper: delete for table with refresh
+  function attachDeleteAndEdit(table, refreshFn) {
     document.querySelectorAll('[data-edit]').forEach(btn => {
-      btn.onclick = () => { if(table==='posts') blogForm(btn.dataset.edit); else if(table==='gallery') console.log('edit gallery not needed'); else if(table==='football_clubs') footballForm(btn.dataset.edit); else if(table==='f1_drivers') f1Form(btn.dataset.edit); else if(table==='watchlist') watchlistForm(btn.dataset.edit); else if(table==='thoughts') thoughtsForm(btn.dataset.edit); };
+      btn.onclick = () => { if(table==='posts') blogForm(btn.dataset.edit); };
     });
     document.querySelectorAll('[data-delete]').forEach(btn => {
-      btn.onclick = async () => { if(confirm('Delete?')){ await supabase.from(table).delete().eq('id', btn.dataset.delete); refresh(); } };
+      btn.onclick = async () => { if(confirm('Delete?')){ await supabase.from(table).delete().eq('id', btn.dataset.delete); refreshFn(); } };
+    });
+  }
+  function attachDeleteOnly(table, refreshFn) {
+    document.querySelectorAll('[data-delete]').forEach(btn => {
+      btn.onclick = async () => { if(confirm('Delete?')){ await supabase.from(table).delete().eq('id', btn.dataset.delete); refreshFn(); } };
     });
   }
 
+  // Navigation handler
   function attachNavClicks() {
     document.querySelectorAll('[data-view]').forEach(el => {
       el.onclick = () => {
@@ -256,24 +275,27 @@
         else if (v === 'blog_new') blogForm();
         else if (v === 'gallery') galleryList();
         else if (v === 'gallery_upload') galleryUpload();
-        else if (v === 'football') footballList();
-        else if (v === 'football_new') footballForm();
-        else if (v === 'f1') f1List();
-        else if (v === 'f1_new') f1Form();
-        else if (v === 'watchlist') watchlistList();
-        else if (v === 'watchlist_new') watchlistForm();
-        else if (v === 'thoughts') thoughtsList();
-        else if (v === 'thoughts_new') thoughtsForm();
+        else if (v === 'football') genericList('football_clubs','Club');
+        else if (v === 'football_new') genericForm('football_clubs','Club');
+        else if (v === 'f1') genericList('f1_drivers','Driver');
+        else if (v === 'f1_new') genericForm('f1_drivers','Driver');
+        else if (v === 'watchlist') genericList('watchlist','Item');
+        else if (v === 'watchlist_new') genericForm('watchlist','Item');
+        else if (v === 'thoughts') genericList('thoughts','Thought');
+        else if (v === 'thoughts_new') genericForm('thoughts','Thought');
       };
     });
   }
 
-  // Initial load
-  dashboard();
+  // Slugify
+  function slugify(str) { return str.toLowerCase().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, ''); }
+
+  // Start
+  await dashboard();
   attachNavClicks();
 
+  // Logout
   document.getElementById('logout-btn').onclick = async () => { await supabase.auth.signOut(); location.href = '/studio/login'; };
-  function slugify(str) { return str.toLowerCase().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, ''); }
 </script>
 </body>
 </html>
