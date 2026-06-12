@@ -1,10 +1,66 @@
 // ============================================================
 // FRIHANTARA DIGITAL HOME — Navigation & Footer Component
 // Modernized with Tailwind CSS, Elegant Typography & Fluid Animations
+// Fully Self-Contained (Injects Tailwind & Fonts automatically)
 // DB Connection & Supabase Logic preserved 100% Intact
 // ============================================================
 
+// Fungsi pembantu untuk memuat resource eksternal secara dinamis
+function injectStylesAndFonts() {
+  // 1. Inject Google Fonts (Playfair Display & Plus Jakarta Sans)
+  if (!document.getElementById('frihantara-fonts')) {
+    const fontLink = document.createElement('link');
+    fontLink.id = 'frihantara-fonts';
+    fontLink.rel = 'stylesheet';
+    fontLink.href = 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap';
+    document.head.appendChild(fontLink);
+  }
+
+  // 2. Inject Tailwind CSS CDN agar class-class utilitas langsung aktif
+  if (!document.getElementById('frihantara-tailwind-cdn')) {
+    // Set konfigurasi font Tailwind sebelum script dimuat
+    window.tailwind = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+          }
+        }
+      }
+    };
+
+    const tailwindScript = document.createElement('script');
+    tailwindScript.id = 'frihantara-tailwind-cdn';
+    tailwindScript.src = 'https://cdn.tailwindcss.com';
+    document.head.appendChild(tailwindScript);
+  }
+
+  // 3. Tambahkan sedikit custom style transisi manual agar animasi mobile nav extra smooth
+  if (!document.getElementById('frihantara-custom-styles')) {
+    const styleBlock = document.createElement('style');
+    styleBlock.id = 'frihantara-custom-styles';
+    styleBlock.innerHTML = `
+      body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+      }
+      /* Mengatasi flash unstyled content sebelum Tailwind ter-load */
+      #site-nav, #site-footer {
+        opacity: 0;
+        animation: fadeInNav 0.5s forwards;
+      }
+      @keyframes fadeInNav {
+        to { opacity: 1; }
+      }
+    `;
+    document.head.appendChild(styleBlock);
+  }
+}
+
 export function renderNav(activePage = '') {
+  // Jalankan penyuntikan gaya
+  injectStylesAndFonts();
+
   const links = [
     { href: '/', label: 'Home' },
     { href: '/blog', label: 'Blog' },
@@ -12,7 +68,6 @@ export function renderNav(activePage = '') {
     { href: '/football', label: 'Football' },
     { href: '/f1', label: 'F1' },
     { href: '/watchlist', label: 'Watchlist' },
-    { href: '/travel', label: 'Travel' },
     { href: '/thoughts', label: 'Thoughts' }
   ];
 
