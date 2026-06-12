@@ -283,7 +283,7 @@
     }
 
     .illustration-frame::before {
-      content: '✦ ARCHIVE';
+      content: '✦ PORTRAIT';
       position: absolute;
       top: 1rem;
       right: 1rem;
@@ -301,22 +301,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: var(--font-serif);
-      font-style: italic;
-      color: var(--text-light);
       border: 1px solid var(--border-light);
       position: relative;
       overflow: hidden;
     }
 
-    .sketch-bg {
-      position: absolute;
-      width: 130%;
-      height: 130%;
-      opacity: 0.12;
-      background-image: radial-gradient(var(--text-main) 1px, transparent 0),
-                        linear-gradient(45deg, transparent 49%, var(--text-main) 50%, transparent 51%);
-      background-size: 20px 20px, 100% 100%;
+    .illustration-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .caption {
@@ -721,60 +714,6 @@
       display: inline-block;
     }
 
-    /* RANDOM HIGHLIGHT */
-    .random-highlight {
-      margin: 4rem 0;
-    }
-
-    .random-card {
-      border: 1px solid var(--border-dark);
-      padding: 2rem;
-      text-align: center;
-      background: var(--bg-paper-dark);
-      position: relative;
-    }
-
-    .random-card::after {
-      content: '';
-      position: absolute;
-      top: 4px; left: 4px; right: 4px; bottom: 4px;
-      border: 1px dashed var(--border-light);
-      pointer-events: none;
-    }
-
-    .random-label {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--accent);
-      margin-bottom: 1rem;
-    }
-
-    .random-text {
-      font-family: var(--font-serif);
-      font-size: 1.4rem;
-      font-style: italic;
-      line-height: 1.4;
-      color: var(--text-main);
-      max-width: 800px;
-      margin: 0 auto 1.5rem auto;
-    }
-
-    .random-link {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      font-weight: bold;
-      border-bottom: 1px solid var(--border-dark);
-      padding-bottom: 2px;
-    }
-
-    .random-link:hover {
-      color: var(--accent);
-      border-color: var(--accent);
-    }
-
     /* EDITORIAL FOOTER */
     .news-footer {
       border-top: 4px double var(--border-dark);
@@ -934,8 +873,7 @@
         <a href="/f1" class="nav-tab">F1</a>
         <a href="/watchlist" class="nav-tab">Watchlist</a>
         <a href="/thoughts" class="nav-tab">Catatan</a>
-        <a href="/random" class="nav-tab">Acak</a>
-        <a href="/about" class="nav-tab">Tentang</a>
+        <a href="https://frihantara.page.gd/about" class="nav-tab">Tentang</a>
       </div>
     </nav>
   </div>
@@ -950,18 +888,18 @@
         <h1 class="hero-title" id="hero-title">Menyambut Anda di<br><em>Frihantara.</em></h1>
         <p class="hero-desc" id="hero-desc">Ini merupakan halaman personal tempat saya menuangkan pemikiran harian, analisis sepak bola, ketertarikan balap F1, kurasi musik, serta arsip karya tulis yang dihimpun dalam bentuk jurnal berkala. Silakan berkeliling di ruang baca ini.</p>
         <div class="hero-actions">
-          <a href="/about" class="btn btn--primary">Kenali Penulis</a>
+          <a href="https://frihantara.page.gd/about" class="btn btn--primary">Kenali Penulis</a>
           <a href="/blog" class="btn btn--outline">Daftar Tulisan</a>
         </div>
       </div>
       <div class="hero-ambient-col">
         <div class="illustration-frame">
           <div class="illustration-placeholder">
-            <div class="sketch-bg"></div>
-            <span style="z-index: 1; font-family: var(--font-serif); font-style: italic;">Sketsa Jurnal Frihantara</span>
+            <!-- Menampilkan foto utama sesuai permintaan -->
+            <img class="illustration-image" src="https://cdn.jsdelivr.net/gh/frihantara/imagefrihan@main/IMG_4372.jpeg" alt="Sketsa Jurnal Frihantara" loading="lazy">
           </div>
           <div class="caption">
-            Gbr 1. Representasi visual dari ruang kerja digital tempat ide diolah, didekorasi menggunakan garis estetika koran klasik.
+            Gbr 1. Ruang kerja utama tempat lahirnya ide-ide dan dokumentasi berkala yang dihimpun pada portal Frihantara.
           </div>
         </div>
       </div>
@@ -1080,11 +1018,6 @@
 
     </section>
 
-    <!-- SECTION 5: PILIHAN RANDOM -->
-    <section class="random-highlight" id="random-highlight">
-      <!-- Diisi secara dinamis -->
-    </section>
-
   </main>
 
   <!-- PROFESSIONAL EDITORIAL FOOTER -->
@@ -1100,7 +1033,7 @@
           <li><a href="/">Beranda Utama</a></li>
           <li><a href="/blog">Arsip Tulisan</a></li>
           <li><a href="/gallery">Koleksi Galeri</a></li>
-          <li><a href="/about">Informasi Penulis</a></li>
+          <li><a href="https://frihantara.page.gd/about">Informasi Penulis</a></li>
         </ul>
       </div>
       <div>
@@ -1127,7 +1060,7 @@
     import { renderNav, renderFooter } from '/js/nav.js';
     import { formatDateShort, emptyState } from '/js/supabase.js';
 
-    // Guardrail Koneksi
+    // Inisialisasi Supabase Client
     let sb = null;
     try {
       if (SUPABASE_URL && SUPABASE_ANON_KEY) {
@@ -1137,7 +1070,7 @@
       console.warn("Koneksi Supabase gagal diinisialisasi. Mode data bayangan (fallback) aktif.", e);
     }
 
-    // Hitung Estimasi Waktu Baca (Reading Time) layaknya pada halaman blog Anda
+    // Hitung estimasi waktu baca (Reading Time) dinamis
     function calculateReadingTime(content = '') {
       const wordsPerMinute = 200;
       const textLength = content.trim().split(/\s+/).length;
@@ -1169,7 +1102,7 @@
       }
     });
 
-    // FALLBACK DATA (Anti-Gagal Offline / Database Kosong)
+    // FALLBACK DATA (Dipakai hanya jika koneksi Supabase Error / Offline)
     const fallbackHero = {
       hero_eyebrow: "PENGANTAR REDAKSI",
       hero_title: "Menyambut Anda di<br><em>Frihantara.</em>",
@@ -1177,8 +1110,8 @@
     };
 
     const fallbackPosts = [
-      { id: 1, title: "Membaca Kembali Esai Klasik di Era Modern", slug: "membaca-kembali-esai-klasik", excerpt: "Sebuah telaah mendalam mengenai relevansi tulisan analog di tengah gempuran distraksi digital abad ke-21.", category: "Esai", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", created_at: new Date().toISOString() },
-      { id: 2, title: "Analisis Taktik: Mengapa Blok Medium Kembali Populer", slug: "analisis-taktik-medium-block", excerpt: "Membahas evolusi formasi pertahanan dalam sepak bola modern dan peran krusial gelandang jangkar.", category: "Sepak Bola", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.", created_at: new Date().toISOString() },
+      { id: 1, title: "Membaca Kembali Esai Klasik di Era Modern", slug: "membaca-kembali-esai-klasik", excerpt: "Sebuah telaah mendalam mengenai relevansi tulisan analog di tengah gempuran distraksi digital abad ke-21.", category: "Esai", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor.", created_at: new Date().toISOString() },
+      { id: 2, title: "Analisis Taktik: Mengapa Blok Medium Kembali Populer", slug: "analisis-taktik-medium-block", excerpt: "Membahas evolusi formasi pertahanan dalam sepak bola modern dan peran krusial gelandang jangkar.", category: "Sepak Bola", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod.", created_at: new Date().toISOString() },
       { id: 3, title: "Estetika Kecepatan: Drama Balap F1 di Sirkuit Klasik", slug: "estetika-kecepatan-balap-f1", excerpt: "Sorotan emosional mengenai sirkuit tradisional yang terancam digusur oleh sirkuit jalanan modern.", category: "F1", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", created_at: new Date().toISOString() }
     ];
 
@@ -1192,7 +1125,7 @@
       { content: "Taktik sepak bola berkembang seperti roda berputar. Yang dinilai kuno 10 tahun lalu kini dimodifikasi kembali.", tags: ["Taktik"], created_at: new Date().toISOString() }
     ];
 
-    // Load Hero Settings
+    // Load Hero Settings dari Supabase
     async function loadHero() {
       try {
         if (!sb) throw new Error("Supabase client offline");
@@ -1219,9 +1152,8 @@
       document.getElementById('hero-eyebrow').textContent = fallbackHero.hero_eyebrow;
     }
 
-    // Render Indeks Seksi (Rooms) dengan SVG Kustom (Situs Modern Elegan)
+    // Render Indeks Seksi (Tanpa "Acak" dan "Travel")
     function renderRooms() {
-      // SVGs digambar inline agar terlihat 'website banget'
       const icons = {
         blog: `<svg class="room-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>`,
         gallery: `<svg class="room-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><circle cx="12" cy="13" r="3" stroke-width="1.5"></circle></svg>`,
@@ -1230,7 +1162,6 @@
         f1: `<svg class="room-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>`,
         watchlist: `<svg class="room-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>`,
         thoughts: `<svg class="room-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>`,
-        random: `<svg class="room-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><circle cx="12" cy="12" r="3" stroke-width="1.5"></circle></svg>`,
         about: `<svg class="room-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>`
       };
 
@@ -1242,7 +1173,6 @@
         { href:'/f1',        icon: icons.f1,        label:'F1',        desc:'Statistik, tim balap & gosip paddock' },
         { href:'/watchlist', icon: icons.watchlist, label:'Watchlist', desc:'Sinopsis, ulasan film & tontonan' },
         { href:'/thoughts',  icon: icons.thoughts,  label:'Catatan',   desc:'Gagasan lepas, coretan & telegram mini' },
-        { href:'/random',    icon: icons.random,    label:'Acak',     desc:'Hal menarik acak yang layak dibagikan' },
         { href:'/about',     icon: icons.about,     label:'Tentang',   desc:'Biografi singkat pengelola surat kabar' },
       ];
 
@@ -1256,7 +1186,7 @@
       `).join('');
     }
 
-    // Load Recent Posts (Wajib dari database dengan fallback jika gagal koneksi)
+    // Load Recent Posts (Diambil langsung dari tabel posts database)
     async function loadRecentPosts() {
       const container = document.getElementById('recent-posts');
       try {
@@ -1303,7 +1233,7 @@
       renderPostsHTML(container, fallbackPosts);
     }
 
-    // Galeri Polaroid Dinamis dari Database
+    // Load Gallery (Diambil langsung dari tabel gallery database)
     async function loadGallery() {
       const container = document.getElementById('editorial-gallery');
       try {
@@ -1339,7 +1269,7 @@
       renderGalleryHTML(container, fallbackGallery);
     }
 
-    // Recent Thoughts (Catatan) - Ditampilkan Sedikit Saja (Maksimal 2 Entri)
+    // Recent Thoughts (Catatan) - Ditampilkan Maksimal 2 Entri Pendek
     async function loadThoughts() {
       const container = document.getElementById('recent-thoughts');
       try {
@@ -1375,7 +1305,7 @@
       renderThoughtsHTML(container, fallbackThoughts);
     }
 
-    // Watchlist - Dinamis Supabase. Jika tidak ada data / error, cetak stempel pos "NOT YET"
+    // Watchlist - Dinamis Supabase
     async function loadWatchlist() {
       const container = document.getElementById('watchlist-container');
       try {
@@ -1414,61 +1344,13 @@
       `;
     }
 
-    // Random Highlight Pick
-    async function loadRandomHighlight() {
-      const container = document.getElementById('random-highlight');
-      try {
-        if (!sb) throw new Error("Supabase client offline");
-        const sources = [
-          { table: 'posts',    label: 'ARTIKEL REKOMENDASI',    fields: 'title,slug,excerpt', link: r => `/blog/${r.slug}` },
-          { table: 'thoughts', label: 'ARSIP CATATAN', fields: 'content,created_at', link: () => '/thoughts' },
-        ];
-        const src = sources[Math.floor(Math.random() * sources.length)];
-        
-        const { data, error } = await sb.from(src.table).select(src.fields).limit(5);
-
-        if (error || !data || data.length === 0) {
-          renderFallbackHighlight(container);
-          return;
-        }
-
-        const item = data[Math.floor(Math.random() * data.length)];
-        const text = item.title || item.content || '';
-        const link = src.link(item);
-
-        renderHighlightHTML(container, src.label, text, link);
-      } catch (err) {
-        renderFallbackHighlight(container);
-      }
-    }
-
-    function renderHighlightHTML(container, label, text, link) {
-      container.innerHTML = `
-        <div class="random-card">
-          <div class="random-label">✦ PILIHAN REDAKSI · ${label}</div>
-          <p class="random-text">"${text.length > 220 ? text.slice(0,220)+'...' : text}"</p>
-          <a href="${link}" class="random-link">Baca Selengkapnya →</a>
-        </div>
-      `;
-    }
-
-    function renderFallbackHighlight(container) {
-      const picks = [
-        { label: "ARTIKEL REKOMENDASI", text: "Membaca Kembali Esai Klasik di Era Modern: Sebuah telaah mendalam mengenai relevansi tulisan analog di tengah gempuran distraksi digital.", link: "/blog/membaca-kembali-esai-klasik" },
-        { label: "SOROTAN TAKTIK", text: "Mengapa formasi blok medium kembali populer dalam strategi sepak bola modern berintensitas tinggi.", link: "/blog/analisis-taktik-medium-block" }
-      ];
-      const pick = picks[Math.floor(Math.random() * picks.length)];
-      renderHighlightHTML(container, pick.label, pick.text, pick.link);
-    }
-
-    // Jalankan Seluruh Inisialisasi
+    // Jalankan Seluruh Inisialisasi Utama
     Promise.all([
       loadHero(),
       loadRecentPosts(),
       loadGallery(),
       loadThoughts(),
-      loadWatchlist(),
-      loadRandomHighlight(),
+      loadWatchlist()
     ]);
     renderRooms();
   </script>
