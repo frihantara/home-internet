@@ -4,37 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>F1 — Digital Home</title>
-  <link rel="stylesheet" href="../css/global.css">
-  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-</head>
-<body class="page-body">
-  <nav id="site-nav"></nav>
-  <div class="container">
-    <header class="page-hero">
-      <p class="page-hero__eyebrow">Formula 1</p>
-      <h1 class="page-hero__title">F1</h1>
-      <p class="page-hero__desc" id="f1-desc">Drivers I admire. Numbers that matter.</p>
-    </header>
-
-    <section class="section">
-      <div class="section-header">
-        <div>
-          <p class="section-eyebrow">The Grid</p>
-          <h2 class="section-title">Favourite drivers</h2>
-        </div>
-      </div>
-      <div class="f1-grid" id="f1-grid">
-        <div class="skeleton" style="height:380px;border-radius:16px"></div>
-        <div class="skeleton" style="height:380px;border-radius:16px"></div>
-        <div class="skeleton" style="height:380px;border-radius:16px"></div>
-      </div>
-    </section>
-  </div>
-
-  <footer id="site-footer"></footer>
-
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <style>
-    /* style sama seperti semula */
     .f1-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -56,7 +28,6 @@
       border-color: var(--border-2);
       transform: translateY(-3px);
     }
-
     .driver-number-bg {
       position: absolute;
       top: -0.5rem;
@@ -70,7 +41,6 @@
       user-select: none;
       letter-spacing: -0.05em;
     }
-
     .driver-img-wrap {
       height: 220px;
       background: var(--surface-2);
@@ -90,16 +60,13 @@
       font-size: 8rem;
       color: rgba(200, 169, 110, 0.08);
     }
-
     .driver-team-bar {
       height: 3px;
       background: var(--gold);
     }
-
     .driver-info {
       padding: 1.25rem 1.25rem 1.5rem;
     }
-
     .driver-nationality {
       font-family: var(--font-mono);
       font-size: 0.65rem;
@@ -108,7 +75,6 @@
       color: var(--text-3);
       margin-bottom: 0.3rem;
     }
-
     .driver-name {
       font-family: var(--font-display);
       font-size: 1.6rem;
@@ -117,27 +83,23 @@
       line-height: 1.1;
       margin-bottom: 0.3rem;
     }
-
     .driver-team {
       font-size: 0.8rem;
       color: var(--gold-dim);
       font-weight: 500;
       margin-bottom: 1.25rem;
     }
-
     .driver-stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 0.5rem;
     }
-
     .driver-stat {
       background: var(--surface-2);
       border-radius: var(--radius);
       padding: 0.6rem 0.5rem;
       text-align: center;
     }
-
     .driver-stat-value {
       font-family: var(--font-display);
       font-size: 1.4rem;
@@ -146,73 +108,97 @@
       line-height: 1;
       margin-bottom: 0.15rem;
     }
-
     .driver-stat-label {
       font-family: var(--font-mono);
       font-size: 0.55rem;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       color: var(--text-3);
+      margin-top: 0.25rem;
     }
   </style>
+</head>
+<body class="page-body">
+  <nav id="site-nav"></nav>
+  <div class="container">
+    <header class="page-hero">
+      <p class="page-hero__eyebrow">Formula 1</p>
+      <h1 class="page-hero__title">F1</h1>
+      <p class="page-hero__desc" id="f1-desc">Drivers I admire. Numbers that matter.</p>
+    </header>
+    <section class="section">
+      <div class="section-header">
+        <div><p class="section-eyebrow">The Grid</p><h2 class="section-title">Favourite drivers</h2></div>
+      </div>
+      <div class="f1-grid" id="f1-grid">
+        <div class="skeleton" style="height:380px;border-radius:16px"></div>
+        <div class="skeleton" style="height:380px;border-radius:16px"></div>
+        <div class="skeleton" style="height:380px;border-radius:16px"></div>
+      </div>
+    </section>
+  </div>
+  <footer id="site-footer"></footer>
 
   <script type="module">
-    import { SUPABASE_URL, SUPABASE_ANON_KEY } from '../js/config.js';
+    import { SUPABASE_URL, SUPABASE_ANON_KEY } from '/js/config.js';
     import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-    import { renderNav, renderFooter } from '../js/nav.js';
-    import { emptyState } from '../js/supabase.js';
+    import { renderNav, renderFooter } from '/js/nav.js';
+    import { emptyState } from '/js/supabase.js';
 
     const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     renderNav('/f1');
     renderFooter(sb);
 
-    // F1 desc from settings
-    const { data: settingData } = await sb.from('settings').select('value').eq('key','f1_page_desc').maybeSingle();
-    if (settingData?.value) document.getElementById('f1-desc').textContent = settingData.value;
+    // Semua async dibungkus dalam IIFE
+    (async () => {
+      // Load deskripsi dari settings
+      const { data: settingData } = await sb.from('settings').select('value').eq('key','f1_page_desc').maybeSingle();
+      if (settingData?.value) document.getElementById('f1-desc').textContent = settingData.value;
 
-    // Load drivers
-    const { data } = await sb.from('f1_drivers')
-      .select('*')
-      .order('sort_order', { ascending: true });
+      // Load data driver
+      const { data } = await sb.from('f1_drivers')
+        .select('*')
+        .order('sort_order', { ascending: true });
 
-    const grid = document.getElementById('f1-grid');
+      const grid = document.getElementById('f1-grid');
 
-    if (!data?.length) {
-      emptyState(grid, 'No drivers added yet.');
-      return;
-    }
+      if (!data?.length) {
+        emptyState(grid, 'No drivers added yet.');
+        return; // return ini legal karena ada di dalam fungsi async
+      }
 
-    grid.innerHTML = data.map(d => {
-      const teamColor = d.team_color || 'var(--gold)';
-      return `
-        <div class="driver-card">
-          <div class="driver-img-wrap">
-            <img src="${d.image_url || '/img/placeholder.svg'}" alt="${d.name}" loading="lazy">
-            <div class="driver-number-bg">${d.number || ''}</div>
-          </div>
-          <div class="driver-team-bar" style="background:${teamColor}"></div>
-          <div class="driver-info">
-            <div class="driver-nationality">${d.nationality || ''}</div>
-            <div class="driver-name">${d.name}</div>
-            <div class="driver-team">${d.team || ''}</div>
-            <div class="driver-stats">
-              <div class="driver-stat">
-                <div class="driver-stat-value">${d.championships ?? '—'}</div>
-                <div class="driver-stat-label">Titles</div>
-              </div>
-              <div class="driver-stat">
-                <div class="driver-stat-value">${d.wins ?? '—'}</div>
-                <div class="driver-stat-label">Wins</div>
-              </div>
-              <div class="driver-stat">
-                <div class="driver-stat-value">${d.poles ?? '—'}</div>
-                <div class="driver-stat-label">Poles</div>
+      grid.innerHTML = data.map(d => {
+        const teamColor = d.team_color || 'var(--gold)';
+        return `
+          <div class="driver-card">
+            <div class="driver-img-wrap">
+              <img src="${d.image_url || '/img/placeholder.svg'}" alt="${d.name}" loading="lazy">
+              <div class="driver-number-bg">${d.number || ''}</div>
+            </div>
+            <div class="driver-team-bar" style="background:${teamColor}"></div>
+            <div class="driver-info">
+              <div class="driver-nationality">${d.nationality || ''}</div>
+              <div class="driver-name">${d.name}</div>
+              <div class="driver-team">${d.team || ''}</div>
+              <div class="driver-stats">
+                <div class="driver-stat">
+                  <div class="driver-stat-value">${d.championships ?? '—'}</div>
+                  <div class="driver-stat-label">Titles</div>
+                </div>
+                <div class="driver-stat">
+                  <div class="driver-stat-value">${d.wins ?? '—'}</div>
+                  <div class="driver-stat-label">Wins</div>
+                </div>
+                <div class="driver-stat">
+                  <div class="driver-stat-value">${d.poles ?? '—'}</div>
+                  <div class="driver-stat-label">Poles</div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      `;
-    }).join('');
+        `;
+      }).join('');
+    })();
   </script>
 </body>
 </html>
