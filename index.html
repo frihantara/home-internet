@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Frihantara — Jurnal & Catatan Digital</title>
-  <meta name="description" content="Frihantara: Ruang personal, pemikiran, catatan harian, galeri foto, dan kurasi musik dalam bentuk jurnal surat kabar modern.">
+  <meta name="description" content="Frihantara: Jurnal personal, pemikiran, catatan harian, galeri foto, dan kurasi musik dalam bentuk surat kabar modern.">
   
   <!-- Google Fonts: Playfair Display untuk judul koran, Instrument Serif & Inter untuk UI modern -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,7 +16,7 @@
     :root {
       --bg-paper: #fcfbf7;          /* Warna kertas koran premium hangat */
       --bg-paper-dark: #f5f3eb;     /* Warna kertas koran berbayang */
-      --bg-paper-trans: rgba(252, 251, 247, 0.92); /* Efek kertas transparan untuk sticky nav */
+      --bg-paper-trans: rgba(252, 251, 247, 0.94); /* Efek kertas transparan untuk sticky nav */
       --text-main: #1c1c1a;         /* Hitam tinta */
       --text-muted: #575752;        /* Abu-abu arang */
       --text-light: #7c7b72;
@@ -58,7 +58,7 @@
       transition: all 0.2s ease;
     }
 
-    /* HEADER & NAVIGASI MODERN STICKY */
+    /* HEADER & NAVIGASI STICKY */
     .news-header {
       padding: 1.5rem 0 0.5rem 0;
       text-align: center;
@@ -115,7 +115,7 @@
     .meta-item.center { text-align: center; font-weight: bold; font-style: normal; text-transform: uppercase; letter-spacing: 0.15em; }
     .meta-item.right { text-align: right; }
 
-    /* STICKY MODERN NAVBAR */
+    /* STICKY NAVBAR DENGAN DETEKSI SCROLL */
     .sticky-nav-container {
       position: sticky;
       top: 0;
@@ -125,10 +125,9 @@
       -webkit-backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--border-dark);
       margin-bottom: 2rem;
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* Deteksi scroll untuk menambahkan bayangan tipis */
     .sticky-nav-container.is-scrolled {
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
       border-bottom: 2px solid var(--accent);
@@ -142,11 +141,11 @@
       padding: 0.75rem 0;
       overflow-x: auto;
       white-space: nowrap;
-      scrollbar-width: none; /* Hide scrollbar Firefox */
+      scrollbar-width: none; /* Sembunyikan scrollbar di Firefox */
     }
 
     .modern-nav-inner::-webkit-scrollbar {
-      display: none; /* Hide scrollbar Chrome/Safari */
+      display: none; /* Sembunyikan scrollbar di Chrome/Safari */
     }
 
     .nav-tab {
@@ -180,7 +179,7 @@
       width: 100%;
     }
 
-    /* HERO: FRONT PAGE FEATURE */
+    /* HERO FEATURING */
     .hero-editorial {
       display: grid;
       grid-template-columns: 3fr 2fr;
@@ -390,9 +389,16 @@
       transform: translateY(-2px);
     }
 
-    .room-icon {
-      font-size: 1.8rem;
+    .room-icon-svg {
+      width: 32px;
+      height: 32px;
       margin-bottom: 0.75rem;
+      color: var(--text-main);
+      transition: color 0.2s ease;
+    }
+
+    .room-card:hover .room-icon-svg {
+      color: var(--accent);
     }
 
     .room-label {
@@ -484,9 +490,11 @@
       margin-top: auto;
       border-top: 1px solid var(--border-light);
       padding-top: 0.5rem;
+      display: flex;
+      justify-content: space-between;
     }
 
-    /* SEKSI SPLIT: GALERI & THOUGHTS */
+    /* SPLIT SECTION: GALERI (POLAROID) & THOUGHTS */
     .home-split {
       display: grid;
       grid-template-columns: 1.2fr 1fr;
@@ -501,7 +509,6 @@
       flex-direction: column;
     }
 
-    /* Polaroid & framed Gallery layout */
     .editorial-gallery-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -554,7 +561,7 @@
       -webkit-box-orient: vertical;
     }
 
-    /* Telegram Style Thoughts */
+    /* TELEGRAM NOTES (THOUGHTS) */
     .thought-preview {
       display: block;
       padding: 1.2rem;
@@ -585,7 +592,7 @@
       margin-top: 0.75rem;
     }
 
-    /* SEKSI KHUSUS (BOLA, F1, WATCHLIST) */
+    /* SEKSI KHUSUS (SEPAK BOLA, F1, WATCHLIST) */
     .specialty-grid {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -600,7 +607,7 @@
       flex-direction: column;
     }
 
-    /* Team Card Sepak Bola */
+    /* Klub Sepak Bola */
     .club-card {
       border: 1px solid var(--border-light);
       padding: 1rem;
@@ -619,8 +626,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       font-weight: bold;
+      font-family: var(--font-mono);
     }
 
     .club-persib {
@@ -647,7 +655,7 @@
       font-family: var(--font-mono);
     }
 
-    /* F1 Driver Card */
+    /* Driver Formula 1 */
     .driver-card {
       border: 1px solid var(--border-light);
       padding: 1rem;
@@ -679,7 +687,7 @@
       opacity: 0.8;
     }
 
-    /* Watchlist Empty State & Stamp */
+    /* Watchlist Container & Stamp */
     .watchlist-container {
       display: flex;
       flex-direction: column;
@@ -713,7 +721,7 @@
       display: inline-block;
     }
 
-    /* RANDOM PICK */
+    /* RANDOM HIGHLIGHT */
     .random-highlight {
       margin: 4rem 0;
     }
@@ -767,7 +775,7 @@
       border-color: var(--accent);
     }
 
-    /* FOOTER */
+    /* EDITORIAL FOOTER */
     .news-footer {
       border-top: 4px double var(--border-dark);
       padding: 3rem 0 4rem 0;
@@ -835,7 +843,7 @@
       color: var(--text-light);
     }
 
-    /* SKELETON */
+    /* SKELETON LOADERS */
     .skeleton {
       background: linear-gradient(90deg, #f2efe4 25%, #e6e2d3 50%, #f2efe4 75%);
       background-size: 200% 100%;
@@ -889,7 +897,7 @@
 </head>
 <body class="page-body">
 
-  <!-- PORTAL HEADER (NEWSPAPER STYLE) -->
+  <!-- TAJUK SURAT KABAR (NEWSPAPER HEADER) -->
   <header class="container">
     <div class="news-header">
       <div class="news-header-top">
@@ -914,7 +922,7 @@
     </div>
   </header>
 
-  <!-- STICKY NAVIGATION BAR -->
+  <!-- STICKY NAVBAR -->
   <div class="sticky-nav-container" id="sticky-nav">
     <nav class="container">
       <div class="modern-nav-inner" id="editorial-nav-links">
@@ -926,13 +934,16 @@
         <a href="/f1" class="nav-tab">F1</a>
         <a href="/watchlist" class="nav-tab">Watchlist</a>
         <a href="/thoughts" class="nav-tab">Catatan</a>
+        <a href="/random" class="nav-tab">Acak</a>
         <a href="/about" class="nav-tab">Tentang</a>
       </div>
     </nav>
   </div>
 
-  <!-- HERO STORY -->
+  <!-- MAIN KORAN -->
   <main class="container">
+    
+    <!-- FEATURED HERO -->
     <section class="hero-editorial">
       <div class="hero-lead-col">
         <div class="hero-eyebrow" id="hero-eyebrow">PENGANTAR REDAKSI</div>
@@ -947,7 +958,7 @@
         <div class="illustration-frame">
           <div class="illustration-placeholder">
             <div class="sketch-bg"></div>
-            <span style="z-index: 1;">Sketsa Jurnal Frihantara</span>
+            <span style="z-index: 1; font-family: var(--font-serif); font-style: italic;">Sketsa Jurnal Frihantara</span>
           </div>
           <div class="caption">
             Gbr 1. Representasi visual dari ruang kerja digital tempat ide diolah, didekorasi menggunakan garis estetika koran klasik.
@@ -956,7 +967,7 @@
       </div>
     </section>
 
-    <!-- INDEX SEKSI -->
+    <!-- SECTION 1: LEMBARAN KORAN (ROOMS INDEX) -->
     <section class="rooms-section">
       <div class="section-title-editorial">
         Daftar Lembaran Koran
@@ -967,8 +978,8 @@
       </div>
     </section>
 
-    <!-- RECENT POSTS -->
-    <section style="margin-bottom: 3rem;">
+    <!-- SECTION 2: ARTIKEL TERBARU (BLOG DARI DATABASE) -->
+    <section style="margin-bottom: 3.5rem;">
       <div class="section-title-editorial linkable" onclick="window.location.href='/blog'">
         Artikel Terbaru
         <span class="decor">ARSIP LENGKAP →</span>
@@ -980,8 +991,9 @@
       </div>
     </section>
 
-    <!-- SPLIT: GALERI (KIRI) & CATATAN TELEGRAFIS (KANAN) -->
+    <!-- SECTION 3: SPLIT (GALERI POLAROID & TELEGRAM NOTES) -->
     <section class="home-split">
+      
       <!-- Kiri: Galeri Polaroid -->
       <div class="split-col">
         <div class="section-title-editorial linkable" onclick="window.location.href='/gallery'">
@@ -994,7 +1006,7 @@
         </div>
       </div>
 
-      <!-- Kanan: Catatan Pendek (Thoughts) Minimalis (Sedikit saja) -->
+      <!-- Kanan: Catatan Pendek (Thoughts) Minimalis (Batas 2 saja) -->
       <div class="split-col">
         <div class="section-title-editorial linkable" onclick="window.location.href='/thoughts'">
           Catatan Telegrafis
@@ -1005,11 +1017,13 @@
           <div class="skeleton" style="height:100px"></div>
         </div>
       </div>
+
     </section>
 
-    <!-- SEKSI KHUSUS: BOLA, F1, & WATCHLIST -->
+    <!-- SECTION 4: SEKSI MINAT KHUSUS -->
     <section class="specialty-grid">
-      <!-- Kolom Sepak Bola -->
+      
+      <!-- Sepak Bola -->
       <div class="specialty-col">
         <div class="section-title-editorial linkable" onclick="window.location.href='/football'">
           Sepak Bola
@@ -1031,7 +1045,7 @@
         </div>
       </div>
 
-      <!-- Kolom F1 -->
+      <!-- Formula 1 -->
       <div class="specialty-col">
         <div class="section-title-editorial linkable" onclick="window.location.href='/f1'">
           Formula 1
@@ -1053,7 +1067,7 @@
         </div>
       </div>
 
-      <!-- Kolom Watchlist -->
+      <!-- Watchlist (Dynamic with Fallback Stamp) -->
       <div class="specialty-col">
         <div class="section-title-editorial linkable" onclick="window.location.href='/watchlist'">
           Watchlist
@@ -1063,12 +1077,14 @@
           <div class="skeleton" style="height:140px;"></div>
         </div>
       </div>
+
     </section>
 
-    <!-- RANDOM PICK -->
+    <!-- SECTION 5: PILIHAN RANDOM -->
     <section class="random-highlight" id="random-highlight">
-      <!-- Diisi secara dinamis oleh JS -->
+      <!-- Diisi secara dinamis -->
     </section>
+
   </main>
 
   <!-- PROFESSIONAL EDITORIAL FOOTER -->
@@ -1111,7 +1127,7 @@
     import { renderNav, renderFooter } from '/js/nav.js';
     import { formatDateShort, emptyState } from '/js/supabase.js';
 
-    // Guardrail: Mencegah crash jika config kosong / gagal load
+    // Guardrail Koneksi
     let sb = null;
     try {
       if (SUPABASE_URL && SUPABASE_ANON_KEY) {
@@ -1121,7 +1137,15 @@
       console.warn("Koneksi Supabase gagal diinisialisasi. Mode data bayangan (fallback) aktif.", e);
     }
 
-    // Set dinamis tanggal editorial hari ini
+    // Hitung Estimasi Waktu Baca (Reading Time) layaknya pada halaman blog Anda
+    function calculateReadingTime(content = '') {
+      const wordsPerMinute = 200;
+      const textLength = content.trim().split(/\s+/).length;
+      const minutes = Math.ceil(textLength / wordsPerMinute);
+      return minutes > 0 ? `${minutes} min read` : '1 min read';
+    }
+
+    // Set Dinamis Tanggal Hari Ini
     function setEditorialDate() {
       const opsi = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
       const hariIni = new Date();
@@ -1135,7 +1159,7 @@
     }
     setEditorialDate();
 
-    // Deteksi Scroll untuk Sticky Navbar Shadow
+    // Deteksi Scroll untuk Efek Sticky Nav Shadow
     window.addEventListener('scroll', () => {
       const stickyNav = document.getElementById('sticky-nav');
       if (window.scrollY > 150) {
@@ -1145,7 +1169,7 @@
       }
     });
 
-    // Data Bayangan (Fallbacks) jika Supabase kosong atau error (mencegah error database merusak tampilan)
+    // FALLBACK DATA (Anti-Gagal Offline / Database Kosong)
     const fallbackHero = {
       hero_eyebrow: "PENGANTAR REDAKSI",
       hero_title: "Menyambut Anda di<br><em>Frihantara.</em>",
@@ -1153,9 +1177,9 @@
     };
 
     const fallbackPosts = [
-      { id: 1, title: "Membaca Kembali Esai Klasik di Era Modern", slug: "membaca-kembali-esai-klasik", excerpt: "Sebuah telaah mendalam mengenai relevansi tulisan analog di tengah gempuran distraksi digital abad ke-21.", category: "Esai", created_at: new Date().toISOString() },
-      { id: 2, title: "Analisis Taktik: Mengapa Blok Medium Kembali Populer", slug: "analisis-taktik-medium-block", excerpt: "Membahas evolusi formasi pertahanan dalam sepak bola modern dan peran krusial gelandang jangkar.", category: "Sepak Bola", created_at: new Date().toISOString() },
-      { id: 3, title: "Estetika Kecepatan: Drama Balap F1 di Sirkuit Klasik", slug: "estetika-kecepatan-balap-f1", excerpt: "Sorotan emosional mengenai sirkuit tradisional yang terancam digusur oleh sirkuit jalanan modern.", category: "F1", created_at: new Date().toISOString() }
+      { id: 1, title: "Membaca Kembali Esai Klasik di Era Modern", slug: "membaca-kembali-esai-klasik", excerpt: "Sebuah telaah mendalam mengenai relevansi tulisan analog di tengah gempuran distraksi digital abad ke-21.", category: "Esai", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", created_at: new Date().toISOString() },
+      { id: 2, title: "Analisis Taktik: Mengapa Blok Medium Kembali Populer", slug: "analisis-taktik-medium-block", excerpt: "Membahas evolusi formasi pertahanan dalam sepak bola modern dan peran krusial gelandang jangkar.", category: "Sepak Bola", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.", created_at: new Date().toISOString() },
+      { id: 3, title: "Estetika Kecepatan: Drama Balap F1 di Sirkuit Klasik", slug: "estetika-kecepatan-balap-f1", excerpt: "Sorotan emosional mengenai sirkuit tradisional yang terancam digusur oleh sirkuit jalanan modern.", category: "F1", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", created_at: new Date().toISOString() }
     ];
 
     const fallbackGallery = [
@@ -1195,36 +1219,50 @@
       document.getElementById('hero-eyebrow').textContent = fallbackHero.hero_eyebrow;
     }
 
-    // Rooms (Lembaran Koran)
+    // Render Indeks Seksi (Rooms) dengan SVG Kustom (Situs Modern Elegan)
     function renderRooms() {
+      // SVGs digambar inline agar terlihat 'website banget'
+      const icons = {
+        blog: `<svg class="room-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>`,
+        gallery: `<svg class="room-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><circle cx="12" cy="13" r="3" stroke-width="1.5"></circle></svg>`,
+        music: `<svg class="room-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path></svg>`,
+        football: `<svg class="room-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707.707M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`,
+        f1: `<svg class="room-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>`,
+        watchlist: `<svg class="room-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>`,
+        thoughts: `<svg class="room-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>`,
+        random: `<svg class="room-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><circle cx="12" cy="12" r="3" stroke-width="1.5"></circle></svg>`,
+        about: `<svg class="room-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>`
+      };
+
       const rooms = [
-        { href:'/blog',      emoji:'✍️', label:'Blog',      desc:'Arsip tulisan, opini, & ulasan mendalam' },
-        { href:'/gallery',   emoji:'📷', label:'Galeri',   desc:'Jepretan momen & album visual harian' },
-        { href:'/music',     emoji:'🎵', label:'Musik',     desc:'Kurasi lagu, artis & daftar putar' },
-        { href:'/football',  emoji:'⚽', label:'Sepak Bola', desc:'Taktik, ulasan pertandingan, & sejarah' },
-        { href:'/f1',        emoji:'🏎️', label:'F1',        desc:'Statistik, tim balap & gosip paddock' },
-        { href:'/watchlist', emoji:'🎬', label:'Watchlist', desc:'Sinopsis, ulasan film & tontonan' },
-        { href:'/thoughts',  emoji:'💭', label:'Catatan',   desc:'Gagasan lepas, coretan & telegram mini' },
-        { href:'/random',    emoji:'🎲', label:'Acak',     desc:'Hal menarik acak yang layak dibagikan' },
-        { href:'/about',     emoji:'👤', label:'Tentang',   desc:'Biografi singkat pengelola surat kabar' },
+        { href:'/blog',      icon: icons.blog,      label:'Blog',      desc:'Arsip tulisan, opini, & ulasan mendalam' },
+        { href:'/gallery',   icon: icons.gallery,   label:'Galeri',   desc:'Jepretan momen & album visual harian' },
+        { href:'/music',     icon: icons.music,     label:'Musik',     desc:'Kurasi lagu, artis & daftar putar' },
+        { href:'/football',  icon: icons.football,  label:'Sepak Bola', desc:'Taktik, ulasan pertandingan, & sejarah' },
+        { href:'/f1',        icon: icons.f1,        label:'F1',        desc:'Statistik, tim balap & gosip paddock' },
+        { href:'/watchlist', icon: icons.watchlist, label:'Watchlist', desc:'Sinopsis, ulasan film & tontonan' },
+        { href:'/thoughts',  icon: icons.thoughts,  label:'Catatan',   desc:'Gagasan lepas, coretan & telegram mini' },
+        { href:'/random',    icon: icons.random,    label:'Acak',     desc:'Hal menarik acak yang layak dibagikan' },
+        { href:'/about',     icon: icons.about,     label:'Tentang',   desc:'Biografi singkat pengelola surat kabar' },
       ];
+
       const grid = document.getElementById('rooms-grid');
       grid.innerHTML = rooms.map(r => `
         <a href="${r.href}" class="room-card">
-          <span class="room-icon">${r.emoji}</span>
+          ${r.icon}
           <span class="room-label">${r.label}</span>
           <span class="room-desc">${r.desc}</span>
         </a>
       `).join('');
     }
 
-    // Recent Posts
+    // Load Recent Posts (Wajib dari database dengan fallback jika gagal koneksi)
     async function loadRecentPosts() {
       const container = document.getElementById('recent-posts');
       try {
         if (!sb) throw new Error("Supabase client offline");
         const { data, error } = await sb.from('posts')
-          .select('id,title,slug,cover_image,category,created_at,excerpt')
+          .select('id,title,slug,cover_image,category,created_at,excerpt,content')
           .eq('status','published')
           .order('created_at', { ascending: false })
           .limit(3);
@@ -1241,24 +1279,31 @@
     }
 
     function renderPostsHTML(container, list) {
-      container.innerHTML = list.map(p => `
-        <a href="/blog/${p.slug}" class="editorial-post-card">
-          <div class="card-img-wrapper">
-            <img class="card-img" src="${p.cover_image || 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=600&q=80'}" alt="${p.title}" onerror="this.src='https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=600&q=80';">
-          </div>
-          <span class="card-tag">${p.category || 'JURNAL'}</span>
-          <h3 class="card-title">${p.title}</h3>
-          <p class="card-excerpt">${p.excerpt || 'Klik untuk membaca liputan selengkapnya dari artikel koran digital ini.'}</p>
-          <div class="card-meta"><span>DITERBITKAN: ${formatDateShort(p.created_at)}</span></div>
-        </a>
-      `).join('');
+      container.innerHTML = list.map(p => {
+        const rt = calculateReadingTime(p.content || '');
+        return `
+          <a href="/blog/${p.slug}" class="editorial-post-card">
+            <div class="card-img-wrapper">
+              <img class="card-img" src="${p.cover_image || 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=600&q=80'}" alt="${p.title}" onerror="this.src='https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=600&q=80';">
+            </div>
+            <span class="card-tag">${p.category || 'JURNAL'}</span>
+            <h3 class="card-title">${p.title}</h3>
+            <p class="card-excerpt">${p.excerpt || 'Klik untuk membaca laporan selengkapnya dari artikel koran digital ini.'}</p>
+            <div class="card-meta">
+              <span>DITERBITKAN: ${formatDateShort(p.created_at)}</span>
+              <span>·</span>
+              <span style="color: var(--accent); font-weight: bold;">${rt}</span>
+            </div>
+          </a>
+        `;
+      }).join('');
     }
 
     function renderFallbackPosts(container) {
       renderPostsHTML(container, fallbackPosts);
     }
 
-    // Galeri Foto (Polaroid Framed)
+    // Galeri Polaroid Dinamis dari Database
     async function loadGallery() {
       const container = document.getElementById('editorial-gallery');
       try {
@@ -1294,7 +1339,7 @@
       renderGalleryHTML(container, fallbackGallery);
     }
 
-    // Recent Thoughts - Sedikit saja (Maksimal 2 entri, pendek)
+    // Recent Thoughts (Catatan) - Ditampilkan Sedikit Saja (Maksimal 2 Entri)
     async function loadThoughts() {
       const container = document.getElementById('recent-thoughts');
       try {
@@ -1330,7 +1375,7 @@
       renderThoughtsHTML(container, fallbackThoughts);
     }
 
-    // Watchlist - Ambil data dari table "watchlist" atau "settings". Jika belum ada tampilkan "not yet"
+    // Watchlist - Dinamis Supabase. Jika tidak ada data / error, cetak stempel pos "NOT YET"
     async function loadWatchlist() {
       const container = document.getElementById('watchlist-container');
       try {
@@ -1344,7 +1389,6 @@
           return;
         }
 
-        // Jika ada data, tampilkan minimalis
         container.innerHTML = data.map(w => `
           <div class="driver-card" style="background: var(--bg-paper);">
             <div class="driver-info">
@@ -1417,7 +1461,7 @@
       renderHighlightHTML(container, pick.label, pick.text, pick.link);
     }
 
-    // Inisialisasi Seluruh Fungsi Jurnal
+    // Jalankan Seluruh Inisialisasi
     Promise.all([
       loadHero(),
       loadRecentPosts(),
