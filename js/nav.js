@@ -1,5 +1,6 @@
 // ============================================================
 // DIGITAL HOME — Navigation & Footer Component
+// Removed: Music, Random, About
 // ============================================================
 
 export function renderNav(activePage = '') {
@@ -7,14 +8,11 @@ export function renderNav(activePage = '') {
     { href: '/', label: 'Home' },
     { href: '/blog', label: 'Blog' },
     { href: '/gallery', label: 'Gallery' },
-    { href: '/music', label: 'Music' },
     { href: '/football', label: 'Football' },
     { href: '/f1', label: 'F1' },
     { href: '/watchlist', label: 'Watchlist' },
     { href: '/travel', label: 'Travel' },
-    { href: '/thoughts', label: 'Thoughts' },
-    { href: '/random', label: 'Random' },
-    { href: '/about', label: 'About' },
+    { href: '/thoughts', label: 'Thoughts' }
   ];
 
   const linkHtml = links.map(l => {
@@ -47,9 +45,12 @@ export function renderNav(activePage = '') {
   mobileNav.innerHTML = mobileHtml;
   document.body.insertBefore(mobileNav, document.body.firstChild.nextSibling);
 
-  document.getElementById('nav-toggle').addEventListener('click', () => {
-    mobileNav.classList.toggle('open');
-  });
+  const toggleBtn = document.getElementById('nav-toggle');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      mobileNav.classList.toggle('open');
+    });
+  }
 
   // Close on outside click
   document.addEventListener('click', (e) => {
@@ -76,8 +77,8 @@ export async function renderFooter(supabase) {
       <div class="footer-inner">
         <p class="footer-copy">© ${year} ${name}</p>
         <div class="footer-links">
-          <a href="/about">About</a>
           <a href="/thoughts">Thoughts</a>
+          <a href="/studio">Admin</a>
         </div>
       </div>
     </div>
