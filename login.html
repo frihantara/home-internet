@@ -77,10 +77,10 @@
     import { SUPABASE_URL, SUPABASE_ANON_KEY } from '/js/config.js';
     import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-    (async () => {
-      const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-      // Cek session
+    async function init() {
+      // Cek apakah sudah login
       const { data: { session } } = await sb.auth.getSession();
       if (session) {
         window.location.href = '/studio';
@@ -115,7 +115,9 @@
       btn.addEventListener('click', login);
       emailEl.addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
       passEl.addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
-    })();
+    }
+
+    init();
   </script>
 </body>
 </html>
