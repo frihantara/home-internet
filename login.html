@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Studio — Digital Home</title>
-  <link rel="stylesheet" href="../css/global.css">
-  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <style>
     body { display:flex; align-items:center; justify-content:center; min-height:100vh; padding:2rem; }
     .login-wrap {
@@ -73,44 +73,49 @@
     </div>
   </div>
 
-  <script src="../js/config.js"></script>
   <script type="module">
+    import { SUPABASE_URL, SUPABASE_ANON_KEY } from '/js/config.js';
     import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-    const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // Redirect if already logged in
-    const { data: { session } } = await sb.auth.getSession();
-    if (session) window.location.href = '/studio';
+    (async () => {
+      const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    const emailEl = document.getElementById('email');
-    const passEl  = document.getElementById('password');
-    const errEl   = document.getElementById('login-error');
-    const btn     = document.getElementById('login-btn');
-
-    async function login() {
-      errEl.classList.remove('show');
-      btn.disabled = true;
-      btn.textContent = 'Signing in…';
-
-      const { error } = await sb.auth.signInWithPassword({
-        email: emailEl.value.trim(),
-        password: passEl.value,
-      });
-
-      if (error) {
-        errEl.textContent = error.message;
-        errEl.classList.add('show');
-        btn.disabled = false;
-        btn.textContent = 'Sign in';
-      } else {
+      // Cek session
+      const { data: { session } } = await sb.auth.getSession();
+      if (session) {
         window.location.href = '/studio';
+        return;
       }
-    }
 
-    btn.addEventListener('click', login);
-    [emailEl, passEl].forEach(el => {
-      el.addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
-    });
+      const emailEl = document.getElementById('email');
+      const passEl  = document.getElementById('password');
+      const errEl   = document.getElementById('login-error');
+      const btn     = document.getElementById('login-btn');
+
+      async function login() {
+        errEl.classList.remove('show');
+        btn.disabled = true;
+        btn.textContent = 'Signing in…';
+
+        const { error } = await sb.auth.signInWithPassword({
+          email: emailEl.value.trim(),
+          password: passEl.value,
+        });
+
+        if (error) {
+          errEl.textContent = error.message;
+          errEl.classList.add('show');
+          btn.disabled = false;
+          btn.textContent = 'Sign in';
+        } else {
+          window.location.href = '/studio';
+        }
+      }
+
+      btn.addEventListener('click', login);
+      emailEl.addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+      passEl.addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+    })();
   </script>
 </body>
 </html>
