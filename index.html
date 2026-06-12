@@ -624,6 +624,7 @@
       font-family: var(--font-mono);
     }
 
+    /* Warna default untuk badge (akan di-override oleh inline style pada logo) */
     .club-persib {
       background-color: var(--accent-blue);
       color: #ffffff;
@@ -968,14 +969,20 @@
           <span class="decor">FAVORIT CLUB →</span>
         </div>
         <div class="club-card">
-          <div class="club-badge club-persib">P</div>
+          <!-- BADGE PERSEB BANDUNG dengan LOGO -->
+          <div class="club-badge" style="background: #fff; border: 1px solid #d4d0c4; padding: 2px;">
+            <img src="https://assets.football-logos.cc/logos/indonesia/1500x1500/persib-bandung.82670319.png" alt="Logo Persib Bandung" style="width: 100%; height: 100%; object-fit: contain; border-radius: 50%;">
+          </div>
           <div>
             <div class="club-name">Persib Bandung</div>
             <div class="club-desc">LIGA 1 • MAUNG BANDUNG</div>
           </div>
         </div>
         <div class="club-card">
-          <div class="club-badge club-madrid">RM</div>
+          <!-- BADGE REAL MADRID dengan LOGO -->
+          <div class="club-badge" style="background: #fff; border: 1px solid #d4d0c4; padding: 2px;">
+            <img src="https://upload.wikimedia.org/wikipedia/id/thumb/5/56/Real_Madrid_CF.svg/1920px-Real_Madrid_CF.svg.png" alt="Logo Real Madrid CF" style="width: 100%; height: 100%; object-fit: contain; border-radius: 50%;">
+          </div>
           <div>
             <div class="club-name">Real Madrid CF</div>
             <div class="club-desc">LA LIGA • LOS BLANCOS</div>
