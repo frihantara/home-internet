@@ -1,0 +1,13 @@
+{
+  "rewrites": [
+      { "source": "/home", "destination": "/index.html" }
+    { "source": "/blog", "destination": "/pages/blog.html" },
+    { "source": "/f1", "destination": "/pages/f1.html" },
+    { "source": "/football", "destination": "/pages/football.html" },
+    { "source": "/watchlist", "destination": "/pages/watchlist.html" },
+    { "source": "/gallery", "destination": "/pages/gallery.html" },
+    { "source": "/thoughts", "destination": "/pages/toughts.html" },
+    { "source": "/studio", "destination": "/admin/index.html" },
+    { "source": "/studio/:path*", "destination": "/admin/index.html" }
+  ]
+}

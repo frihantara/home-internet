@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post — Digital Home</title>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/post.css">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+</head>
+<body class="page-body">
+  <nav id="site-nav"></nav>
+  <div id="post-content-wrapper">
+    <div class="skeleton-post container container--narrow">
+      <div class="skeleton" style="height:2.5rem;width:60%;border-radius:6px;margin-bottom:1rem"></div>
+      <div class="skeleton" style="height:1rem;width:40%;border-radius:6px;margin-bottom:2rem"></div>
+      <div class="skeleton" style="height:420px;border-radius:12px;margin-bottom:2rem"></div>
+      <div class="skeleton" style="height:1rem;width:100%;border-radius:4px;margin-bottom:.5rem"></div>
+      <div class="skeleton" style="height:1rem;width:90%;border-radius:4px;margin-bottom:.5rem"></div>
+      <div class="skeleton" style="height:1rem;width:80%;border-radius:4px;margin-bottom:.5rem"></div>
+      <div class="skeleton" style="height:1rem;width:95%;border-radius:4px;margin-bottom:.5rem"></div>
+    </div>
+  </div>
+  <footer id="site-footer"></footer>
+
+  <style>
+    .skeleton-post { padding: 3rem 0; }
+  </style>
+
+  <script type="module">
+    import { SUPABASE_URL, SUPABASE_ANON_KEY } from '../js/config.js';
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+    import { renderNav, renderFooter } from '../js/nav.js';
+    import { formatDate, readingTime } from '../js/supabase.js';
+
+    const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    renderNav('/blog');
+    renderFooter(sb);
+
+    // Get slug from URL path: /blog/my-post
+    const parts = window.location.pathname.split('/').filter(Boolean);
+    const slug = parts[1];
+
+    if (!slug) {
+      window.location.href = '/blog';
+    }
+
+    async function loadPost() {
+      const { data, error } = await sb.from('posts')
+        .select('*')
+        .eq('slug', slug)
+        .eq('status', 'published')
+        .maybeSingle();
+
+      const wrapper = document.getElementById('post-content-wrapper');
+
+      if (error || !data) {
+        wrapper.innerHTML = `
+          <div class="container container--narrow" style="padding:5rem 0;text-align:center">
+            <h2>Post not found</h2>
+            <p style="margin-top:1rem;color:var(--text-3)">This post doesn't exist or isn't published.</p>
+            <a href="/blog" class="btn btn--outline" style="margin-top:2rem">← Back to Blog</a>
+          </div>
+        `;
+        return;
+      }
+
+      document.title = `${data.title} — Digital Home`;
+
+      const rt = readingTime(data.content || '');
+      const tagsHtml = data.tags?.length
+        ? data.tags.map(t => `<span class="badge badge--gold">${t}</span>`).join('')
+        : '';
+
+      wrapper.innerHTML = `
+        <article class="post-article">
+          <header class="post-header">
+            <div class="container container--narrow">
+              <div class="post-meta-top">
+                <a href="/blog" class="back-link">← Blog</a>
+                ${data.category ? `<span class="card-tag">${data.category}</span>` : ''}
+              </div>
+              <h1 class="post-title">${data.title}</h1>
+              ${data.excerpt ? `<p class="post-excerpt">${data.excerpt}</p>` : ''}
+              <div class="post-meta">
+                <span>${formatDate(data.created_at)}</span>
+                <span>·</span>
+                <span>${rt}</span>
+              </div>
+              ${tagsHtml ? `<div class="post-tags">${tagsHtml}</div>` : ''}
+            </div>
+          </header>
+
+          ${data.cover_image ? `
+            <div class="post-cover">
+              <div class="container">
+                <img src="${data.cover_image}" alt="${data.title}" class="post-cover-img">
+              </div>
+            </div>
+          ` : ''}
+
+          <div class="container container--narrow">
+            <div class="post-body prose">
+              ${data.content || ''}
+            </div>
+
+            <footer class="post-footer">
+              <a href="/blog" class="btn btn--outline">← All posts</a>
+            </footer>
+          </div>
+        </article>
+      `;
+    }
+
+    loadPost();
+  </script>
+</body>
+</html>

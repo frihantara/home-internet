@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studio — Digital Home</title>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+</head>
+<body style="padding:0">
+  <div class="admin-layout">
+    <!-- Sidebar overlay (mobile) -->
+    <div class="admin-sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="admin-sidebar" id="admin-sidebar">
+      <div class="admin-sidebar-logo">
+        <div>
+          <div class="admin-sidebar-logo-text">Digital<span>.</span></div>
+        </div>
+        <span class="admin-sidebar-badge">Studio</span>
+      </div>
+
+      <nav class="admin-nav">
+        <div class="admin-nav-group">
+          <div class="admin-nav-group-label">Overview</div>
+          <a href="/studio" class="admin-nav-link active">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+            Dashboard
+          </a>
+        </div>
+
+        <div class="admin-nav-group">
+          <div class="admin-nav-group-label">Content</div>
+          <a href="/studio/blog" class="admin-nav-link">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+            Blog
+          </a>
+          <a href="/studio/gallery" class="admin-nav-link">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            Gallery
+          </a>
+          <a href="/studio/music" class="admin-nav-link">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
+            Music
+          </a>
+          <a href="/studio/football" class="admin-nav-link">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10" stroke-width="1.5"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 2a10 10 0 00-6 17.3M12 2a10 10 0 016 17.3M12 2v4m0 16v-4m-6-6H2m20 0h-4"/></svg>
+            Football
+          </a>
+          <a href="/studio/f1" class="admin-nav-link">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            F1 Drivers
+          </a>
+          <a href="/studio/watchlist" class="admin-nav-link">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.069A1 1 0 0121 8.82v6.36a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            Watchlist
+          </a>
+          <a href="/studio/travel" class="admin-nav-link">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h.5a2 2 0 002-2V3m-4 0v.5A2.5 2.5 0 0114.5 6H14a2 2 0 00-2 2H8a2 2 0 00-2-2V3m8 0v.5"/></svg>
+            Travel
+          </a>
+          <a href="/studio/thoughts" class="admin-nav-link">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+            Thoughts
+          </a>
+          <a href="/studio/random" class="admin-nav-link">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4h6v6H4zm0 10h6v6H4zm10-10h6v6h-6zm0 10h6v6h-6z"/></svg>
+            Random
+          </a>
+        </div>
+
+        <div class="admin-nav-group">
+          <div class="admin-nav-group-label">System</div>
+          <a href="/studio/settings" class="admin-nav-link">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3" stroke-width="1.5"/></svg>
+            Settings
+          </a>
+        </div>
+      </nav>
+
+      <div class="admin-sidebar-foot">
+        <a href="/" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          View site
+        </a>
+        <a href="#" id="signout-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+          Sign out
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="admin-main">
+      <div class="admin-topbar">
+        <div style="display:flex;align-items:center;gap:.75rem">
+          <button class="admin-sidebar-toggle" id="sidebar-toggle">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+          <span class="admin-topbar-title">Dashboard</span>
+        </div>
+        <div class="admin-topbar-actions">
+          <span id="admin-email" style="font-size:.78rem;color:var(--text-3)"></span>
+        </div>
+      </div>
+
+      <div class="admin-content">
+        <div class="page-title-wrap">
+          <h1 class="page-title">Welcome back</h1>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid" id="stats-grid">
+          <div class="skeleton" style="height:90px;border-radius:12px"></div>
+          <div class="skeleton" style="height:90px;border-radius:12px"></div>
+          <div class="skeleton" style="height:90px;border-radius:12px"></div>
+          <div class="skeleton" style="height:90px;border-radius:12px"></div>
+        </div>
+
+        <!-- Quick links -->
+        <div class="section-eyebrow" style="margin-bottom:1rem">Quick actions</div>
+        <div class="quick-actions" id="quick-actions"></div>
+
+        <!-- Recent posts -->
+        <div style="margin-top:2rem">
+          <div class="table-toolbar">
+            <div style="font-size:.9rem;font-weight:600;color:var(--text)">Recent posts</div>
+            <a href="/studio/blog" class="btn btn--ghost btn--sm">Manage Blog →</a>
+          </div>
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Status</th>
+                  <th>Category</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody id="recent-posts-tbody">
+                <tr><td colspan="4" style="text-align:center;color:var(--text-3);padding:2rem">Loading…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <style>
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+    @media (max-width: 800px) { .quick-actions { grid-template-columns: repeat(2, 1fr); } }
+    .quick-action-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.8rem 1rem;
+      font-size: 0.83rem;
+      font-weight: 500;
+      color: var(--text-2);
+      text-align: left;
+      transition: all var(--transition);
+    }
+    .quick-action-btn:hover {
+      border-color: var(--gold-dim);
+      color: var(--text);
+      background: var(--surface-2);
+    }
+  </style>
+
+  <script type="module">
+    import { SUPABASE_URL, SUPABASE_ANON_KEY } from '../js/config.js';
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+    import { formatDateShort } from '../js/supabase.js';
+
+    const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Auth guard
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) { window.location.href = '/studio/login'; }
+    document.getElementById('admin-email').textContent = session?.user?.email || '';
+
+    // Sign out
+    document.getElementById('signout-btn').addEventListener('click', async (e) => {
+      e.preventDefault();
+      await sb.auth.signOut();
+      window.location.href = '/studio/login';
+    });
+
+    // Sidebar mobile
+    const sidebar  = document.getElementById('admin-sidebar');
+    const overlay  = document.getElementById('sidebar-overlay');
+    const toggle   = document.getElementById('sidebar-toggle');
+    toggle.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('open');
+    });
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('open');
+    });
+
+    // Stats
+    async function loadStats() {
+      const tables = [
+        { table: 'posts',     label: 'Posts',    filter: q => q.eq('status','published') },
+        { table: 'thoughts',  label: 'Thoughts', filter: q => q },
+        { table: 'gallery',   label: 'Photos',   filter: q => q },
+        { table: 'watchlist', label: 'Watchlist',filter: q => q },
+      ];
+
+      const results = await Promise.all(tables.map(async t => {
+        const { count } = await t.filter(sb.from(t.table).select('id', { count: 'exact', head: true }));
+        return { label: t.label, count: count ?? 0 };
+      }));
+
+      document.getElementById('stats-grid').innerHTML = results.map(r => `
+        <div class="stat-card">
+          <div class="stat-card-val">${r.count}</div>
+          <div class="stat-card-label">${r.label}</div>
+        </div>
+      `).join('');
+    }
+
+    // Quick actions
+    function loadQuickActions() {
+      const actions = [
+        { href:'/studio/blog/new',      label:'New post' },
+        { href:'/studio/thoughts/new',  label:'New thought' },
+        { href:'/studio/gallery',       label:'Upload photo' },
+        { href:'/studio/watchlist/new', label:'Add to watchlist' },
+      ];
+      document.getElementById('quick-actions').innerHTML = actions.map(a => `
+        <a href="${a.href}" class="quick-action-btn">+ ${a.label}</a>
+      `).join('');
+    }
+
+    // Recent posts
+    async function loadRecentPosts() {
+      const { data } = await sb.from('posts')
+        .select('id,title,status,category,created_at')
+        .order('created_at', { ascending: false })
+        .limit(6);
+      const tbody = document.getElementById('recent-posts-tbody');
+      if (!data?.length) {
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--text-3);padding:2rem">No posts yet</td></tr>';
+        return;
+      }
+      tbody.innerHTML = data.map(p => `
+        <tr>
+          <td><a href="/studio/blog/edit/${p.id}" style="color:var(--text);font-weight:500;transition:color .15s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text)'">${p.title}</a></td>
+          <td><span class="badge ${p.status==='published'?'badge--green':''}">${p.status}</span></td>
+          <td>${p.category || '—'}</td>
+          <td>${formatDateShort(p.created_at)}</td>
+        </tr>
+      `).join('');
+    }
+
+    loadStats();
+    loadQuickActions();
+    loadRecentPosts();
+  </script>
+</body>
+</html>
