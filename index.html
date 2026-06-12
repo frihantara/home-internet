@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Digital Home</title>
   <meta name="description" content="A personal space on the internet">
-  <link rel="stylesheet" href="css/global.css">
-  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/home.css">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 </head>
 <body class="page-body">
@@ -112,13 +112,11 @@
   <footer id="site-footer"></footer>
 
   <script type="module">
-    // ========== TAMBAHKAN IMPORT CONFIG.JS ==========
-    import { SUPABASE_URL, SUPABASE_ANON_KEY } from './js/config.js';
-    // ================================================
-    
+    // ========== MENGGUNAKAN ABSOLUTE PATH (MULAI DENGAN /) ==========
+    import { SUPABASE_URL, SUPABASE_ANON_KEY } from '/js/config.js';
     import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-    import { renderNav, renderFooter } from './js/nav.js';
-    import { formatDateShort, emptyState } from './js/supabase.js';
+    import { renderNav, renderFooter } from '/js/nav.js';
+    import { formatDateShort, emptyState } from '/js/supabase.js';
 
     const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
