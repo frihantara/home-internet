@@ -9,6 +9,7 @@
     { "source": "/gallery", "destination": "/gallery.html" },
     { "source": "/thoughts", "destination": "/thoughts.html" },
     { "source": "/studio", "destination": "/studio.html" },
-    { "source": "/studio/login", "destination": "/login.html" }
+    { "source": "/studio/login", "destination": "/login.html" },
+    { "source": "/studio/(.*)", "destination": "/studio.html" }
   ]
 }
