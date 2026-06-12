@@ -77,7 +77,7 @@
     .section-title-editorial { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 2px solid #1c1c1a; padding-bottom: 0.3rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: flex-end; }
     .section-title-editorial span.decor { font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; font-weight: 400; color: #7c7b72; text-transform: uppercase; }
 
-    /* PLAYER CARD (mirip driver card) */
+    /* PLAYER CARD */
     .player-card {
       position: relative; background: #fcfbf7; border: 1px solid #e3e0d5; overflow: hidden;
       transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
@@ -222,13 +222,18 @@
   </footer>
 
   <script type="module">
-    // ========== KONEKSI SUPABASE (sama seperti F1 yang berhasil) ==========
     import { SUPABASE_URL, SUPABASE_ANON_KEY } from '/js/config.js';
     import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
     const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // Fungsi tanggal
+    // Data statis fallback (jika database kosong/gagal)
+    const fallbackPlayers = [
+      { name: 'Lionel Messi', number: 10, nationality: 'Argentina', club: 'Inter Miami', club_color: '#f9a01b', goals: 821, assists: 361, caps: 1036, image_url: 'https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?auto=format&fit=crop&w=600&q=80' },
+      { name: 'Cristiano Ronaldo', number: 7, nationality: 'Portugal', club: 'Al Nassr', club_color: '#fccb06', goals: 873, assists: 253, caps: 1180, image_url: 'https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?auto=format&fit=crop&w=600&q=80' },
+      { name: 'Kylian Mbappé', number: 10, nationality: 'France', club: 'Real Madrid', club_color: '#c39b34', goals: 306, assists: 130, caps: 423, image_url: 'https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?auto=format&fit=crop&w=600&q=80' },
+    ];
+
     function setEditorialDate() {
       const opsi = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
       const hariIni = new Date();
@@ -238,12 +243,10 @@
     }
     setEditorialDate();
 
-    // Sticky nav
     window.addEventListener('scroll', () => {
       document.getElementById('sticky-nav').classList.toggle('is-scrolled', window.scrollY > 80);
     });
 
-    // Intersection Observer untuk reveal
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) { entry.target.classList.add('in-view'); io.unobserve(entry.target); }
@@ -251,7 +254,6 @@
     }, { threshold: 0.15 });
     document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
 
-    // Render card pemain (sesuaikan nama kolom dengan tabel Anda)
     function renderPlayer(p) {
       const teamColor = p.club_color || '#8b261b';
       return `
@@ -275,25 +277,24 @@
       `;
     }
 
-    // Load data pemain (ganti 'football_players' dengan nama tabel Anda)
     async function loadPlayers() {
       const grid = document.getElementById('football-grid');
       try {
-        const { data, error } = await sb.from('football_players')
+        // Menggunakan tabel football_clubs (sesuai nama yang Anda berikan)
+        const { data, error } = await sb.from('football_clubs')
           .select('*')
           .order('sort_order', { ascending: true });
         
-        if (error) throw error;
-        
-        if (!data || data.length === 0) {
-          grid.innerHTML = '<div class="col-span-full text-center py-10 text-muted">Belum ada data pemain.</div>';
+        if (error || !data || data.length === 0) {
+          // Jika gagal atau kosong, gunakan fallback
+          grid.innerHTML = fallbackPlayers.map(renderPlayer).join('');
           return;
         }
         
         grid.innerHTML = data.map(renderPlayer).join('');
       } catch (err) {
-        console.error('Gagal memuat data pemain:', err);
-        grid.innerHTML = '<div class="col-span-full text-center py-10 text-red-600">Gagal memuat data dari database. Periksa koneksi atau konfigurasi Supabase.</div>';
+        console.warn('Gagal mengambil dari database, menggunakan fallback:', err);
+        grid.innerHTML = fallbackPlayers.map(renderPlayer).join('');
       }
     }
 
@@ -302,12 +303,11 @@
       try {
         const { data } = await sb.from('settings').select('value').eq('key','football_page_desc').maybeSingle();
         if (data?.value) document.getElementById('football-desc').textContent = data.value;
-      } catch (e) { /* deskripsi default tetap dipakai */ }
+      } catch (e) {}
     })();
 
     loadPlayers();
 
-    // Hilangkan loader
     window.addEventListener('load', () => {
       setTimeout(() => document.getElementById('page-loader').classList.add('loaded'), 250);
     });
