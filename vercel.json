@@ -3,6 +3,7 @@
     { "source": "/", "destination": "/index.html" },
     { "source": "/home", "destination": "/index.html" },
     { "source": "/blog", "destination": "/blog.html" },
+    { "source": "/blog/(.*)", "destination": "/blog-post.html" },
     { "source": "/f1", "destination": "/f1.html" },
     { "source": "/football", "destination": "/football.html" },
     { "source": "/watchlist", "destination": "/watchlist.html" },
