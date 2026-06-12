@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studio — Digital Home</title>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <style>
+    body { display:flex; align-items:center; justify-content:center; min-height:100vh; padding:2rem; }
+    .login-wrap {
+      width: 100%;
+      max-width: 420px;
+    }
+    .login-logo {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .login-logo h1 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--text);
+    }
+    .login-logo span { color: var(--gold); }
+    .login-logo p {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-top: 0.4rem;
+    }
+    .login-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+    }
+    .login-form { display: flex; flex-direction: column; gap: 1.25rem; }
+    .login-btn { width: 100%; justify-content: center; padding: .8rem; font-size: .9rem; }
+    .login-error {
+      background: rgba(224,82,82,.1);
+      border: 1px solid rgba(224,82,82,.25);
+      border-radius: var(--radius);
+      padding: .7rem 1rem;
+      font-size: .83rem;
+      color: var(--red);
+      display: none;
+    }
+    .login-error.show { display: block; }
+  </style>
+</head>
+<body>
+  <div class="login-wrap">
+    <div class="login-logo">
+      <h1>Digital<span>.</span></h1>
+      <p>Studio — Admin Panel</p>
+    </div>
+    <div class="login-card">
+      <div class="login-form">
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" class="input" placeholder="admin@example.com" autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" class="input" placeholder="••••••••" autocomplete="current-password">
+        </div>
+        <div class="login-error" id="login-error"></div>
+        <button class="btn btn--primary login-btn" id="login-btn">Sign in</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+    const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Redirect if already logged in
+    const { data: { session } } = await sb.auth.getSession();
+    if (session) window.location.href = '/studio';
+
+    const emailEl = document.getElementById('email');
+    const passEl  = document.getElementById('password');
+    const errEl   = document.getElementById('login-error');
+    const btn     = document.getElementById('login-btn');
+
+    async function login() {
+      errEl.classList.remove('show');
+      btn.disabled = true;
+      btn.textContent = 'Signing in…';
+
+      const { error } = await sb.auth.signInWithPassword({
+        email: emailEl.value.trim(),
+        password: passEl.value,
+      });
+
+      if (error) {
+        errEl.textContent = error.message;
+        errEl.classList.add('show');
+        btn.disabled = false;
+        btn.textContent = 'Sign in';
+      } else {
+        window.location.href = '/studio';
+      }
+    }
+
+    btn.addEventListener('click', login);
+    [emailEl, passEl].forEach(el => {
+      el.addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+    });
+  </script>
+</body>
+</html>
