@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
     /* VARIABLES & THEME (Newspaper Warm Neutral Style) */
     :root {
@@ -56,137 +57,6 @@
       text-decoration: none;
       transition: all 0.2s ease;
     }
-
-    /* HEADER & NAVIGASI STICKY */
-    .news-header {
-      padding: 1.5rem 0 0.5rem 0;
-      text-align: center;
-    }
-
-    .news-header-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.72rem;
-      font-family: var(--font-mono);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-muted);
-      border-bottom: 1px solid var(--border-light);
-      padding-bottom: 0.75rem;
-    }
-
-    .news-brand-link {
-      display: inline-block;
-      margin: 1.2rem 0;
-    }
-
-    .news-brand {
-      font-family: var(--font-serif);
-      font-size: 3.8rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1;
-      text-transform: capitalize;
-    }
-    
-    .news-brand span {
-      font-weight: 300;
-      font-style: italic;
-      color: var(--accent);
-    }
-
-    .news-meta-bar {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-      font-family: var(--font-serif);
-      font-size: 0.85rem;
-      font-style: italic;
-      color: var(--text-muted);
-      border-top: 4px double var(--border-dark);
-      border-bottom: 4px double var(--border-dark);
-      padding: 0.5rem 0;
-      margin-top: 0.5rem;
-    }
-
-    .meta-item.left { text-align: left; }
-    .meta-item.center { text-align: center; font-weight: bold; font-style: normal; text-transform: uppercase; letter-spacing: 0.15em; }
-    .meta-item.right { text-align: right; }
-
-    /* STICKY NAVBAR */
-    .sticky-nav-container {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background-color: var(--bg-paper-trans);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border-dark);
-      margin-bottom: 2rem;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .sticky-nav-container.is-scrolled {
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-      border-bottom: 2px solid var(--accent);
-    }
-
-    .modern-nav-inner {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 1.5rem;
-      padding: 0.75rem 0;
-      overflow-x: auto;
-      white-space: nowrap;
-      scrollbar-width: none;
-    }
-
-    .modern-nav-inner::-webkit-scrollbar {
-      display: none;
-    }
-
-    .nav-tab {
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-muted);
-      padding: 0.25rem 0.1rem;
-      position: relative;
-      flex-shrink: 0;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .nav-tab svg { width: 14px; height: 14px; opacity: .7; }
-
-    .nav-tab::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background-color: var(--accent);
-      transition: width 0.3s ease;
-    }
-
-    .nav-tab:hover {
-      color: var(--accent);
-    }
-
-    .nav-tab:hover svg { opacity: 1; }
-
-    .nav-tab:hover::after,
-    .nav-tab.active::after {
-      width: 100%;
-    }
-
-    .nav-tab.active { color: var(--accent); }
 
     /* HERO */
     .hero-editorial {
@@ -388,8 +258,7 @@
     .room-card:hover {
       border-color: var(--border-dark);
       background: var(--bg-paper-dark);
-      box-shadow: 6px 6px 0 var(--border-light);
-      transform: translate(-2px, -2px);
+      transform: translateY(-2px);
     }
 
     .room-icon-svg {
@@ -715,91 +584,6 @@
       display: inline-block;
     }
 
-    /* LOADER */
-    #page-loader { position: fixed; inset: 0; z-index: 9999; background: #fcfbf7; display: flex; align-items: center; justify-content: center; transition: opacity .5s ease, visibility .5s ease; }
-    #page-loader.loaded { opacity: 0; visibility: hidden; }
-    .loader-inner { text-align: center; }
-    .loader-brand { font-family: var(--font-serif); font-weight: 800; font-size: 2rem; letter-spacing: -0.02em; margin-bottom: 1rem; }
-    .loader-brand span { font-style: italic; font-weight: 300; color: var(--accent); }
-    .loader-bar { width: 180px; height: 2px; background: var(--border-light); overflow: hidden; margin: 0 auto; position: relative; }
-    .loader-bar::after { content: ''; position: absolute; inset: 0; width: 40%; height: 100%; background: var(--accent); animation: loaderSlide 1.1s ease-in-out infinite; }
-    @keyframes loaderSlide { 0% { transform: translateX(-100%); } 50% { transform: translateX(150%); } 100% { transform: translateX(150%); } }
-    .loader-label { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-light); margin-top: 0.75rem; }
-
-    /* EDITORIAL FOOTER */
-    .news-footer {
-      border-top: 4px double var(--border-dark);
-      padding: 3rem 0 4rem 0;
-      margin-top: 4rem;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap: 3rem;
-      margin-bottom: 3rem;
-    }
-
-    .footer-brand {
-      font-family: var(--font-serif);
-      font-size: 2.2rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin-bottom: 1rem;
-    }
-
-    .footer-brand span {
-      font-style: italic;
-      font-weight: 300;
-      color: var(--accent);
-    }
-
-    .footer-desc {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-      max-width: 400px;
-    }
-
-    .footer-title {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--accent);
-      margin-bottom: 1.2rem;
-      font-weight: bold;
-    }
-
-    .footer-links {
-      list-style: none;
-    }
-
-    .footer-links li {
-      margin-bottom: 0.6rem;
-    }
-
-    .footer-links a {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .footer-links a:hover {
-      color: var(--border-dark);
-      text-decoration: underline;
-    }
-
-    .footer-bottom {
-      border-top: 1px solid var(--border-light);
-      padding-top: 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: var(--text-light);
-    }
-
     /* SKELETON */
     .skeleton {
       background: linear-gradient(90deg, #f2efe4 25%, #e6e2d3 50%, #f2efe4 75%);
@@ -823,6 +607,47 @@
       .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
       .news-brand { font-size: 2.8rem; }
     }
+    /* LOADER */
+    #page-loader { position: fixed; inset: 0; z-index: 9999; background: #fcfbf7; display: flex; align-items: center; justify-content: center; transition: opacity .5s ease, visibility .5s ease; }
+    #page-loader.loaded { opacity: 0; visibility: hidden; }
+    .loader-inner { text-align: center; }
+    .loader-brand { font-family: 'Playfair Display', serif; font-weight: 800; font-size: 2rem; letter-spacing: -0.02em; margin-bottom: 1rem; }
+    .loader-brand span { font-style: italic; font-weight: 300; color: #8b261b; }
+    .loader-bar { width: 180px; height: 2px; background: #e3e0d5; overflow: hidden; margin: 0 auto; position: relative; }
+    .loader-bar::after { content: ''; position: absolute; inset: 0; width: 40%; height: 100%; background: #8b261b; animation: loaderSlide 1.1s ease-in-out infinite; }
+    @keyframes loaderSlide { 0% { transform: translateX(-100%); } 50% { transform: translateX(150%); } 100% { transform: translateX(150%); } }
+    .loader-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: #7c7b72; margin-top: 0.75rem; }
+
+    /* HEADER */
+    .news-header-top { display: flex; justify-content: space-between; align-items: center; font-size: 0.7rem; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.1em; color: #575752; border-bottom: 1px solid #e3e0d5; padding-bottom: 0.75rem; }
+    .news-brand { font-family: 'Playfair Display', serif; font-size: clamp(2.4rem, 6vw, 3.8rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+    .news-brand span { font-weight: 300; font-style: italic; color: #8b261b; }
+    .news-meta-bar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; font-family: 'Playfair Display', serif; font-size: 0.85rem; font-style: italic; color: #575752; border-top: 4px double #1c1c1a; border-bottom: 4px double #1c1c1a; padding: 0.5rem 0; margin-top: 0.5rem; }
+    .meta-item.left { text-align: left; } .meta-item.center { text-align: center; font-weight: bold; font-style: normal; text-transform: uppercase; letter-spacing: 0.15em; } .meta-item.right { text-align: right; }
+    @media (max-width: 640px) { .news-meta-bar { font-size: 0.7rem; grid-template-columns: 1fr; gap: 0.25rem; text-align: center; } .meta-item.left, .meta-item.right { text-align: center; } }
+
+    /* STICKY NAV */
+    .sticky-nav-container { position: sticky; top: 0; z-index: 1000; background-color: rgba(252, 251, 247, 0.94); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-bottom: 1px solid #1c1c1a; transition: all .3s cubic-bezier(.16,1,.3,1); }
+    .sticky-nav-container.is-scrolled { box-shadow: 0 4px 20px rgba(0,0,0,.05); border-bottom: 2px solid #8b261b; }
+    .modern-nav-inner { display: flex; justify-content: center; align-items: center; gap: 1.5rem; padding: 0.75rem 0; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+    .modern-nav-inner::-webkit-scrollbar { display: none; }
+    .nav-tab { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; color: #575752; padding: 0.25rem 0.1rem; position: relative; flex-shrink: 0; display: inline-flex; align-items: center; gap: 0.4rem; }
+    .nav-tab svg { width: 14px; height: 14px; opacity: .7; }
+    .nav-tab::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background-color: #8b261b; transition: width .3s ease; }
+    .nav-tab:hover { color: #8b261b; } .nav-tab:hover svg { opacity: 1; }
+    .nav-tab:hover::after, .nav-tab.active::after { width: 100%; }
+    .nav-tab.active { color: #8b261b; }
+
+    /* FOOTER */
+    .news-footer { border-top: 4px double #1c1c1a; padding: 3rem 0 2.5rem; margin-top: 4rem; }
+    .footer-brand { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em; }
+    .footer-brand span { font-style: italic; font-weight: 300; color: #8b261b; }
+    .footer-desc { font-size: 0.85rem; color: #575752; line-height: 1.6; max-width: 380px; }
+    .footer-title { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #8b261b; margin-bottom: 1.1rem; font-weight: bold; }
+    .footer-links a { font-size: 0.85rem; color: #575752; }
+    .footer-links a:hover { color: #1c1c1a; text-decoration: underline; }
+    .footer-bottom { border-top: 1px solid #e3e0d5; padding-top: 1.5rem; margin-top: 2.5rem; display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: #7c7b72; flex-wrap: wrap; gap: .5rem; }
+
   </style>
 </head>
 <body>
@@ -836,33 +661,25 @@
     </div>
   </div>
 
-  <!-- TAJUK SURAT KABAR -->
-  <header class="container">
-    <div class="news-header">
-      <div class="news-header-top">
-        <div class="weather">
-          <span>INDONESIA</span>
-          <span>•</span>
-          <span id="nav-date">DIREVISI 2026</span>
-        </div>
-        <div>EDISI DIGITAL #012</div>
-        <div>VOLUME IV</div>
-      </div>
-      <a href="/" class="news-brand-link">
-        <div class="news-brand">Frihantara<span>.</span></div>
-      </a>
-      <div class="news-meta-bar">
-        <div class="meta-item left">Terbit secara Periodik</div>
-        <div class="meta-item center">WARTA DIGITAL PERSONAL</div>
-        <div class="meta-item right" id="editorial-day">Jumat Kliwon</div>
-      </div>
+  <!-- MASTHEAD -->
+  <header class="max-w-6xl mx-auto pt-6">
+    <div class="news-header-top">
+      <div class="flex items-center gap-2"><span>INDONESIA</span><span>•</span><span id="nav-date">2026</span></div>
+      <div class="hidden sm:block">EDISI DIGITAL #012</div>
+      <div>VOLUME IV</div>
+    </div>
+    <a href="/" class="block text-center my-5"><div class="news-brand">Frihantara<span>.</span></div></a>
+    <div class="news-meta-bar">
+      <div class="meta-item left">Terbit secara Periodik</div>
+      <div class="meta-item center">WARTA DIGITAL PERSONAL</div>
+      <div class="meta-item right" id="editorial-day">Jumat Kliwon</div>
     </div>
   </header>
 
-  <!-- STICKY NAVBAR -->
+  <!-- STICKY NAV -->
   <div class="sticky-nav-container" id="sticky-nav">
-    <nav class="container">
-      <div class="modern-nav-inner" id="editorial-nav-links">
+    <nav class="max-w-6xl mx-auto">
+      <div class="modern-nav-inner">
         <a href="/" class="nav-tab active"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10M9 21h6"/></svg>Home</a>
         <a href="/blog" class="nav-tab"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>Blog</a>
         <a href="/gallery" class="nav-tab"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>Galeri</a>
@@ -874,7 +691,7 @@
     </nav>
   </div>
 
-  <main class="container">
+  <main class="max-w-6xl mx-auto">
     
     <!-- FEATURED HERO -->
     <section class="hero-editorial">
@@ -1001,15 +818,15 @@
   </main>
 
   <!-- FOOTER -->
-  <footer class="news-footer container">
-    <div class="footer-grid">
+  <footer class="news-footer max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-2">
       <div>
         <div class="footer-brand">Frihantara<span>.</span></div>
-        <p class="footer-desc">Sebuah upaya merawat ingatan, mengarsipkan gagasan, dan merayakan ketertarikan lewat media jurnalistik personal. Diproduksi secara mandiri di era digital.</p>
+        <p class="footer-desc mt-3">Sebuah upaya merawat ingatan, mengarsipkan gagasan, dan merayakan ketertarikan lewat media jurnalistik personal. Diproduksi secara mandiri di era digital.</p>
       </div>
       <div>
         <div class="footer-title">Navigasi Utama</div>
-        <ul class="footer-links">
+        <ul class="footer-links space-y-2">
           <li><a href="/">Beranda Utama</a></li>
           <li><a href="/blog">Arsip Tulisan</a></li>
           <li><a href="/gallery">Koleksi Galeri</a></li>
@@ -1018,7 +835,7 @@
       </div>
       <div>
         <div class="footer-title">Kategori Minat</div>
-        <ul class="footer-links">
+        <ul class="footer-links space-y-2">
           <li><a href="/football">Sepak Bola &amp; Taktik</a></li>
           <li><a href="/f1">Balap Formula 1</a></li>
           <li><a href="/thoughts">Catatan Singkat</a></li>
