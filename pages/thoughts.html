@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thoughts — Digital Home</title>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+</head>
+<body class="page-body">
+  <nav id="site-nav"></nav>
+
+  <div class="container container--narrow">
+    <header class="page-hero">
+      <p class="page-hero__eyebrow">Notes</p>
+      <h1 class="page-hero__title">Thoughts</h1>
+      <p class="page-hero__desc">Short notes, observations, and things worth remembering.</p>
+    </header>
+
+    <!-- Toolbar -->
+    <section class="section" style="padding-bottom:0">
+      <div class="thoughts-toolbar">
+        <div class="search-bar" style="flex:1">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg>
+          <input type="text" class="input" id="thoughts-search" placeholder="Search thoughts…">
+        </div>
+      </div>
+      <div class="thoughts-tags" id="thoughts-tags"></div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="section">
+      <div class="thoughts-timeline" id="thoughts-timeline">
+        <div class="skeleton" style="height:100px;border-radius:8px;margin-bottom:1rem"></div>
+        <div class="skeleton" style="height:80px;border-radius:8px;margin-bottom:1rem"></div>
+        <div class="skeleton" style="height:120px;border-radius:8px;margin-bottom:1rem"></div>
+        <div class="skeleton" style="height:90px;border-radius:8px;margin-bottom:1rem"></div>
+      </div>
+      <div id="load-more-wrap" style="text-align:center;margin-top:2rem;display:none">
+        <button class="btn btn--outline" id="load-more">Load more</button>
+      </div>
+    </section>
+  </div>
+
+  <footer id="site-footer"></footer>
+
+  <style>
+    /* style sama */
+    .thoughts-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .thoughts-tags {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+    .tag-chip {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--text-3);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .tag-chip:hover { border-color: var(--border-2); color: var(--text); }
+    .tag-chip.active {
+      background: var(--gold-glow);
+      border-color: rgba(200,169,110,.3);
+      color: var(--gold);
+    }
+
+    .thoughts-timeline { }
+
+    .thought-entry {
+      display: flex;
+      gap: 1.25rem;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: background var(--transition);
+    }
+    .thought-entry:last-child { border-bottom: none; }
+
+    .thought-date-col {
+      flex-shrink: 0;
+      width: 72px;
+      padding-top: 3px;
+    }
+    .thought-date-day {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--text-3);
+      line-height: 1;
+    }
+    .thought-date-mon {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-top: 0.2rem;
+    }
+
+    .thought-body { flex: 1; min-width: 0; }
+    .thought-text {
+      font-size: 0.95rem;
+      color: var(--text-2);
+      line-height: 1.75;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .thought-foot {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .thought-tag {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: var(--gold-glow);
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+  </style>
+
+  <script type="module">
+    import { SUPABASE_URL, SUPABASE_ANON_KEY } from '../js/config.js';
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+    import { renderNav, renderFooter } from '../js/nav.js';
+    import { emptyState, debounce } from '../js/supabase.js';
+
+    const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    renderNav('/thoughts');
+    renderFooter(sb);
+
+    const PAGE_SIZE = 15;
+    let page = 0;
+    let activeTag = '';
+    let searchTerm = '';
+    let totalCount = 0;
+
+    // Load all tags
+    async function loadTags() {
+      const { data } = await sb.from('thoughts').select('tags').not('tags','is',null);
+      if (!data) return;
+      const tagSet = new Set();
+      data.forEach(r => r.tags?.forEach(t => tagSet.add(t)));
+      const container = document.getElementById('thoughts-tags');
+      [...tagSet].sort().forEach(tag => {
+        const el = document.createElement('button');
+        el.className = 'tag-chip';
+        el.textContent = `#${tag}`;
+        el.dataset.tag = tag;
+        el.addEventListener('click', () => filterTag(tag, el));
+        container.appendChild(el);
+      });
+    }
+
+    function filterTag(tag, el) {
+      if (activeTag === tag) {
+        activeTag = '';
+        el.classList.remove('active');
+      } else {
+        activeTag = tag;
+        document.querySelectorAll('.tag-chip').forEach(c => c.classList.remove('active'));
+        el.classList.add('active');
+      }
+      page = 0;
+      loadThoughts(true);
+    }
+
+    async function loadThoughts(reset = false) {
+      if (reset) page = 0;
+
+      let query = sb.from('thoughts')
+        .select('id,content,tags,created_at', { count: 'exact' })
+        .order('created_at', { ascending: false })
+        .range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1);
+
+      if (activeTag) query = query.contains('tags', [activeTag]);
+      if (searchTerm) query = query.ilike('content', `%${searchTerm}%`);
+
+      const { data, count } = await query;
+      totalCount = count || 0;
+
+      const container = document.getElementById('thoughts-timeline');
+      if (reset) container.innerHTML = '';
+
+      if (!data?.length && reset) {
+        emptyState(container, 'No thoughts found.');
+        document.getElementById('load-more-wrap').style.display = 'none';
+        return;
+      }
+
+      data?.forEach(t => {
+        const d = new Date(t.created_at);
+        const day = d.getDate().toString().padStart(2, '0');
+        const mon = d.toLocaleString('en', { month: 'short' }).toUpperCase();
+        const yr  = d.getFullYear();
+
+        const tagsHtml = t.tags?.length
+          ? t.tags.map(tag => `<span class="thought-tag">#${tag}</span>`).join('')
+          : '';
+
+        const el = document.createElement('div');
+        el.className = 'thought-entry';
+        el.innerHTML = `
+          <div class="thought-date-col">
+            <div class="thought-date-day">${day}</div>
+            <div class="thought-date-mon">${mon} ${yr}</div>
+          </div>
+          <div class="thought-body">
+            <p class="thought-text">${escapeHtml(t.content)}</p>
+            ${tagsHtml ? `<div class="thought-foot">${tagsHtml}</div>` : ''}
+          </div>
+        `;
+        // Tag click
+        el.querySelectorAll('.thought-tag').forEach(tagEl => {
+          tagEl.addEventListener('click', () => {
+            const tag = tagEl.textContent.slice(1);
+            const chip = document.querySelector(`.tag-chip[data-tag="${tag}"]`);
+            if (chip) filterTag(tag, chip);
+          });
+        });
+        container.appendChild(el);
+      });
+
+      page++;
+      document.getElementById('load-more-wrap').style.display =
+        page * PAGE_SIZE < totalCount ? 'block' : 'none';
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    // Search
+    document.getElementById('thoughts-search').addEventListener('input', debounce(e => {
+      searchTerm = e.target.value.trim();
+      loadThoughts(true);
+    }, 400));
+
+    document.getElementById('load-more').addEventListener('click', () => loadThoughts(false));
+
+    loadTags();
+    loadThoughts(true);
+  </script>
+</body>
+</html>
