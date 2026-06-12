@@ -224,14 +224,14 @@
   </footer>
 
   <script type="module">
+    // ========== MODIFIKASI KONEKSI SUPABASE (tanpa mengubah layout) ==========
     import { SUPABASE_URL, SUPABASE_ANON_KEY } from '/js/config.js';
     import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-    import { emptyState } from '/js/supabase.js';
 
-    let sb = null;
-    try { if (SUPABASE_URL && SUPABASE_ANON_KEY) sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY); }
-    catch (e) { console.warn('Supabase init gagal, mode fallback aktif.', e); }
+    // Langsung buat client seperti di file lama yang berhasil
+    const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+    // Fungsi untuk mengisi tanggal editorial (tidak berubah)
     function setEditorialDate() {
       const opsi = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
       const hariIni = new Date();
@@ -241,10 +241,12 @@
     }
     setEditorialDate();
 
+    // Sticky nav scroll
     window.addEventListener('scroll', () => {
       document.getElementById('sticky-nav').classList.toggle('is-scrolled', window.scrollY > 80);
     });
 
+    // Intersection Observer untuk animasi reveal
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) { entry.target.classList.add('in-view'); io.unobserve(entry.target); }
@@ -252,23 +254,11 @@
     }, { threshold: 0.15 });
     document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
 
-    const fallbackDrivers = [
-      { name: 'Lewis Hamilton', number: 44, nationality: 'United Kingdom', team: 'Scuderia Ferrari', team_color: '#8b261b', championships: 7, wins: 105, poles: 104, image_url: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=600&q=80' },
-      { name: 'Max Verstappen', number: 1, nationality: 'Netherlands', team: 'Red Bull Racing', team_color: '#c39b34', championships: 4, wins: 65, poles: 41, image_url: 'https://images.unsplash.com/photo-1530124566582-a618bc2615dc?auto=format&fit=crop&w=600&q=80' },
-    ];
-
-    (async () => {
-      try {
-        if (!sb) throw new Error('offline');
-        const { data } = await sb.from('settings').select('value').eq('key','f1_page_desc').maybeSingle();
-        if (data?.value) document.getElementById('f1-desc').textContent = data.value;
-      } catch (e) {}
-    })();
-
+    // Render satu card driver (tidak berubah)
     function renderDriver(d) {
       const teamColor = d.team_color || '#8b261b';
       return `
-        <div class="driver-card reveal-stagger" style="opacity:1;transform:none">
+        <div class="driver-card" style="opacity:1;transform:none">
           <div class="driver-img-wrap">
             <img src="${d.image_url || '/img/placeholder.svg'}" alt="${d.name}" loading="lazy">
             <div class="driver-number-bg">${d.number || ''}</div>
@@ -288,19 +278,41 @@
       `;
     }
 
+    // Load data dari tabel f1_drivers (tanpa fallback, langsung tampilkan data dari DB)
     async function loadDrivers() {
       const grid = document.getElementById('f1-grid');
       try {
-        if (!sb) throw new Error('offline');
-        const { data, error } = await sb.from('f1_drivers').select('*').order('sort_order', { ascending: true });
-        if (error || !data || data.length === 0) { grid.innerHTML = fallbackDrivers.map(renderDriver).join(''); return; }
+        // Ambil data dari Supabase
+        const { data, error } = await sb.from('f1_drivers')
+          .select('*')
+          .order('sort_order', { ascending: true });
+        
+        if (error) throw error;
+        
+        if (!data || data.length === 0) {
+          grid.innerHTML = '<div class="col-span-full text-center py-10 text-muted">Belum ada data pembalap.</div>';
+          return;
+        }
+        
         grid.innerHTML = data.map(renderDriver).join('');
-      } catch (e) {
-        grid.innerHTML = fallbackDrivers.map(renderDriver).join('');
+      } catch (err) {
+        console.error('Gagal memuat data driver:', err);
+        grid.innerHTML = '<div class="col-span-full text-center py-10 text-red-600">Gagal memuat data dari database. Periksa koneksi atau konfigurasi Supabase.</div>';
       }
     }
+
+    // Ambil deskripsi halaman dari tabel settings (opsional)
+    (async () => {
+      try {
+        const { data } = await sb.from('settings').select('value').eq('key','f1_page_desc').maybeSingle();
+        if (data?.value) document.getElementById('f1-desc').textContent = data.value;
+      } catch (e) { /* abaikan, deskripsi tetap pakai default */ }
+    })();
+
+    // Jalankan load driver
     loadDrivers();
 
+    // Hilangkan loader setelah halaman selesai dimuat
     window.addEventListener('load', () => {
       setTimeout(() => document.getElementById('page-loader').classList.add('loaded'), 250);
     });
