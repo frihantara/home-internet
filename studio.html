@@ -5,20 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Studio — Frihantara</title>
     <link rel="stylesheet" href="/css/global.css">
-    <!-- Editor.js core + plugins -->
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@2.30.2/dist/editorjs.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@2.8.7/dist/header.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@2.11.6/dist/paragraph.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@2.0.2/dist/list.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@2.7.4/dist/quote.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@2.4.3/dist/table.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@2.10.1/dist/image.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@2.7.6/dist/embed.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@1.4.2/dist/delimiter.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/code@2.9.3/dist/code.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@1.4.0/dist/marker.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@1.5.0/dist/inline-code.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@1.4.0/dist/warning.umd.min.js"></script>
+    <!-- Quill rich text editor -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <style>
         /* ============================================================
            FRIHANTARA STUDIO — Admin Panel
@@ -607,119 +596,117 @@
         .post-editor-main { display: flex; flex-direction: column; gap: 1.25rem; }
         .post-editor-sidebar { display: flex; flex-direction: column; gap: 1.25rem; }
 
-        /* ── Editor.js wrapper ──────────────────────── */
+        /* ── Quill editor wrapper (dark theme) ──────────── */
         .editorjs-wrap {
             min-height: 460px;
-            overflow: hidden;
         }
-        .editorjs-wrap .codex-editor {
-            padding: .75rem 0;
+        .editorjs-wrap .ql-toolbar.ql-snow {
+            border: none;
+            border-bottom: 1px solid var(--border);
+            background: var(--surface-2);
+            border-radius: 0;
+            padding: .6rem .9rem;
         }
-        .editorjs-wrap .ce-block__content,
-        .editorjs-wrap .ce-toolbar__content {
-            max-width: none !important;
-            padding: 0 1.25rem;
-        }
-        .editorjs-wrap .codex-editor__redactor {
-            padding-bottom: 60px !important;
-        }
-        /* Override Editor.js dark mode colors */
-        .editorjs-wrap .ce-paragraph,
-        .editorjs-wrap .ce-header,
-        .editorjs-wrap .cdx-input {
-            color: var(--text) !important;
-        }
-        .editorjs-wrap .ce-toolbar__plus,
-        .editorjs-wrap .ce-toolbar__settings-btn {
-            color: var(--text-2) !important;
-            background: var(--surface-2) !important;
-        }
-        .editorjs-wrap .ce-popover {
-            background: var(--surface-2) !important;
-            border: 1px solid var(--border-2) !important;
-            box-shadow: var(--shadow) !important;
-        }
-        .editorjs-wrap .ce-popover-item:hover,
-        .editorjs-wrap .ce-popover-item--focused {
-            background: var(--surface-3) !important;
-        }
-        .editorjs-wrap .ce-popover-item__title {
-            color: var(--text) !important;
-        }
-        .editorjs-wrap .ce-popover-item__secondary-title {
-            color: var(--text-3) !important;
-        }
-        .editorjs-wrap .cdx-block {
+        .editorjs-wrap .ql-container.ql-snow {
+            border: none;
+            background: var(--surface);
+            min-height: 380px;
+            font-size: .95rem;
             color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
-        .editorjs-wrap .cdx-quote__text,
-        .editorjs-wrap .cdx-quote__caption {
-            color: var(--text) !important;
+        .editorjs-wrap .ql-editor {
+            padding: 1.25rem;
+            min-height: 380px;
         }
-        .editorjs-wrap .cdx-quote__text {
-            border-left: 3px solid var(--gold) !important;
+        .editorjs-wrap .ql-editor.ql-blank::before {
+            color: var(--text-3);
+            font-style: normal;
+            left: 1.25rem;
         }
-        .editorjs-wrap table td,
-        .editorjs-wrap table th {
+        /* Toolbar icons/buttons recolor for dark mode */
+        .editorjs-wrap .ql-snow .ql-stroke { stroke: var(--text-2); }
+        .editorjs-wrap .ql-snow .ql-fill,
+        .editorjs-wrap .ql-snow .ql-stroke.ql-fill { fill: var(--text-2); }
+        .editorjs-wrap .ql-snow .ql-picker { color: var(--text-2); }
+        .editorjs-wrap .ql-snow .ql-picker-options {
+            background: var(--surface-2);
             border: 1px solid var(--border-2) !important;
-            color: var(--text) !important;
+            box-shadow: var(--shadow);
         }
-        .editorjs-wrap .tc-table {
-            border-color: var(--border-2) !important;
+        .editorjs-wrap .ql-snow .ql-picker-item:hover,
+        .editorjs-wrap .ql-snow .ql-picker-label:hover {
+            color: var(--gold) !important;
         }
-        .editorjs-wrap .image-tool__caption {
-            color: var(--text-3) !important;
+        .editorjs-wrap .ql-snow .ql-picker-label:hover .ql-stroke,
+        .editorjs-wrap .ql-snow .ql-picker-item:hover .ql-stroke {
+            stroke: var(--gold) !important;
         }
-        .editorjs-wrap .cdx-warning {
-            background: rgba(240,192,64,.06) !important;
-            border-color: var(--gold-dim) !important;
+        .editorjs-wrap .ql-snow.ql-toolbar button:hover .ql-stroke,
+        .editorjs-wrap .ql-snow.ql-toolbar button.ql-active .ql-stroke,
+        .editorjs-wrap .ql-snow.ql-toolbar button:hover .ql-fill,
+        .editorjs-wrap .ql-snow.ql-toolbar button.ql-active .ql-fill {
+            stroke: var(--gold) !important;
+            fill: var(--gold) !important;
         }
-        .editorjs-wrap .cdx-warning__title,
-        .editorjs-wrap .cdx-warning__message {
-            color: var(--text) !important;
+        .editorjs-wrap .ql-snow.ql-toolbar button:hover,
+        .editorjs-wrap .ql-snow.ql-toolbar button.ql-active {
+            color: var(--gold) !important;
         }
-        .editorjs-wrap .ce-code__textarea {
+        /* Content element colors */
+        .editorjs-wrap .ql-editor h1, .editorjs-wrap .ql-editor h2, .editorjs-wrap .ql-editor h3 { color: var(--text); }
+        .editorjs-wrap .ql-editor p, .editorjs-wrap .ql-editor li { color: var(--text); }
+        .editorjs-wrap .ql-editor blockquote {
+            border-left: 3px solid var(--gold);
+            color: var(--text-2);
+            background: rgba(255,255,255,.02);
+            padding: .5rem 1rem;
+            border-radius: 0 6px 6px 0;
+        }
+        .editorjs-wrap .ql-editor pre.ql-syntax {
             background: var(--surface-3) !important;
             color: #a8ff78 !important;
-            border-color: var(--border) !important;
+            border-radius: var(--radius);
         }
-        .editorjs-wrap [contenteditable=true]:empty:before {
-            color: var(--text-3) !important;
+        .editorjs-wrap .ql-editor a { color: var(--blue); }
+        .editorjs-wrap .ql-editor img {
+            max-width: 100%;
+            border-radius: 6px;
+        }
+        .editorjs-wrap .ql-editor .ql-video {
+            width: 100%;
+            aspect-ratio: 16/9;
+            height: auto;
+            border-radius: 6px;
+        }
+        /* Embed cards (Instagram/TikTok) inserted as raw HTML */
+        .editorjs-wrap .ql-editor .embed-card {
+            margin: .75rem 0;
+            text-align: center;
+        }
+        .editorjs-wrap .ql-editor .embed-card iframe,
+        .editorjs-wrap .ql-editor .embed-card blockquote {
+            max-width: 100%;
+            margin: 0 auto;
         }
 
-        /* ── Editor.js mobile fixes ──────────────────── */
+        /* ── Mobile fixes for Quill ──────────────────── */
         @media (max-width: 700px) {
-            .editorjs-wrap {
-                overflow-x: hidden;
+            .editorjs-wrap .ql-toolbar.ql-snow {
+                padding: .5rem .6rem;
             }
-            .editorjs-wrap .codex-editor {
-                padding: .5rem 0;
+            .editorjs-wrap .ql-snow.ql-toolbar button {
+                width: 26px; height: 26px; padding: 2px;
             }
-            .editorjs-wrap .ce-block__content,
-            .editorjs-wrap .ce-toolbar__content {
-                padding: 0 .75rem;
-                max-width: calc(100% - 40px) !important;
-                margin-left: 40px !important;
+            .editorjs-wrap .ql-toolbar .ql-formats {
+                margin-right: 6px;
             }
-            /* Plus / settings buttons sit in the freed-up left gutter
-               instead of being pushed off-screen by negative margins */
-            .editorjs-wrap .ce-toolbar__plus {
-                left: 0 !important;
-                transform: none !important;
+            .editorjs-wrap .ql-editor {
+                padding: .9rem;
+                font-size: .9rem;
             }
-            .editorjs-wrap .ce-toolbar__actions {
-                right: auto !important;
-                left: 0 !important;
-                transform: translateX(0) !important;
-                margin-left: 0 !important;
-            }
-            .editorjs-wrap .ce-toolbar__plus,
-            .editorjs-wrap .ce-toolbar__settings-btn {
-                width: 28px; height: 28px;
-            }
-            .editorjs-wrap .ce-popover,
-            .editorjs-wrap .ce-popover--inline {
-                max-width: calc(100vw - 2rem) !important;
+            .editorjs-wrap .ql-snow .ql-picker-options {
+                max-width: calc(100vw - 2rem);
             }
         }
 
@@ -1343,10 +1330,10 @@
                                     <button class="embed-btn" id="embedYT">▶️ YouTube</button>
                                     <button class="embed-btn" id="embedIG">📷 Instagram</button>
                                     <button class="embed-btn" id="embedTT">🎵 TikTok</button>
-                                    <button class="embed-btn" id="embedImg">🖼️ Image (URL)</button>
+                                    <button class="embed-btn" id="embedImg">🖼️ Image</button>
                                     <button class="embed-btn" id="embedGallery">📂 Gallery</button>
                                 </div>
-                                <div id="editorjs" class="editorjs-wrap" style="padding:.5rem 0;"></div>
+                                <div id="editorjs" class="editorjs-wrap"></div>
                             </div>
                         </div>
 
@@ -1408,7 +1395,7 @@
             document.getElementById('cancelPostBtn').onclick = () => {
                 document.getElementById('blogFormWrap').style.display = 'none';
                 document.getElementById('blogListWrap').style.display = 'block';
-                if (editorInstance) { editorInstance.destroy(); editorInstance = null; }
+                if (editorInstance) { document.getElementById('editorjs').innerHTML = ''; editorInstance = null; }
             };
             document.getElementById('savePostBtn').onclick = savePost;
             document.querySelectorAll('.editPostBtn').forEach(b => b.onclick = async () => {
@@ -1426,7 +1413,7 @@
             document.getElementById('embedYT').onclick = () => insertEmbed('youtube');
             document.getElementById('embedIG').onclick = () => insertEmbed('instagram');
             document.getElementById('embedTT').onclick = () => insertEmbed('tiktok');
-            document.getElementById('embedImg').onclick = () => insertEmbedImage();
+            document.getElementById('embedImg').onclick = () => quillImageHandler();
             document.getElementById('embedGallery').onclick = () => openGalleryPicker();
 
             // Cover image: upload from device
@@ -1513,99 +1500,40 @@
                 document.getElementById('coverPreview').style.display = 'none';
             }
 
-            // Parse saved EditorJS data or convert old HTML
-            let editorData = null;
-            if (post?.content) {
-                try { editorData = JSON.parse(post.content); } catch(e) {
-                    // Legacy HTML — wrap as paragraph blocks
-                    editorData = {
-                        blocks: [{ type: 'paragraph', data: { text: post.content } }]
-                    };
-                }
-            }
+            // Content is stored as raw HTML (Quill)
+            const contentHtml = post?.content || '';
 
             // Destroy existing instance
-            if (editorInstance) { editorInstance.destroy(); editorInstance = null; }
+            if (editorInstance) { document.getElementById('editorjs').innerHTML = ''; editorInstance = null; }
 
-            // Init Editor.js
+            // Init Quill
             setTimeout(() => {
-                editorInstance = new EditorJS({
-                    holder: 'editorjs',
-                    data: editorData || {},
+                editorInstance = new Quill('#editorjs', {
+                    theme: 'snow',
                     placeholder: 'Start writing your post…',
-                    tools: {
-                        header: { class: Header, inlineToolbar: true, config: { levels: [1,2,3,4], defaultLevel: 2 } },
-                        paragraph: { class: Paragraph, inlineToolbar: true },
-                        list: { class: List, inlineToolbar: true, config: { defaultStyle: 'unordered' } },
-                        quote: { class: Quote, inlineToolbar: true },
-                        table: { class: Table, inlineToolbar: true },
-                        image: {
-                            class: ImageTool,
-                            config: {
-                                uploader: {
-                                    async uploadByFile(file) {
-                                        const name = Date.now() + '_' + file.name.replace(/\s+/g,'_');
-                                        const { error } = await supabase.storage.from('media').upload(name, file);
-                                        if (error) return { success:0 };
-                                        const { data: { publicUrl } } = supabase.storage.from('media').getPublicUrl(name);
-                                        return { success:1, file: { url: publicUrl } };
-                                    },
-                                    async uploadByUrl(url) {
-                                        return { success:1, file: { url } };
-                                    }
-                                }
-                            }
-                        },
-                        embed: {
-                            class: Embed,
-                            config: {
-                                services: {
-                                    youtube: true,
-                                    instagram: {
-                                        regex: /https?:\/\/(?:www\.)?instagram\.com\/(?:p|reel|tv)\/([^/?#&]+)/,
-                                        embedUrl: 'https://www.instagram.com/p/<%= remote_id %>/embed',
-                                        html: '<blockquote class="instagram-media" data-instgrm-permalink="<%= url %>" data-instgrm-version="14" style="margin:0 auto; max-width:540px; width:100%;"></blockquote><script async src="https://www.instagram.com/embed.js"><\/script>',
-                                        height: 680,
-                                        width: 400,
-                                        id: (groups) => groups[1]
-                                    },
-                                    twitter: true,
-                                    tiktok: {
-                                        regex: /https?:\/\/(www\.)?tiktok\.com\/@[^/]+\/video\/(\d+)/,
-                                        embedUrl: 'https://www.tiktok.com/embed/v2/<%= remote_id %>',
-                                        html: '<blockquote class="tiktok-embed" cite="<%= url %>" data-video-id="<%= remote_id %>" style="max-width:605px;min-width:325px;"><section></section></blockquote><script async src="https://www.tiktok.com/embed.js"><\/script>',
-                                        height: 740,
-                                        width: 340,
-                                        id: (groups) => groups[2]
-                                    },
-                                    vimeo: true,
-                                    codepen: true,
-                                    imgur: true,
-                                    gfycat: true,
-                                    miro: true
-                                }
-                            }
-                        },
-                        delimiter: Delimiter,
-                        code: CodeTool,
-                        marker: Marker,
-                        inlineCode: InlineCode,
-                        warning: Warning
-                    },
-                    onChange: async () => {
-                        // Re-trigger Instagram/TikTok embed scripts for dynamically inserted blocks
-                        if (window.instgrm?.Embeds?.process) window.instgrm.Embeds.process();
-                        if (window.tiktokEmbed?.lib?.render) window.tiktokEmbed.lib.render();
-                        // Auto-update excerpt from first paragraph
-                        try {
-                            const saved = await editorInstance.save();
-                            const firstPara = saved.blocks?.find(b => b.type === 'paragraph');
-                            if (firstPara && !document.getElementById('postExcerpt').dataset.manual) {
-                                const text = firstPara.data.text.replace(/<[^>]+>/g,'');
-                                const words = text.trim().split(/\s+/).slice(0, 50).join(' ');
-                                document.getElementById('postExcerpt').value = words + (text.split(/\s+/).length > 50 ? '…' : '');
-                            }
-                        } catch(e) {}
+                    modules: {
+                        toolbar: {
+                            container: [
+                                [{ 'header': [1, 2, 3, false] }],
+                                ['bold', 'italic', 'underline', 'strike'],
+                                ['blockquote', 'code-block'],
+                                [{ 'color': [] }, { 'background': [] }],
+                                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                                [{ 'align': [] }],
+                                ['link', 'image', 'video'],
+                                ['clean']
+                            ],
+                            handlers: { image: quillImageHandler }
+                        }
+                    }
+                });
+                editorInstance.root.innerHTML = contentHtml;
+
+                editorInstance.on('text-change', () => {
+                    if (!document.getElementById('postExcerpt').dataset.manual) {
+                        const text = editorInstance.getText().trim();
+                        const words = text.split(/\s+/).slice(0, 50).join(' ');
+                        document.getElementById('postExcerpt').value = words + (text.split(/\s+/).length > 50 ? '…' : '');
                     }
                 });
                 document.getElementById('postExcerpt').addEventListener('input', function() {
@@ -1618,13 +1546,7 @@
             const title = document.getElementById('postTitle').value.trim();
             if (!title) { toast('Title is required', 'error'); return; }
 
-            let contentJson = '{}';
-            if (editorInstance) {
-                try {
-                    const saved = await editorInstance.save();
-                    contentJson = JSON.stringify(saved);
-                } catch(e) {}
-            }
+            const contentHtml = editorInstance ? editorInstance.root.innerHTML : '';
 
             const id = document.getElementById('editPostId').value;
             const post = {
@@ -1634,7 +1556,7 @@
                 tags: document.getElementById('postTags').value.split(',').map(s=>s.trim()).filter(Boolean),
                 cover_image: document.getElementById('postCover').value,
                 excerpt: document.getElementById('postExcerpt').value,
-                content: contentJson,
+                content: contentHtml,
                 status: document.getElementById('postStatus').value,
                 featured: document.getElementById('postFeatured').checked
             };
@@ -1648,28 +1570,14 @@
                 if (error) { toast('Error: ' + error.message, 'error'); return; }
                 toast('Post created ✓');
             }
-            if (editorInstance) { editorInstance.destroy(); editorInstance = null; }
+            if (editorInstance) { document.getElementById('editorjs').innerHTML = ''; editorInstance = null; }
             renderBlog();
         }
 
-        // Insert embed via Editor.js API
-        async function insertEmbed(type) {
+        // Quill image handler: hybrid upload from device OR insert from URL
+        function quillImageHandler() {
             if (!editorInstance) return;
-            let url = '';
-            if (type === 'youtube') url = prompt('YouTube URL:', 'https://www.youtube.com/watch?v=');
-            else if (type === 'instagram') url = prompt('Instagram post URL:', 'https://www.instagram.com/p/');
-            else if (type === 'tiktok') url = prompt('TikTok video URL:', 'https://www.tiktok.com/@user/video/');
-            if (!url) return;
-            try {
-                await editorInstance.blocks.insert('embed', { service: type, source: url, embed: url, width: 560, height: 315, caption: '' });
-                toast(`${type} embedded`);
-            } catch(e) {
-                toast('Could not embed. Try pasting the URL directly in the editor.', 'info');
-            }
-        }
-
-        async function insertEmbedImage() {
-            if (!editorInstance) return;
+            const range = editorInstance.getSelection(true);
             const modal = document.createElement('div');
             modal.className = 'modal-overlay open';
             modal.innerHTML = `
@@ -1688,10 +1596,7 @@
                             <label>Image URL</label>
                             <input id="eiUrl" placeholder="https://…">
                         </div>
-                        <div class="field">
-                            <label>Caption (optional)</label>
-                            <input id="eiCaption" placeholder="Caption">
-                        </div>
+                        <button type="button" class="btn btn-secondary" id="eiGalleryBtn">📂 Pick from Gallery</button>
                         <button type="button" class="btn btn-primary" id="eiInsertUrl">Insert from URL</button>
                     </div>
                 </div>
@@ -1709,29 +1614,86 @@
                 const { error } = await supabase.storage.from('gallery').upload(name, file);
                 if (error) { toast('Upload failed: ' + error.message, 'error'); return; }
                 const { data: { publicUrl } } = supabase.storage.from('gallery').getPublicUrl(name);
-                const caption = document.getElementById('eiCaption').value || '';
-                try {
-                    await editorInstance.blocks.insert('image', { file: { url: publicUrl }, caption, withBorder: false, withBackground: false, stretched: false });
-                    toast('Image inserted');
-                } catch(err) { toast('Could not insert image', 'error'); }
+                editorInstance.insertEmbed(range.index, 'image', publicUrl, 'user');
+                editorInstance.setSelection(range.index + 1);
+                toast('Image inserted');
                 modal.remove();
             };
 
-            document.getElementById('eiInsertUrl').onclick = async () => {
+            document.getElementById('eiInsertUrl').onclick = () => {
                 const url = document.getElementById('eiUrl').value.trim();
                 if (!url) { toast('Enter an image URL', 'error'); return; }
-                const caption = document.getElementById('eiCaption').value || '';
-                try {
-                    await editorInstance.blocks.insert('image', { file: { url }, caption, withBorder: false, withBackground: false, stretched: false });
-                    toast('Image inserted');
-                } catch(err) { toast('Could not insert image', 'error'); }
+                editorInstance.insertEmbed(range.index, 'image', url, 'user');
+                editorInstance.setSelection(range.index + 1);
+                toast('Image inserted');
                 modal.remove();
+            };
+
+            document.getElementById('eiGalleryBtn').onclick = () => {
+                modal.remove();
+                openGalleryPicker(range);
             };
         }
 
-        // Gallery picker modal
-        async function openGalleryPicker() {
+        // Insert embed (YouTube/Instagram/TikTok) as raw HTML block
+        async function insertEmbed(type) {
             if (!editorInstance) return;
+            let url = '';
+            if (type === 'youtube') url = prompt('YouTube URL:', 'https://www.youtube.com/watch?v=');
+            else if (type === 'instagram') url = prompt('Instagram post URL:', 'https://www.instagram.com/p/');
+            else if (type === 'tiktok') url = prompt('TikTok video URL:', 'https://www.tiktok.com/@user/video/');
+            if (!url) return;
+
+            const range = editorInstance.getSelection(true) || { index: editorInstance.getLength() };
+            let embedHtml = '';
+
+            if (type === 'youtube') {
+                const m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([^"&?\/\s]+)/);
+                if (!m) { toast('Invalid YouTube URL', 'error'); return; }
+                editorInstance.insertEmbed(range.index, 'video', `https://www.youtube.com/embed/${m[1]}`, 'user');
+                editorInstance.setSelection(range.index + 1);
+                toast('YouTube embedded');
+                return;
+            } else if (type === 'instagram') {
+                const m = url.match(/instagram\.com\/(?:p|reel|tv)\/([^/?#&]+)/);
+                if (!m) { toast('Invalid Instagram URL', 'error'); return; }
+                embedHtml = `<div class="embed-card"><blockquote class="instagram-media" data-instgrm-permalink="${url}" data-instgrm-version="14" style="margin:0 auto; max-width:540px; width:100%;"></blockquote></div>`;
+            } else if (type === 'tiktok') {
+                const m = url.match(/tiktok\.com\/@[^/]+\/video\/(\d+)/);
+                if (!m) { toast('Invalid TikTok URL', 'error'); return; }
+                embedHtml = `<div class="embed-card"><blockquote class="tiktok-embed" cite="${url}" data-video-id="${m[1]}" style="max-width:605px;min-width:325px; margin:0 auto;"><section></section></blockquote></div>`;
+            }
+
+            editorInstance.clipboard.dangerouslyPasteHTML(range.index, embedHtml + '<p><br></p>');
+            toast(`${type} embedded`);
+            loadEmbedScripts();
+        }
+
+        // Load/re-trigger Instagram & TikTok embed scripts
+        function loadEmbedScripts() {
+            setTimeout(() => {
+                if (!window.instgrm) {
+                    const s = document.createElement('script');
+                    s.src = 'https://www.instagram.com/embed.js';
+                    s.async = true;
+                    document.body.appendChild(s);
+                } else if (window.instgrm.Embeds?.process) {
+                    window.instgrm.Embeds.process();
+                }
+                if (!window.__tiktokEmbedLoaded) {
+                    const s2 = document.createElement('script');
+                    s2.src = 'https://www.tiktok.com/embed.js';
+                    s2.async = true;
+                    document.body.appendChild(s2);
+                    window.__tiktokEmbedLoaded = true;
+                }
+            }, 100);
+        }
+
+        // Gallery picker modal — insert chosen image into Quill at given range
+        async function openGalleryPicker(range) {
+            if (!editorInstance) return;
+            range = range || editorInstance.getSelection(true) || { index: editorInstance.getLength() };
             const { data: imgs } = await supabase.from('gallery').select('*').order('created_at', { ascending: false }).limit(40);
             const modal = document.createElement('div');
             modal.className = 'modal-overlay open';
@@ -1745,7 +1707,7 @@
                         <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:.75rem; max-height:380px; overflow-y:auto;">
                             ${(imgs||[]).map(img => `
                                 <div style="cursor:pointer; border:1px solid var(--border); border-radius:8px; overflow:hidden; transition:border-color .15s;"
-                                    class="gallery-picker-item" data-url="${escapeHtml(img.image_url)}" data-caption="${escapeHtml(img.caption||'')}">
+                                    class="gallery-picker-item" data-url="${escapeHtml(img.image_url)}">
                                     <img src="${escapeHtml(img.image_url)}" style="width:100%; aspect-ratio:4/3; object-fit:cover; display:block;">
                                     <div style="padding:.4rem .5rem; font-size:.72rem; color:var(--text-3);">${escapeHtml(img.caption || 'No caption')}</div>
                                 </div>
@@ -1760,15 +1722,10 @@
             modal.querySelectorAll('.gallery-picker-item').forEach(item => {
                 item.addEventListener('mouseenter', () => item.style.borderColor = 'var(--gold-dim)');
                 item.addEventListener('mouseleave', () => item.style.borderColor = 'var(--border)');
-                item.onclick = async () => {
-                    try {
-                        await editorInstance.blocks.insert('image', {
-                            file: { url: item.dataset.url },
-                            caption: item.dataset.caption,
-                            withBorder: false, withBackground: false, stretched: false
-                        });
-                        toast('Image inserted from gallery');
-                    } catch(e) {}
+                item.onclick = () => {
+                    editorInstance.insertEmbed(range.index, 'image', item.dataset.url, 'user');
+                    editorInstance.setSelection(range.index + 1);
+                    toast('Image inserted from gallery');
                     modal.remove();
                 };
             });
