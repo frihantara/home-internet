@@ -679,16 +679,6 @@
             height: auto;
             border-radius: 6px;
         }
-        /* Embed cards (Instagram/TikTok) inserted as raw HTML */
-        .editorjs-wrap .ql-editor .embed-card {
-            margin: .75rem 0;
-            text-align: center;
-        }
-        .editorjs-wrap .ql-editor .embed-card iframe,
-        .editorjs-wrap .ql-editor .embed-card blockquote {
-            max-width: 100%;
-            margin: 0 auto;
-        }
 
         /* ── Mobile fixes for Quill ──────────────────── */
         @media (max-width: 700px) {
@@ -708,43 +698,6 @@
             .editorjs-wrap .ql-snow .ql-picker-options {
                 max-width: calc(100vw - 2rem);
             }
-        }
-
-        /* Toolbar for embed quick-insert */
-        .embed-toolbar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: .4rem;
-            padding: .75rem 1.25rem;
-            border-bottom: 1px solid var(--border);
-            background: var(--surface-2);
-        }
-        .embed-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: .3rem;
-            padding: .3rem .65rem;
-            border-radius: var(--radius);
-            font-size: .75rem;
-            font-weight: 500;
-            background: var(--surface-3);
-            border: 1px solid var(--border);
-            color: var(--text-2);
-            cursor: pointer;
-            transition: all var(--transition);
-        }
-        .embed-btn:hover {
-            background: var(--border-2);
-            color: var(--text);
-        }
-        @media (max-width: 700px) {
-            .embed-toolbar {
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                padding: .6rem .75rem;
-            }
-            .embed-btn { flex-shrink: 0; }
         }
 
         /* ── Gallery grid ──────────────────────────── */
@@ -1325,14 +1278,6 @@
 
                             <!-- Canvas editor -->
                             <div class="panel" style="overflow:hidden;">
-                                <div class="embed-toolbar">
-                                    <span style="font-size:.72rem; color:var(--text-3); margin-right:.25rem; align-self:center;">Quick embed:</span>
-                                    <button class="embed-btn" id="embedYT">▶️ YouTube</button>
-                                    <button class="embed-btn" id="embedIG">📷 Instagram</button>
-                                    <button class="embed-btn" id="embedTT">🎵 TikTok</button>
-                                    <button class="embed-btn" id="embedImg">🖼️ Image</button>
-                                    <button class="embed-btn" id="embedGallery">📂 Gallery</button>
-                                </div>
                                 <div id="editorjs" class="editorjs-wrap"></div>
                             </div>
                         </div>
@@ -1408,13 +1353,6 @@
                     toast('Post deleted'); renderBlog();
                 }
             });
-
-            // Embed toolbar buttons
-            document.getElementById('embedYT').onclick = () => insertEmbed('youtube');
-            document.getElementById('embedIG').onclick = () => insertEmbed('instagram');
-            document.getElementById('embedTT').onclick = () => insertEmbed('tiktok');
-            document.getElementById('embedImg').onclick = () => quillImageHandler();
-            document.getElementById('embedGallery').onclick = () => openGalleryPicker();
 
             // Cover image: upload from device
             document.getElementById('coverUploadBtn').onclick = () => document.getElementById('coverFileInput').click();
@@ -1633,61 +1571,6 @@
                 modal.remove();
                 openGalleryPicker(range);
             };
-        }
-
-        // Insert embed (YouTube/Instagram/TikTok) as raw HTML block
-        async function insertEmbed(type) {
-            if (!editorInstance) return;
-            let url = '';
-            if (type === 'youtube') url = prompt('YouTube URL:', 'https://www.youtube.com/watch?v=');
-            else if (type === 'instagram') url = prompt('Instagram post URL:', 'https://www.instagram.com/p/');
-            else if (type === 'tiktok') url = prompt('TikTok video URL:', 'https://www.tiktok.com/@user/video/');
-            if (!url) return;
-
-            const range = editorInstance.getSelection(true) || { index: editorInstance.getLength() };
-            let embedHtml = '';
-
-            if (type === 'youtube') {
-                const m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([^"&?\/\s]+)/);
-                if (!m) { toast('Invalid YouTube URL', 'error'); return; }
-                editorInstance.insertEmbed(range.index, 'video', `https://www.youtube.com/embed/${m[1]}`, 'user');
-                editorInstance.setSelection(range.index + 1);
-                toast('YouTube embedded');
-                return;
-            } else if (type === 'instagram') {
-                const m = url.match(/instagram\.com\/(?:p|reel|tv)\/([^/?#&]+)/);
-                if (!m) { toast('Invalid Instagram URL', 'error'); return; }
-                embedHtml = `<div class="embed-card"><blockquote class="instagram-media" data-instgrm-permalink="${url}" data-instgrm-version="14" style="margin:0 auto; max-width:540px; width:100%;"></blockquote></div>`;
-            } else if (type === 'tiktok') {
-                const m = url.match(/tiktok\.com\/@[^/]+\/video\/(\d+)/);
-                if (!m) { toast('Invalid TikTok URL', 'error'); return; }
-                embedHtml = `<div class="embed-card"><blockquote class="tiktok-embed" cite="${url}" data-video-id="${m[1]}" style="max-width:605px;min-width:325px; margin:0 auto;"><section></section></blockquote></div>`;
-            }
-
-            editorInstance.clipboard.dangerouslyPasteHTML(range.index, embedHtml + '<p><br></p>');
-            toast(`${type} embedded`);
-            loadEmbedScripts();
-        }
-
-        // Load/re-trigger Instagram & TikTok embed scripts
-        function loadEmbedScripts() {
-            setTimeout(() => {
-                if (!window.instgrm) {
-                    const s = document.createElement('script');
-                    s.src = 'https://www.instagram.com/embed.js';
-                    s.async = true;
-                    document.body.appendChild(s);
-                } else if (window.instgrm.Embeds?.process) {
-                    window.instgrm.Embeds.process();
-                }
-                if (!window.__tiktokEmbedLoaded) {
-                    const s2 = document.createElement('script');
-                    s2.src = 'https://www.tiktok.com/embed.js';
-                    s2.async = true;
-                    document.body.appendChild(s2);
-                    window.__tiktokEmbedLoaded = true;
-                }
-            }, 100);
         }
 
         // Gallery picker modal — insert chosen image into Quill at given range
