@@ -690,6 +690,42 @@
             color: var(--text-3) !important;
         }
 
+        /* ── Editor.js mobile fixes ──────────────────── */
+        @media (max-width: 700px) {
+            .editorjs-wrap {
+                overflow-x: hidden;
+            }
+            .editorjs-wrap .codex-editor {
+                padding: .5rem 0;
+            }
+            .editorjs-wrap .ce-block__content,
+            .editorjs-wrap .ce-toolbar__content {
+                padding: 0 .75rem;
+                max-width: calc(100% - 40px) !important;
+                margin-left: 40px !important;
+            }
+            /* Plus / settings buttons sit in the freed-up left gutter
+               instead of being pushed off-screen by negative margins */
+            .editorjs-wrap .ce-toolbar__plus {
+                left: 0 !important;
+                transform: none !important;
+            }
+            .editorjs-wrap .ce-toolbar__actions {
+                right: auto !important;
+                left: 0 !important;
+                transform: translateX(0) !important;
+                margin-left: 0 !important;
+            }
+            .editorjs-wrap .ce-toolbar__plus,
+            .editorjs-wrap .ce-toolbar__settings-btn {
+                width: 28px; height: 28px;
+            }
+            .editorjs-wrap .ce-popover,
+            .editorjs-wrap .ce-popover--inline {
+                max-width: calc(100vw - 2rem) !important;
+            }
+        }
+
         /* Toolbar for embed quick-insert */
         .embed-toolbar {
             display: flex;
@@ -716,6 +752,15 @@
         .embed-btn:hover {
             background: var(--border-2);
             color: var(--text);
+        }
+        @media (max-width: 700px) {
+            .embed-toolbar {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                padding: .6rem .75rem;
+            }
+            .embed-btn { flex-shrink: 0; }
         }
 
         /* ── Gallery grid ──────────────────────────── */
@@ -1341,8 +1386,13 @@
                                         <input id="postTags" placeholder="tag1, tag2">
                                     </div>
                                     <div class="field">
-                                        <label>Cover Image URL</label>
+                                        <label>Cover Image</label>
                                         <input id="postCover" placeholder="https://…" oninput="previewCover(this.value)">
+                                        <div style="display:flex; gap:.4rem; margin-top:.4rem;">
+                                            <button type="button" class="btn btn-secondary btn-sm" id="coverUploadBtn" style="flex:1;">📤 Upload from device</button>
+                                            <button type="button" class="btn btn-secondary btn-sm" id="coverGalleryBtn" style="flex:1;">📂 From gallery</button>
+                                        </div>
+                                        <input type="file" id="coverFileInput" accept="image/*" style="display:none;">
                                         <img id="coverPreview" style="width:100%; border-radius:6px; margin-top:.4rem; display:none; max-height:120px; object-fit:cover;">
                                     </div>
                                     <div class="field">
@@ -1381,6 +1431,56 @@
             document.getElementById('embedTT').onclick = () => insertEmbed('tiktok');
             document.getElementById('embedImg').onclick = () => insertEmbedImage();
             document.getElementById('embedGallery').onclick = () => openGalleryPicker();
+
+            // Cover image: upload from device
+            document.getElementById('coverUploadBtn').onclick = () => document.getElementById('coverFileInput').click();
+            document.getElementById('coverFileInput').onchange = async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                toast('Uploading cover…', 'info');
+                const name = Date.now() + '_' + file.name.replace(/\s+/g,'_');
+                const { error } = await supabase.storage.from('gallery').upload(name, file);
+                if (error) { toast('Upload failed: ' + error.message, 'error'); return; }
+                const { data: { publicUrl } } = supabase.storage.from('gallery').getPublicUrl(name);
+                document.getElementById('postCover').value = publicUrl;
+                previewCover(publicUrl);
+                toast('Cover uploaded ✓');
+                e.target.value = '';
+            };
+            // Cover image: pick from gallery
+            document.getElementById('coverGalleryBtn').onclick = async () => {
+                const { data: imgs } = await supabase.from('gallery').select('*').order('created_at', { ascending: false }).limit(40);
+                const modal = document.createElement('div');
+                modal.className = 'modal-overlay open';
+                modal.innerHTML = `
+                    <div class="modal" style="max-width:640px;">
+                        <div class="modal-header">
+                            <span class="modal-title">📂 Choose Cover from Gallery</span>
+                            <button class="modal-close" id="cgpClose">✕</button>
+                        </div>
+                        <div class="modal-body">
+                            <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:.75rem; max-height:380px; overflow-y:auto;">
+                                ${(imgs||[]).map(img => `
+                                    <div style="cursor:pointer; border:1px solid var(--border); border-radius:8px; overflow:hidden;"
+                                        class="cover-gallery-item" data-url="${escapeHtml(img.image_url)}">
+                                        <img src="${escapeHtml(img.image_url)}" style="width:100%; aspect-ratio:4/3; object-fit:cover; display:block;">
+                                    </div>
+                                `).join('') || '<div style="color:var(--text-3); text-align:center; padding:2rem;">No images in gallery yet.</div>'}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+                document.getElementById('cgpClose').onclick = () => modal.remove();
+                modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+                modal.querySelectorAll('.cover-gallery-item').forEach(item => {
+                    item.onclick = () => {
+                        document.getElementById('postCover').value = item.dataset.url;
+                        previewCover(item.dataset.url);
+                        modal.remove();
+                    };
+                });
+            };
         }
 
         window.autoSlug = (val) => {
@@ -1464,7 +1564,14 @@
                             config: {
                                 services: {
                                     youtube: true,
-                                    instagram: true,
+                                    instagram: {
+                                        regex: /https?:\/\/(?:www\.)?instagram\.com\/(?:p|reel|tv)\/([^/?#&]+)/,
+                                        embedUrl: 'https://www.instagram.com/p/<%= remote_id %>/embed',
+                                        html: '<blockquote class="instagram-media" data-instgrm-permalink="<%= url %>" data-instgrm-version="14" style="margin:0 auto; max-width:540px; width:100%;"></blockquote><script async src="https://www.instagram.com/embed.js"><\/script>',
+                                        height: 680,
+                                        width: 400,
+                                        id: (groups) => groups[1]
+                                    },
                                     twitter: true,
                                     tiktok: {
                                         regex: /https?:\/\/(www\.)?tiktok\.com\/@[^/]+\/video\/(\d+)/,
@@ -1489,6 +1596,9 @@
                         warning: Warning
                     },
                     onChange: async () => {
+                        // Re-trigger Instagram/TikTok embed scripts for dynamically inserted blocks
+                        if (window.instgrm?.Embeds?.process) window.instgrm.Embeds.process();
+                        if (window.tiktokEmbed?.lib?.render) window.tiktokEmbed.lib.render();
                         // Auto-update excerpt from first paragraph
                         try {
                             const saved = await editorInstance.save();
@@ -1563,15 +1673,63 @@
 
         async function insertEmbedImage() {
             if (!editorInstance) return;
-            const url = prompt('Image URL:', 'https://');
-            if (!url) return;
-            const caption = prompt('Caption (optional):', '') || '';
-            try {
-                await editorInstance.blocks.insert('image', { file: { url }, caption, withBorder: false, withBackground: false, stretched: false });
-                toast('Image inserted');
-            } catch(e) {
-                toast('Could not insert image', 'error');
-            }
+            const modal = document.createElement('div');
+            modal.className = 'modal-overlay open';
+            modal.innerHTML = `
+                <div class="modal" style="max-width:480px;">
+                    <div class="modal-header">
+                        <span class="modal-title">🖼️ Insert Image</span>
+                        <button class="modal-close" id="eiClose">✕</button>
+                    </div>
+                    <div class="modal-body" style="display:flex; flex-direction:column; gap:.75rem;">
+                        <button type="button" class="btn btn-secondary" id="eiUploadBtn">📤 Upload from device</button>
+                        <input type="file" id="eiFileInput" accept="image/*" style="display:none;">
+                        <div style="display:flex; align-items:center; gap:.5rem; color:var(--text-3); font-size:.75rem;">
+                            <div style="flex:1; height:1px; background:var(--border);"></div>OR<div style="flex:1; height:1px; background:var(--border);"></div>
+                        </div>
+                        <div class="field">
+                            <label>Image URL</label>
+                            <input id="eiUrl" placeholder="https://…">
+                        </div>
+                        <div class="field">
+                            <label>Caption (optional)</label>
+                            <input id="eiCaption" placeholder="Caption">
+                        </div>
+                        <button type="button" class="btn btn-primary" id="eiInsertUrl">Insert from URL</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            document.getElementById('eiClose').onclick = () => modal.remove();
+            modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+
+            document.getElementById('eiUploadBtn').onclick = () => document.getElementById('eiFileInput').click();
+            document.getElementById('eiFileInput').onchange = async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                toast('Uploading image…', 'info');
+                const name = Date.now() + '_' + file.name.replace(/\s+/g,'_');
+                const { error } = await supabase.storage.from('gallery').upload(name, file);
+                if (error) { toast('Upload failed: ' + error.message, 'error'); return; }
+                const { data: { publicUrl } } = supabase.storage.from('gallery').getPublicUrl(name);
+                const caption = document.getElementById('eiCaption').value || '';
+                try {
+                    await editorInstance.blocks.insert('image', { file: { url: publicUrl }, caption, withBorder: false, withBackground: false, stretched: false });
+                    toast('Image inserted');
+                } catch(err) { toast('Could not insert image', 'error'); }
+                modal.remove();
+            };
+
+            document.getElementById('eiInsertUrl').onclick = async () => {
+                const url = document.getElementById('eiUrl').value.trim();
+                if (!url) { toast('Enter an image URL', 'error'); return; }
+                const caption = document.getElementById('eiCaption').value || '';
+                try {
+                    await editorInstance.blocks.insert('image', { file: { url }, caption, withBorder: false, withBackground: false, stretched: false });
+                    toast('Image inserted');
+                } catch(err) { toast('Could not insert image', 'error'); }
+                modal.remove();
+            };
         }
 
         // Gallery picker modal
