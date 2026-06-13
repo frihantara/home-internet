@@ -1348,10 +1348,11 @@
                 if (p) showPostForm(p);
             });
             document.querySelectorAll('.deletePostBtn').forEach(b => b.onclick = async () => {
-                if (confirm('Delete this post?')) {
-                    await supabase.from('posts').delete().eq('id', b.dataset.id);
-                    toast('Post deleted'); renderBlog();
-                }
+                if (!confirm('Delete this post? This action cannot be undone.')) return;
+                b.disabled = true; b.textContent = '…';
+                const { error } = await supabase.from('posts').delete().eq('id', b.dataset.id);
+                if (error) { toast('Delete failed: ' + error.message, 'error'); b.disabled = false; b.textContent = 'Delete'; return; }
+                toast('Post deleted ✓'); renderBlog();
             });
 
             // Cover image: upload from device
@@ -1728,9 +1729,11 @@
 
                 grid.querySelectorAll('.deleteGalleryBtn').forEach(btn => {
                     btn.onclick = async () => {
-                        if (!confirm('Delete this image?')) return;
-                        await supabase.from('gallery').delete().eq('id', btn.dataset.id);
-                        toast('Image deleted'); renderGallery();
+                        if (!confirm('Delete this image? This action cannot be undone.')) return;
+                        btn.disabled = true; btn.textContent = '…';
+                        const { error } = await supabase.from('gallery').delete().eq('id', btn.dataset.id);
+                        if (error) { toast('Delete failed: ' + error.message, 'error'); btn.disabled = false; btn.textContent = '🗑️'; return; }
+                        toast('Image deleted ✓'); renderGallery();
                     };
                 });
             }
@@ -1900,9 +1903,11 @@
             });
             document.querySelectorAll('.del' + prefix.charAt(0).toUpperCase() + prefix.slice(1) + 'Btn').forEach(b => {
                 b.onclick = async () => {
-                    if (!confirm('Delete?')) return;
-                    await supabase.from(table).delete().eq('id', b.dataset.id);
-                    toast('Deleted'); rerender();
+                    if (!confirm('Delete this item? This action cannot be undone.')) return;
+                    b.disabled = true; b.textContent = '…';
+                    const { error } = await supabase.from(table).delete().eq('id', b.dataset.id);
+                    if (error) { toast('Delete failed: ' + error.message, 'error'); b.disabled = false; b.textContent = 'Delete'; return; }
+                    toast('Deleted ✓'); rerender();
                 };
             });
             document.getElementById('save' + prefix.charAt(0).toUpperCase() + prefix.slice(1) + 'Btn').onclick = async () => {
@@ -2070,9 +2075,11 @@
                     if (item) showWatchForm(item);
                 });
                 document.querySelectorAll('.delWatchBtn').forEach(b => b.onclick = async () => {
-                    if (!confirm('Delete?')) return;
-                    await supabase.from('watchlist').delete().eq('id', b.dataset.id);
-                    toast('Deleted'); renderWatchlist();
+                    if (!confirm('Delete this item? This action cannot be undone.')) return;
+                    b.disabled = true; b.textContent = '…';
+                    const { error } = await supabase.from('watchlist').delete().eq('id', b.dataset.id);
+                    if (error) { toast('Delete failed: ' + error.message, 'error'); b.disabled = false; b.textContent = 'Delete'; return; }
+                    toast('Deleted ✓'); renderWatchlist();
                 });
                 document.getElementById('saveWatchBtn').onclick = async () => {
                     const id = document.getElementById('watchId').value;
@@ -2178,9 +2185,11 @@
                 if (t) showThoughtForm(t);
             });
             document.querySelectorAll('.delThoughtBtn').forEach(b => b.onclick = async () => {
-                if (!confirm('Delete?')) return;
-                await supabase.from('thoughts').delete().eq('id', b.dataset.id);
-                toast('Deleted'); renderThoughts();
+                if (!confirm('Delete this thought? This action cannot be undone.')) return;
+                b.disabled = true; b.textContent = '…';
+                const { error } = await supabase.from('thoughts').delete().eq('id', b.dataset.id);
+                if (error) { toast('Delete failed: ' + error.message, 'error'); b.disabled = false; b.textContent = 'Delete'; return; }
+                toast('Deleted ✓'); renderThoughts();
             });
             document.getElementById('saveThoughtBtn').onclick = async () => {
                 const id = document.getElementById('thoughtId').value;
