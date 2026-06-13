@@ -19,9 +19,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@1.4.0/dist/marker.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@1.5.0/dist/inline-code.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@1.4.0/dist/warning.umd.min.js"></script>
+
     <style>
         /* ============================================================
-           FRIHANTARA STUDIO — Dark theme + MOBILE OPTIMIZED EDITOR
+           FRIHANTARA STUDIO — DARK THEME + MOBILE OPTIMIZED EDITOR
            ============================================================ */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -96,22 +97,16 @@
             font-size: 1rem;
             color: #000;
             font-weight: 700;
-            flex-shrink: 0;
         }
         .sidebar-brand-name {
             font-size: .95rem;
             font-weight: 600;
             color: var(--text);
-            letter-spacing: -.01em;
         }
-        .sidebar-brand-name span {
-            color: var(--gold);
-        }
+        .sidebar-brand-name span { color: var(--gold); }
         .sidebar-brand-badge {
             font-size: .6rem;
             text-transform: uppercase;
-            letter-spacing: .1em;
-            color: var(--text-3);
             background: var(--surface-2);
             padding: .15rem .4rem;
             border-radius: 99px;
@@ -125,19 +120,13 @@
             flex-direction: column;
             gap: .15rem;
         }
-
-        .sidebar-group {
-            margin-bottom: .5rem;
-        }
         .sidebar-group-label {
             font-size: .68rem;
             text-transform: uppercase;
             letter-spacing: .12em;
             color: var(--text-3);
             padding: .6rem .75rem .25rem;
-            font-weight: 600;
         }
-
         .sidebar-link {
             display: flex;
             align-items: center;
@@ -147,55 +136,32 @@
             font-size: .85rem;
             font-weight: 500;
             color: var(--text-2);
-            transition: background var(--transition), color var(--transition);
-            text-decoration: none;
+            transition: background var(--transition);
             cursor: pointer;
-            border: none;
             background: transparent;
+            border: none;
             width: 100%;
             text-align: left;
         }
-        .sidebar-link:hover {
-            background: var(--surface-2);
-            color: var(--text);
-        }
-        .sidebar-link.active {
-            background: var(--gold-glow);
-            color: var(--gold);
-        }
-        .sidebar-link .nav-icon {
-            font-size: 1rem;
-            width: 20px;
-            text-align: center;
-            flex-shrink: 0;
-        }
+        .sidebar-link:hover { background: var(--surface-2); color: var(--text); }
+        .sidebar-link.active { background: var(--gold-glow); color: var(--gold); }
         .sidebar-link .nav-badge {
             margin-left: auto;
             font-size: .65rem;
             background: var(--surface-3);
-            color: var(--text-3);
             padding: .1rem .4rem;
             border-radius: 99px;
-        }
-        .sidebar-link.active .nav-badge {
-            background: var(--gold-glow);
-            color: var(--gold);
         }
 
         .sidebar-footer {
             padding: 1rem .75rem;
             border-top: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            gap: .15rem;
         }
-
         .sidebar-overlay {
             display: none;
             position: fixed; inset: 0;
             background: rgba(0,0,0,.6);
             z-index: 99;
-            backdrop-filter: blur(2px);
         }
         .sidebar-overlay.open { display: block; }
 
@@ -204,8 +170,6 @@
             flex: 1;
             margin-left: var(--sidebar-w);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
         /* ── Topbar ──────────────────────────────────── */
@@ -221,74 +185,50 @@
             background: rgba(13,13,15,.85);
             backdrop-filter: blur(12px);
             z-index: 50;
-            gap: 1rem;
         }
-
-        .topbar-left {
-            display: flex;
-            align-items: center;
-            gap: .75rem;
-        }
+        .topbar-left { display: flex; align-items: center; gap: .75rem; }
         .topbar-menu-btn {
             display: none;
-            align-items: center; justify-content: center;
             width: 34px; height: 34px;
             border-radius: var(--radius);
-            border: none;
             background: transparent;
             color: var(--text-2);
+            border: none;
             cursor: pointer;
         }
         .topbar-menu-btn:hover { background: var(--surface-2); }
-        .topbar-breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: .4rem;
-            font-size: .85rem;
-        }
-        .topbar-breadcrumb-root, .topbar-breadcrumb-sep { color: var(--text-3); }
+        .topbar-breadcrumb { display: flex; gap: .4rem; font-size: .85rem; }
         .topbar-breadcrumb-current { color: var(--text); font-weight: 600; }
-        .topbar-right { display: flex; align-items: center; gap: .5rem; }
-        .topbar-btn {
-            display: flex; align-items: center; gap: .4rem;
-            height: 32px; padding: 0 .75rem;
-            border-radius: var(--radius);
-            border: 1px solid var(--border-2);
-            background: var(--surface-2);
-            color: var(--text-2);
-            font-size: .8rem;
-            font-weight: 500;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .topbar-btn:hover { background: var(--surface-3); color: var(--text); }
-        .topbar-btn.primary {
-            background: var(--gold);
-            color: #000;
-            border-color: transparent;
-            font-weight: 600;
-        }
+        .topbar-right { display: flex; gap: .5rem; }
 
         /* ── Content area ──────────────────────────────── */
         .studio-content {
-            flex: 1;
             padding: 2rem 1.75rem;
             max-width: 1400px;
             width: 100%;
         }
 
-        /* ── Common components (cards, tables, badges) ── */
+        /* ── Common styles ──────────────────────────────── */
         .page-header {
-            display: flex; align-items: flex-end; justify-content: space-between;
-            gap: 1rem; margin-bottom: 1.75rem; flex-wrap: wrap;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 1rem;
+            margin-bottom: 1.75rem;
+            flex-wrap: wrap;
         }
-        .page-header-left h1 { font-size: 1.6rem; font-weight: 700; letter-spacing: -.02em; }
-        .page-header-left p { font-size: .83rem; color: var(--text-3); margin-top: .3rem; }
+        .page-header-left h1 { font-size: 1.6rem; font-weight: 700; }
+        .page-header-left p { font-size: .83rem; color: var(--text-3); }
         .btn {
-            display: inline-flex; align-items: center; justify-content: center;
-            gap: .4rem; padding: .5rem 1rem; border-radius: var(--radius);
-            font-size: .85rem; font-weight: 600; cursor: pointer; border: none;
-            transition: all var(--transition); white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            padding: .5rem 1rem;
+            border-radius: var(--radius);
+            font-size: .85rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
         }
         .btn-primary { background: var(--gold); color: #000; }
         .btn-primary:hover { background: #f7d060; }
@@ -297,21 +237,41 @@
         .btn-danger { background: transparent; border: 1px solid rgba(240,96,96,.3); color: var(--red); }
         .btn-danger:hover { background: rgba(240,96,96,.1); }
         .btn-sm { padding: .3rem .65rem; font-size: .78rem; }
-        .badge { display: inline-flex; align-items: center; gap: .3rem; padding: .2rem .55rem; border-radius: 99px; font-size: .72rem; font-weight: 600; }
+
+        .table-container {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow-x: auto;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 500px;
+        }
+        .data-table th, .data-table td {
+            padding: .75rem 1.25rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        .data-table th {
+            font-size: .68rem;
+            text-transform: uppercase;
+            color: var(--text-3);
+            background: var(--surface-2);
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .3rem;
+            padding: .2rem .55rem;
+            border-radius: 99px;
+            font-size: .72rem;
+        }
         .badge-published { background: rgba(80,224,144,.1); color: var(--green); }
         .badge-draft { background: var(--surface-3); color: var(--text-3); }
-        .table-container { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow-x: auto; }
-        .data-table { width: 100%; border-collapse: collapse; min-width: 500px; }
-        .data-table th, .data-table td { padding: .75rem 1.25rem; text-align: left; border-bottom: 1px solid var(--border); }
-        .data-table th { font-size: .68rem; text-transform: uppercase; color: var(--text-3); background: var(--surface-2); }
-        .data-table td { color: var(--text-2); }
-        .empty-state { padding: 3rem 2rem; text-align: center; color: var(--text-3); background: var(--surface); border-radius: var(--radius-lg); }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
-        .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; position: relative; }
-        .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); opacity: .3; }
-        .stat-card-val { font-size: 2rem; font-weight: 700; }
 
-        /* ========== POST EDITOR LAYOUT + MOBILE FIXES ========== */
+        /* ========== POST EDITOR ========== */
         .post-editor-layout {
             display: grid;
             grid-template-columns: 1fr 300px;
@@ -321,7 +281,6 @@
         .post-editor-main { display: flex; flex-direction: column; gap: 1.25rem; }
         .post-editor-sidebar { display: flex; flex-direction: column; gap: 1.25rem; }
 
-        /* Wrapper editor JS - scroll internal di mobile */
         .editorjs-wrap {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -330,130 +289,54 @@
             overflow: auto;
             position: relative;
         }
-        .editorjs-wrap .codex-editor {
-            padding: .75rem 0;
-        }
-        .editorjs-wrap .ce-block__content,
-        .editorjs-wrap .ce-toolbar__content {
-            max-width: none !important;
-            padding: 0 1.25rem;
-        }
-
-        /* Embed toolbar STICKY saat scroll */
         .embed-toolbar {
             display: flex;
             flex-wrap: wrap;
-            gap: .4rem;
-            padding: .65rem 1.25rem;
+            gap: 0.5rem;
+            padding: 0.65rem 1.25rem;
             border-bottom: 1px solid var(--border);
             background: var(--surface-2);
             position: sticky;
-            top: 56px;  /* di bawah topbar */
+            top: 56px;
             z-index: 30;
         }
         .embed-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: .3rem;
             padding: 0.4rem 0.7rem;
             border-radius: var(--radius);
             font-size: .75rem;
-            font-weight: 500;
             background: var(--surface-3);
             border: 1px solid var(--border);
             color: var(--text-2);
             cursor: pointer;
-            transition: all var(--transition);
         }
-        .embed-btn:hover {
-            background: var(--border-2);
-            color: var(--text);
-        }
+        .embed-btn:hover { background: var(--border-2); color: var(--text); }
 
-        /* Toolbar Editor.js floating (bold, italic) — tetap dalam pandangan */
-        .ce-toolbar {
-            z-index: 31;
-        }
-        @media (max-width: 640px) {
-            .ce-toolbar__plus, .ce-toolbar__settings-btn {
-                width: 36px !important;
-                height: 36px !important;
-            }
-            .ce-toolbar__actions {
-                gap: 6px;
-            }
-        }
-
-        /* Mobile specific: 1 kolom, sidebar di bawah, toolbar sticky, editor scrollable */
-        @media (max-width: 960px) {
-            .post-editor-layout {
-                grid-template-columns: 1fr !important;
-                gap: 1rem;
-            }
-            .post-editor-sidebar {
-                order: 2;
-            }
-            .editorjs-wrap {
-                min-height: 55vh;
-                max-height: 70vh;
-                overflow-y: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-            .embed-toolbar {
-                top: 56px;
-                flex-wrap: wrap;
-            }
-            .studio-main {
-                margin-left: 0;
-            }
-            .studio-sidebar {
-                transform: translateX(-100%);
-            }
-            .studio-sidebar.open {
-                transform: none;
-            }
-            .topbar-menu-btn {
-                display: flex;
-            }
-            .studio-content {
-                padding: 1.25rem 1rem;
-            }
-            .page-header {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .page-header-actions {
-                justify-content: flex-start;
-            }
-            /* Input font size 16px agar tidak zoom di iOS */
-            input, textarea, select {
-                font-size: 16px !important;
-            }
-            #postTitle {
-                font-size: 1.3rem !important;
-            }
-        }
-
-        /* Additional dark editor overrides */
+        /* Editor.js dark overrides */
+        .editorjs-wrap .codex-editor { padding: .75rem 0; }
+        .editorjs-wrap .ce-block__content,
+        .editorjs-wrap .ce-toolbar__content { max-width: none !important; padding: 0 1.25rem; }
         .editorjs-wrap .ce-paragraph,
         .editorjs-wrap .ce-header,
-        .editorjs-wrap .cdx-input {
-            color: var(--text) !important;
-        }
+        .editorjs-wrap .cdx-input { color: var(--text) !important; }
         .editorjs-wrap .ce-toolbar__plus,
-        .editorjs-wrap .ce-toolbar__settings-btn {
-            color: var(--text-2) !important;
-            background: var(--surface-2) !important;
-        }
-        .editorjs-wrap .ce-popover {
-            background: var(--surface-2) !important;
-            border: 1px solid var(--border-2) !important;
-        }
-        .editorjs-wrap .cdx-block {
-            color: var(--text);
-        }
-        .editorjs-wrap .cdx-quote__text {
-            border-left: 3px solid var(--gold) !important;
+        .editorjs-wrap .ce-toolbar__settings-btn { color: var(--text-2) !important; background: var(--surface-2) !important; }
+        .editorjs-wrap .ce-popover { background: var(--surface-2) !important; border: 1px solid var(--border-2) !important; }
+        .editorjs-wrap .cdx-quote__text { border-left: 3px solid var(--gold) !important; }
+
+        /* Mobile specific */
+        @media (max-width: 960px) {
+            .studio-main { margin-left: 0; }
+            .studio-sidebar { transform: translateX(-100%); }
+            .studio-sidebar.open { transform: none; }
+            .topbar-menu-btn { display: flex; }
+            .studio-content { padding: 1.25rem 1rem; }
+            .post-editor-layout { grid-template-columns: 1fr !important; gap: 1rem; }
+            .post-editor-sidebar { order: 2; }
+            .editorjs-wrap { min-height: 55vh; max-height: 70vh; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+            .embed-toolbar { top: 56px; }
+            input, textarea, select { font-size: 16px !important; }
+            #postTitle { font-size: 1.3rem !important; }
+            .page-header { flex-direction: column; align-items: stretch; }
         }
     </style>
 </head>
@@ -466,23 +349,18 @@
                 <span class="sidebar-brand-badge">Studio</span>
             </div>
             <nav class="sidebar-nav">
-                <div class="sidebar-group">
-                    <div class="sidebar-group-label">Overview</div>
-                    <button class="sidebar-link active" data-section="dashboard"><span class="nav-icon">📊</span> Dashboard</button>
-                </div>
-                <div class="sidebar-group">
-                    <div class="sidebar-group-label">Content</div>
-                    <button class="sidebar-link" data-section="blog"><span class="nav-icon">📝</span> Blog <span class="nav-badge" id="navCount-blog">—</span></button>
-                    <button class="sidebar-link" data-section="gallery"><span class="nav-icon">🖼️</span> Gallery <span class="nav-badge" id="navCount-gallery">—</span></button>
-                    <button class="sidebar-link" data-section="football"><span class="nav-icon">⚽</span> Football Clubs</button>
-                    <button class="sidebar-link" data-section="f1"><span class="nav-icon">🏎️</span> F1 Drivers</button>
-                    <button class="sidebar-link" data-section="watchlist"><span class="nav-icon">🎬</span> Watchlist</button>
-                    <button class="sidebar-link" data-section="thoughts"><span class="nav-icon">💭</span> Thoughts</button>
-                </div>
+                <div class="sidebar-group-label">Overview</div>
+                <button class="sidebar-link active" data-section="dashboard"><span>📊</span> Dashboard</button>
+                <div class="sidebar-group-label">Content</div>
+                <button class="sidebar-link" data-section="blog"><span>📝</span> Blog <span class="nav-badge" id="navCount-blog">—</span></button>
+                <button class="sidebar-link" data-section="gallery"><span>🖼️</span> Gallery <span class="nav-badge" id="navCount-gallery">—</span></button>
+                <button class="sidebar-link" data-section="football"><span>⚽</span> Football Clubs</button>
+                <button class="sidebar-link" data-section="f1"><span>🏎️</span> F1 Drivers</button>
+                <button class="sidebar-link" data-section="watchlist"><span>🎬</span> Watchlist</button>
+                <button class="sidebar-link" data-section="thoughts"><span>💭</span> Thoughts</button>
             </nav>
             <div class="sidebar-footer">
-                <a class="sidebar-link" href="/" target="_blank"><span class="nav-icon">🌐</span> View Site</a>
-                <button class="sidebar-link" id="logoutBtn"><span class="nav-icon">🚪</span> Sign out</button>
+                <button class="sidebar-link" id="logoutBtn"><span>🚪</span> Sign out</button>
             </div>
         </aside>
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
@@ -492,9 +370,7 @@
                 <div class="topbar-left">
                     <button class="topbar-menu-btn" id="menuBtn">☰</button>
                     <div class="topbar-breadcrumb">
-                        <span class="topbar-breadcrumb-root">Studio</span>
-                        <span class="topbar-breadcrumb-sep">/</span>
-                        <span class="topbar-breadcrumb-current" id="pageTitle">Dashboard</span>
+                        <span>Studio</span><span>/</span><span id="pageTitle">Dashboard</span>
                     </div>
                 </div>
                 <div class="topbar-right" id="topbarActions"></div>
@@ -502,174 +378,398 @@
             <div class="studio-content" id="content"></div>
         </main>
     </div>
-    <div class="toast-wrap" id="toastWrap" style="position:fixed; bottom:1rem; right:1rem; z-index:999; display:flex; flex-direction:column; gap:.5rem;"></div>
 
     <script type="module">
         import { supabase, formatDateShort } from '/js/supabase.js';
+
+        // Auth check
         const { data: { session } } = await supabase.auth.getSession();
         if (!session) location.href = '/studio/login';
 
-        function escapeHtml(str) { return str?.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]) || ''; }
-        function slugify(t) { return t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''); }
-        function toast(msg, type='success') {
-            const w = document.getElementById('toastWrap');
+        // Helper
+        function escapeHtml(str) {
+            return str?.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]) || '';
+        }
+        function slugify(t) {
+            return t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+        }
+        function toast(msg, type = 'success') {
+            const existing = document.querySelector('.toast-wrap');
+            if (!existing) {
+                const wrap = document.createElement('div');
+                wrap.className = 'toast-wrap';
+                wrap.style.position = 'fixed';
+                wrap.style.bottom = '1rem';
+                wrap.style.right = '1rem';
+                wrap.style.zIndex = '999';
+                wrap.style.display = 'flex';
+                wrap.style.flexDirection = 'column';
+                wrap.style.gap = '.5rem';
+                document.body.appendChild(wrap);
+            }
+            const wrap = document.querySelector('.toast-wrap');
             const el = document.createElement('div');
             el.className = `toast toast-${type}`;
-            el.textContent = (type==='success'?'✓ ':(type==='error'?'✕ ':'ℹ '))+msg;
-            w.appendChild(el);
-            setTimeout(()=>el.remove(),3200);
+            el.style.background = 'var(--surface-2)';
+            el.style.borderLeft = `3px solid ${type === 'success' ? 'var(--green)' : 'var(--red)'}`;
+            el.style.padding = '.6rem 1rem';
+            el.style.borderRadius = 'var(--radius)';
+            el.style.fontSize = '.85rem';
+            el.textContent = (type === 'success' ? '✓ ' : '✕ ') + msg;
+            wrap.appendChild(el);
+            setTimeout(() => el.remove(), 3000);
         }
 
-        const sectionTitles = { dashboard:'Dashboard', blog:'Blog', gallery:'Gallery', football:'Football Clubs', f1:'F1 Drivers', watchlist:'Watchlist', thoughts:'Thoughts' };
-        function getHashSection() { let h = window.location.hash.replace('#',''); return sectionTitles[h] ? h : 'dashboard'; }
-        async function navigate(section) { window.location.hash = section; }
-
-        let editorInstance = null;
-        async function loadSection(section) {
-            document.querySelectorAll('.sidebar-link[data-section]').forEach(l=>l.classList.remove('active'));
-            const active = document.querySelector(`.sidebar-link[data-section="${section}"]`);
-            if(active) active.classList.add('active');
-            document.getElementById('pageTitle').textContent = sectionTitles[section];
-            document.getElementById('topbarActions').innerHTML = '';
-            if(section==='dashboard') await renderDashboard();
-            else if(section==='blog') await renderBlog();
-            else if(section==='gallery') await renderGallery();
-            else if(section==='football') await renderFootball();
-            else if(section==='f1') await renderF1();
-            else if(section==='watchlist') await renderWatchlist();
-            else if(section==='thoughts') await renderThoughts();
+        // Navigation
+        const sections = ['dashboard', 'blog', 'gallery', 'football', 'f1', 'watchlist', 'thoughts'];
+        let currentSection = 'dashboard';
+        function setActiveSection(section) {
+            currentSection = section;
+            document.querySelectorAll('.sidebar-link[data-section]').forEach(btn => {
+                if (btn.dataset.section === section) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+            document.getElementById('pageTitle').innerText = section.charAt(0).toUpperCase() + section.slice(1);
         }
 
-        // Dashboard (ringkasan)
+        // Dashboard
         async function renderDashboard() {
-            const tables = ['posts','gallery','football_clubs','f1_drivers','watchlist','thoughts'];
-            const labels = { posts:'Blog Posts', gallery:'Gallery', football_clubs:'Football Clubs', f1_drivers:'F1 Drivers', watchlist:'Watchlist', thoughts:'Thoughts' };
-            const icons = { posts:'📝', gallery:'🖼️', football_clubs:'⚽', f1_drivers:'🏎️', watchlist:'🎬', thoughts:'💭' };
-            let stats={};
-            for(let t of tables) { let {count}=await supabase.from(t).select('*',{count:'exact',head:true}); stats[t]=count??0; }
-            document.getElementById('navCount-blog').textContent = stats.posts;
-            document.getElementById('navCount-gallery').textContent = stats.gallery;
-            const {data:recent}=await supabase.from('posts').select('title,status,created_at').order('created_at',{ascending:false}).limit(5);
-            document.getElementById('content').innerHTML = `
-                <div class="page-header"><div><h1>Dashboard</h1><p>Welcome back.</p></div></div>
-                <div class="stats-grid">${tables.map(t=>`<div class="stat-card"><div class="stat-card-icon">${icons[t]}</div><div class="stat-card-val">${stats[t]}</div><div class="stat-card-label">${labels[t]}</div></div>`).join('')}</div>
-                <div class="table-container"><div style="padding:1rem 1.25rem; border-bottom:1px solid var(--border);"><strong>Recent Posts</strong></div>
-                ${recent?.length?`<table class="data-table"><thead><tr><th>Title</th><th>Status</th><th>Date</th></tr></thead><tbody>${recent.map(p=>`<tr><td><strong>${escapeHtml(p.title)}</strong></td><td><span class="badge badge-${p.status}">${p.status}</span></td><td>${formatDateShort(p.created_at)}</td></tr>`).join('')}</tbody></table>`:'<div class="empty-state">No posts yet.</div>'}</div>
+            const tables = ['posts', 'gallery', 'football_clubs', 'f1_drivers', 'watchlist', 'thoughts'];
+            const labels = { posts: 'Blog Posts', gallery: 'Gallery', football_clubs: 'Football', f1_drivers: 'F1 Drivers', watchlist: 'Watchlist', thoughts: 'Thoughts' };
+            const icons = { posts: '📝', gallery: '🖼️', football_clubs: '⚽', f1_drivers: '🏎️', watchlist: '🎬', thoughts: '💭' };
+            const stats = {};
+            for (let t of tables) {
+                const { count } = await supabase.from(t).select('*', { count: 'exact', head: true });
+                stats[t] = count ?? 0;
+            }
+            document.getElementById('navCount-blog').innerText = stats.posts;
+            document.getElementById('navCount-gallery').innerText = stats.gallery;
+
+            const { data: recent } = await supabase.from('posts').select('title,status,created_at').order('created_at', { ascending: false }).limit(5);
+            const html = `
+                <div class="page-header"><div><h1>Dashboard</h1><p>Welcome back, ${session.user.email}</p></div></div>
+                <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:1rem; margin-bottom:2rem;">
+                    ${tables.map(t => `<div style="background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.25rem;"><div style="font-size:2rem;">${icons[t]}</div><div style="font-size:1.8rem; font-weight:700;">${stats[t]}</div><div style="font-size:.8rem; color:var(--text-3);">${labels[t]}</div></div>`).join('')}
+                </div>
+                <div class="table-container"><div style="padding:1rem; border-bottom:1px solid var(--border);"><strong>Recent Posts</strong></div>
+                ${recent?.length ? `<table class="data-table"><thead><tr><th>Title</th><th>Status</th><th>Date</th></tr></thead><tbody>${recent.map(p => `<tr><td><strong>${escapeHtml(p.title)}</strong></td><td><span class="badge badge-${p.status}">${p.status}</span></td><td>${formatDateShort(p.created_at)}</td></tr>`).join('')}</tbody></table>` : '<div style="padding:2rem; text-align:center;">No posts yet</div>'}
+                </div>
             `;
+            document.getElementById('content').innerHTML = html;
         }
 
-        // BLOG dengan perbaikan mobile sticky toolbar
+        // Global editor instance
+        let editorInstance = null;
+
+        // Blog
         async function renderBlog() {
-            const { data: posts } = await supabase.from('posts').select('*').order('created_at',{ascending:false});
-            document.getElementById('content').innerHTML = `
-                <div class="page-header"><div><h1>Blog Posts</h1><p>${posts?.length||0} posts</p></div><div><button class="btn btn-primary" id="newPostBtn">+ New Post</button></div></div>
-                <div id="blogListWrap"><div class="table-container"><div class="table-toolbar" style="padding:.75rem 1.25rem;"><input id="blogSearch" placeholder="Search…" style="background:var(--surface-2); border:1px solid var(--border); padding:.4rem .7rem; border-radius:var(--radius); color:var(--text); width:100%; max-width:240px;"></div>
-                ${posts?.length?`<table class="data-table"><thead><tr><th>Title</th><th>Category</th><th>Status</th><th>Date</th><th style="width:130px">Actions</th></tr></thead><tbody id="blogTbody">${posts.map(p=>`<tr><td><strong>${escapeHtml(p.title)}</strong>${p.featured?'<span style="background:var(--gold-glow); color:var(--gold); padding:.1rem .35rem; border-radius:4px; margin-left:.4rem;">★</span>':''}</td><td>${escapeHtml(p.category||'—')}</td><td><span class="badge badge-${p.status}">${p.status}</span></td><td>${formatDateShort(p.created_at)}</td><td><button class="btn btn-secondary btn-sm editPostBtn" data-id="${p.id}">Edit</button> <button class="btn btn-danger btn-sm deletePostBtn" data-id="${p.id}">Delete</button></td></tr>`).join('')}</tbody></table>`:`<div class="empty-state">No posts yet.</div>`}</div></div>
-                <div id="blogFormWrap" style="display:none; margin-top:1.5rem;"><div class="page-header"><div><h1 id="formHeading">New Post</h1></div><div><button class="btn btn-secondary" id="cancelPostBtn">← Back</button><button class="btn btn-primary" id="savePostBtn">Save Post</button></div></div>
-                <input type="hidden" id="editPostId"><div class="post-editor-layout"><div class="post-editor-main"><div class="panel"><div class="panel-body" style="padding:.75rem 1.25rem;"><input id="postTitle" placeholder="Post title…" style="width:100%; background:transparent; border:none; font-size:1.5rem; font-weight:700; outline:none;"><div style="display:flex; gap:.4rem; margin-top:.35rem;"><span style="font-size:.75rem; color:var(--text-3);">Slug:</span><input id="postSlug" style="flex:1; background:transparent; border:none; color:var(--text-3); font-size:.78rem; outline:none;"></div></div></div>
-                <div class="panel" style="overflow:hidden;"><div class="embed-toolbar" id="embedToolbar"><span style="font-size:.72rem; color:var(--text-3);">Quick embed:</span><button class="embed-btn" id="embedYT">▶️ YouTube</button><button class="embed-btn" id="embedIG">📷 Instagram</button><button class="embed-btn" id="embedTT">🎵 TikTok</button><button class="embed-btn" id="embedImg">🖼️ Image URL</button><button class="embed-btn" id="embedGallery">📂 Gallery</button></div><div id="editorjs" style="padding:.5rem 0;"></div></div></div>
-                <div class="post-editor-sidebar"><div class="panel"><div class="panel-header"><h2>Publish</h2></div><div class="panel-body"><select id="postStatus"><option value="draft">Draft</option><option value="published">Published</option></select><div class="field-row"><input type="checkbox" id="postFeatured"><label>Featured</label></div></div></div>
-                <div class="panel"><div class="panel-header"><h2>Details</h2></div><div class="panel-body"><input id="postCategory" placeholder="Category"><input id="postTags" placeholder="Tags (comma)"><input id="postCover" placeholder="Cover URL"><textarea id="postExcerpt" rows="3" placeholder="Excerpt (auto)"></textarea></div></div></div></div></div>
+            const { data: posts } = await supabase.from('posts').select('*').order('created_at', { ascending: false });
+            const listHtml = posts?.length ? `
+                <table class="data-table">
+                    <thead><tr><th>Title</th><th>Category</th><th>Status</th><th>Date</th><th style="width:120px">Actions</th></tr></thead>
+                    <tbody id="blogTbody">
+                        ${posts.map(p => `<tr data-title="${escapeHtml(p.title).toLowerCase()}">
+                            <td><strong>${escapeHtml(p.title)}</strong>${p.featured ? ' <span style="color:var(--gold);">★</span>' : ''}</td>
+                            <td>${escapeHtml(p.category || '—')}</td>
+                            <td><span class="badge badge-${p.status}">${p.status}</span></td>
+                            <td>${formatDateShort(p.created_at)}</td>
+                            <td><button class="editPostBtn btn btn-secondary btn-sm" data-id="${p.id}">Edit</button> <button class="deletePostBtn btn btn-danger btn-sm" data-id="${p.id}">Delete</button></td>
+                        </tr>`).join('')}
+                    </tbody>
+                </table>
+            ` : '<div class="empty-state" style="padding:3rem; text-align:center;">No posts yet. Click + New Post.</div>';
+
+            const formHtml = `
+                <div id="blogFormWrap" style="display:none; margin-top:1.5rem;">
+                    <div class="page-header"><div><h1 id="formHeading">New Post</h1></div><div><button class="btn btn-secondary" id="cancelPostBtn">← Back</button><button class="btn btn-primary" id="savePostBtn">Save Post</button></div></div>
+                    <input type="hidden" id="editPostId">
+                    <div class="post-editor-layout">
+                        <div class="post-editor-main">
+                            <div style="background:var(--surface); border-radius:var(--radius-lg); padding:.75rem 1.25rem;">
+                                <input id="postTitle" placeholder="Post title…" style="width:100%; background:transparent; border:none; font-size:1.5rem; font-weight:700; outline:none; margin-bottom:.3rem;">
+                                <div style="display:flex; gap:.4rem;"><span style="font-size:.75rem; color:var(--text-3);">Slug:</span><input id="postSlug" style="flex:1; background:transparent; border:none; color:var(--text-3); font-size:.78rem; outline:none;"></div>
+                            </div>
+                            <div class="editorjs-wrap">
+                                <div class="embed-toolbar">
+                                    <span style="font-size:.72rem;">Quick embed:</span>
+                                    <button class="embed-btn" id="embedYT">▶️ YouTube</button>
+                                    <button class="embed-btn" id="embedIG">📷 Instagram</button>
+                                    <button class="embed-btn" id="embedTT">🎵 TikTok</button>
+                                    <button class="embed-btn" id="embedImg">🖼️ Image URL</button>
+                                    <button class="embed-btn" id="embedGallery">📂 Gallery</button>
+                                </div>
+                                <div id="editorjs" style="padding:.5rem 0;"></div>
+                            </div>
+                        </div>
+                        <div class="post-editor-sidebar">
+                            <div style="background:var(--surface); border-radius:var(--radius-lg); padding:1rem;">
+                                <div style="margin-bottom:1rem;"><select id="postStatus" style="width:100%; background:var(--surface-2); border:1px solid var(--border); padding:.5rem; border-radius:var(--radius); color:var(--text);"><option value="draft">Draft</option><option value="published">Published</option></select></div>
+                                <div style="display:flex; gap:.5rem;"><input type="checkbox" id="postFeatured"> <label>Mark as featured</label></div>
+                            </div>
+                            <div style="background:var(--surface); border-radius:var(--radius-lg); padding:1rem; display:flex; flex-direction:column; gap:.75rem;">
+                                <input id="postCategory" placeholder="Category" style="background:var(--surface-2); border:1px solid var(--border); padding:.5rem; border-radius:var(--radius);">
+                                <input id="postTags" placeholder="Tags (comma separated)" style="background:var(--surface-2); border:1px solid var(--border); padding:.5rem; border-radius:var(--radius);">
+                                <input id="postCover" placeholder="Cover image URL" style="background:var(--surface-2); border:1px solid var(--border); padding:.5rem; border-radius:var(--radius);">
+                                <textarea id="postExcerpt" rows="3" placeholder="Excerpt (auto-generated)" style="background:var(--surface-2); border:1px solid var(--border); padding:.5rem; border-radius:var(--radius);"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             `;
-            document.getElementById('blogSearch').addEventListener('input', e=>{ let q=e.target.value.toLowerCase(); document.querySelectorAll('#blogTbody tr').forEach(r=>r.style.display=r.textContent.toLowerCase().includes(q)?'':'none'); });
-            document.getElementById('newPostBtn').onclick = ()=>showPostForm(null);
-            document.getElementById('cancelPostBtn').onclick = ()=>{ document.getElementById('blogFormWrap').style.display='none'; document.getElementById('blogListWrap').style.display='block'; if(editorInstance){editorInstance.destroy(); editorInstance=null;} };
-            document.getElementById('savePostBtn').onclick = savePost;
-            document.querySelectorAll('.editPostBtn').forEach(b=>b.onclick=async()=>{ let {data:p}=await supabase.from('posts').select('*').eq('id',b.dataset.id).single(); if(p) showPostForm(p); });
-            document.querySelectorAll('.deletePostBtn').forEach(b=>b.onclick=async()=>{ if(confirm('Delete?')){ await supabase.from('posts').delete().eq('id',b.dataset.id); toast('Deleted'); renderBlog(); } });
-            function showPostForm(post) {
-                document.getElementById('blogListWrap').style.display='none'; document.getElementById('blogFormWrap').style.display='block';
-                document.getElementById('formHeading').textContent=post?'Edit Post':'New Post';
-                document.getElementById('editPostId').value=post?.id||'';
-                document.getElementById('postTitle').value=post?.title||'';
-                document.getElementById('postSlug').value=post?.slug||'';
-                document.getElementById('postCategory').value=post?.category||'';
-                document.getElementById('postTags').value=(post?.tags||[]).join(', ');
-                document.getElementById('postCover').value=post?.cover_image||'';
-                document.getElementById('postExcerpt').value=post?.excerpt||'';
-                document.getElementById('postStatus').value=post?.status||'draft';
-                document.getElementById('postFeatured').checked=post?.featured||false;
-                let editorData = null;
-                if(post?.content){ try{ editorData=JSON.parse(post.content); }catch(e){ editorData={blocks:[{type:'paragraph',data:{text:post.content}}]}; } }
-                if(editorInstance){ editorInstance.destroy(); editorInstance=null; }
-                setTimeout(()=>{
-                    editorInstance = new EditorJS({
-                        holder: 'editorjs', data: editorData || {}, placeholder: 'Start writing…',
-                        tools: { header:{class:Header,inlineToolbar:true,config:{levels:[1,2,3,4],defaultLevel:2}}, paragraph:{class:Paragraph,inlineToolbar:true}, list:{class:List,inlineToolbar:true}, quote:{class:Quote,inlineToolbar:true}, table:{class:Table,inlineToolbar:true},
-                            image:{class:ImageTool,config:{uploader:{async uploadByFile(file){ let name=Date.now()+'_'+file.name.replace(/\s+/g,'_'); let {error}=await supabase.storage.from('media').upload(name,file); if(error)return{success:0}; let {data:{publicUrl}}=supabase.storage.from('media').getPublicUrl(name); return{success:1,file:{url:publicUrl}}; }, async uploadByUrl(url){ return{success:1,file:{url}}; }}}},
-                            embed:{class:Embed,config:{services:{youtube:true,instagram:true,tiktok:{regex:/https?:\/\/(www\.)?tiktok\.com\/@[^/]+\/video\/(\d+)/,embedUrl:'https://www.tiktok.com/embed/v2/<%= remote_id %>',html:'<blockquote class="tiktok-embed" cite="<%= url %>" data-video-id="<%= remote_id %>"><section></section></blockquote><script async src="https://www.tiktok.com/embed.js"><\/script>',height:740,width:340,id:(groups)=>groups[2]}}}},
-                            delimiter:Delimiter, code:CodeTool, marker:Marker, inlineCode:InlineCode, warning:Warning
-                        }, onChange:async()=>{ let saved=await editorInstance.save(); let firstPara=saved.blocks?.find(b=>b.type==='paragraph'); if(firstPara&&!document.getElementById('postExcerpt').dataset.manual){ let text=firstPara.data.text.replace(/<[^>]+>/g,''); document.getElementById('postExcerpt').value=text.split(/\s+/).slice(0,50).join(' ')+(text.split(/\s+/).length>50?'…':''); } }
+
+            const mainHtml = `
+                <div class="page-header"><div><h1>Blog Posts</h1><p>${posts?.length || 0} total</p></div><div><button class="btn btn-primary" id="newPostBtn">+ New Post</button></div></div>
+                <div id="blogListWrap"><div class="table-container"><div style="padding:.75rem 1.25rem;"><input id="blogSearch" placeholder="Search posts..." style="background:var(--surface-2); border:1px solid var(--border); padding:.4rem .7rem; border-radius:var(--radius); width:100%; max-width:260px;"></div>${listHtml}</div></div>
+                ${formHtml}
+            `;
+            document.getElementById('content').innerHTML = mainHtml;
+
+            // Search filter
+            const searchInput = document.getElementById('blogSearch');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    const q = e.target.value.toLowerCase();
+                    document.querySelectorAll('#blogTbody tr').forEach(row => {
+                        const title = row.getAttribute('data-title') || '';
+                        row.style.display = title.includes(q) ? '' : 'none';
                     });
-                    document.getElementById('postExcerpt').addEventListener('input',function(){ this.dataset.manual='true'; });
-                },50);
-                document.getElementById('postTitle').addEventListener('input',()=>{ if(!document.getElementById('editPostId').value) document.getElementById('postSlug').value=slugify(document.getElementById('postTitle').value); });
+                });
             }
+
+            // New / Edit / Delete
+            document.getElementById('newPostBtn').onclick = () => showPostForm(null);
+            document.getElementById('cancelPostBtn').onclick = () => {
+                document.getElementById('blogFormWrap').style.display = 'none';
+                document.getElementById('blogListWrap').style.display = 'block';
+                if (editorInstance) { editorInstance.destroy(); editorInstance = null; }
+            };
+            document.getElementById('savePostBtn').onclick = savePost;
+            document.querySelectorAll('.editPostBtn').forEach(btn => {
+                btn.onclick = async () => {
+                    const { data: post } = await supabase.from('posts').select('*').eq('id', btn.dataset.id).single();
+                    if (post) showPostForm(post);
+                };
+            });
+            document.querySelectorAll('.deletePostBtn').forEach(btn => {
+                btn.onclick = async () => {
+                    if (confirm('Delete this post?')) {
+                        await supabase.from('posts').delete().eq('id', btn.dataset.id);
+                        toast('Post deleted');
+                        renderBlog();
+                    }
+                };
+            });
+
+            function showPostForm(post) {
+                document.getElementById('blogListWrap').style.display = 'none';
+                document.getElementById('blogFormWrap').style.display = 'block';
+                document.getElementById('formHeading').innerText = post ? 'Edit Post' : 'New Post';
+                document.getElementById('editPostId').value = post?.id || '';
+                document.getElementById('postTitle').value = post?.title || '';
+                document.getElementById('postSlug').value = post?.slug || '';
+                document.getElementById('postCategory').value = post?.category || '';
+                document.getElementById('postTags').value = (post?.tags || []).join(', ');
+                document.getElementById('postCover').value = post?.cover_image || '';
+                document.getElementById('postExcerpt').value = post?.excerpt || '';
+                document.getElementById('postStatus').value = post?.status || 'draft';
+                document.getElementById('postFeatured').checked = post?.featured || false;
+
+                let editorData = null;
+                if (post?.content) {
+                    try { editorData = JSON.parse(post.content); } catch (e) { editorData = { blocks: [{ type: 'paragraph', data: { text: post.content } }] }; }
+                }
+
+                if (editorInstance) { editorInstance.destroy(); editorInstance = null; }
+                setTimeout(() => {
+                    editorInstance = new EditorJS({
+                        holder: 'editorjs',
+                        data: editorData || {},
+                        placeholder: 'Start writing your post...',
+                        tools: {
+                            header: { class: Header, inlineToolbar: true, config: { levels: [1,2,3,4], defaultLevel: 2 } },
+                            paragraph: { class: Paragraph, inlineToolbar: true },
+                            list: { class: List, inlineToolbar: true },
+                            quote: { class: Quote, inlineToolbar: true },
+                            table: { class: Table, inlineToolbar: true },
+                            image: {
+                                class: ImageTool,
+                                config: {
+                                    uploader: {
+                                        async uploadByFile(file) {
+                                            const name = Date.now() + '_' + file.name.replace(/\s+/g, '_');
+                                            const { error } = await supabase.storage.from('media').upload(name, file);
+                                            if (error) return { success: 0 };
+                                            const { data: { publicUrl } } = supabase.storage.from('media').getPublicUrl(name);
+                                            return { success: 1, file: { url: publicUrl } };
+                                        },
+                                        async uploadByUrl(url) { return { success: 1, file: { url } }; }
+                                    }
+                                }
+                            },
+                            embed: {
+                                class: Embed,
+                                config: {
+                                    services: {
+                                        youtube: true,
+                                        instagram: true,
+                                        tiktok: {
+                                            regex: /https?:\/\/(www\.)?tiktok\.com\/@[^/]+\/video\/(\d+)/,
+                                            embedUrl: 'https://www.tiktok.com/embed/v2/<%= remote_id %>',
+                                            html: '<blockquote class="tiktok-embed" cite="<%= url %>" data-video-id="<%= remote_id %>"><section></section></blockquote><script async src="https://www.tiktok.com/embed.js"><\/script>',
+                                            height: 740, width: 340, id: (groups) => groups[2]
+                                        }
+                                    }
+                                }
+                            },
+                            delimiter: Delimiter,
+                            code: CodeTool,
+                            marker: Marker,
+                            inlineCode: InlineCode,
+                            warning: Warning
+                        },
+                        onChange: async () => {
+                            const saved = await editorInstance.save();
+                            const firstPara = saved.blocks?.find(b => b.type === 'paragraph');
+                            if (firstPara && !document.getElementById('postExcerpt').dataset.manual) {
+                                const text = firstPara.data.text.replace(/<[^>]+>/g, '');
+                                document.getElementById('postExcerpt').value = text.split(/\s+/).slice(0, 50).join(' ') + (text.split(/\s+/).length > 50 ? '…' : '');
+                            }
+                        }
+                    });
+                    document.getElementById('postExcerpt').addEventListener('input', function() { this.dataset.manual = 'true'; });
+                }, 100);
+            }
+
             async function savePost() {
-                let title = document.getElementById('postTitle').value.trim();
-                if(!title){ toast('Title required','error'); return; }
+                const title = document.getElementById('postTitle').value.trim();
+                if (!title) { toast('Title is required', 'error'); return; }
                 let contentJson = '{}';
-                if(editorInstance){ try{ let saved=await editorInstance.save(); contentJson=JSON.stringify(saved); }catch(e){} }
-                let id = document.getElementById('editPostId').value;
-                let post = {
-                    title, slug: document.getElementById('postSlug').value||slugify(title),
+                if (editorInstance) {
+                    try { const saved = await editorInstance.save(); contentJson = JSON.stringify(saved); } catch(e) {}
+                }
+                const id = document.getElementById('editPostId').value;
+                const post = {
+                    title,
+                    slug: document.getElementById('postSlug').value || slugify(title),
                     category: document.getElementById('postCategory').value,
-                    tags: document.getElementById('postTags').value.split(',').map(s=>s.trim()).filter(Boolean),
+                    tags: document.getElementById('postTags').value.split(',').map(s => s.trim()).filter(Boolean),
                     cover_image: document.getElementById('postCover').value,
                     excerpt: document.getElementById('postExcerpt').value,
                     content: contentJson,
                     status: document.getElementById('postStatus').value,
                     featured: document.getElementById('postFeatured').checked
                 };
-                if(id) await supabase.from('posts').update(post).eq('id',id);
-                else await supabase.from('posts').insert(post);
-                toast('Post saved ✓');
-                if(editorInstance){ editorInstance.destroy(); editorInstance=null; }
+                if (id) {
+                    const { error } = await supabase.from('posts').update(post).eq('id', id);
+                    if (error) { toast('Error: ' + error.message, 'error'); return; }
+                    toast('Post updated');
+                } else {
+                    const { error } = await supabase.from('posts').insert(post);
+                    if (error) { toast('Error: ' + error.message, 'error'); return; }
+                    toast('Post created');
+                }
+                if (editorInstance) { editorInstance.destroy(); editorInstance = null; }
                 renderBlog();
             }
-            // Embed helpers
-            async function insertEmbed(service,url){ if(!editorInstance)return; try{ await editorInstance.blocks.insert('embed',{service,source:url,embed:url,width:560,height:315,caption:''}); toast(`${service} embedded`); }catch(e){ toast('Embed failed','error'); } }
-            document.getElementById('embedYT').onclick = ()=>{ let u=prompt('YouTube URL:','https://youtube.com/watch?v='); if(u) insertEmbed('youtube',u); };
-            document.getElementById('embedIG').onclick = ()=>{ let u=prompt('Instagram URL:'); if(u) insertEmbed('instagram',u); };
-            document.getElementById('embedTT').onclick = ()=>{ let u=prompt('TikTok URL:'); if(u) insertEmbed('tiktok',u); };
-            document.getElementById('embedImg').onclick = async()=>{ let url=prompt('Image URL:'); if(url&&editorInstance) await editorInstance.blocks.insert('image',{file:{url},caption:'',withBorder:false,withBackground:false,stretched:false}); };
-            document.getElementById('embedGallery').onclick = async()=>{
-                let {data:imgs}=await supabase.from('gallery').select('*').limit(40);
-                let modal=document.createElement('div'); modal.className='modal-overlay'; modal.style.position='fixed'; modal.style.inset=0; modal.style.background='rgba(0,0,0,.8)'; modal.style.display='flex'; modal.style.alignItems='center'; modal.style.justifyContent='center'; modal.style.zIndex=200;
-                modal.innerHTML=`<div style="background:var(--surface); border-radius:var(--radius-lg); max-width:640px; width:90%; max-height:80vh; overflow:auto;"><div style="padding:1rem; border-bottom:1px solid var(--border); display:flex; justify-content:space-between;"><span>Choose from Gallery</span><button id="closeModal" style="background:none; border:none; color:var(--text); font-size:1.2rem;">✕</button></div><div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:.75rem; padding:1rem;">${(imgs||[]).map(img=>`<div data-url="${escapeHtml(img.image_url)}" data-caption="${escapeHtml(img.caption||'')}" style="cursor:pointer;"><img src="${escapeHtml(img.image_url)}" style="width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px;"><div style="font-size:.7rem; padding-top:.2rem;">${escapeHtml(img.caption||'')}</div></div>`).join('')||'<div>No images</div>'}</div></div>`;
+
+            // Embed actions
+            async function insertEmbed(service, url) {
+                if (!editorInstance) return;
+                try {
+                    await editorInstance.blocks.insert('embed', { service, source: url, embed: url, width: 560, height: 315, caption: '' });
+                    toast(`${service} embedded`);
+                } catch (e) { toast('Embed failed', 'error'); }
+            }
+            document.getElementById('embedYT')?.addEventListener('click', () => { const u = prompt('YouTube URL:'); if (u) insertEmbed('youtube', u); });
+            document.getElementById('embedIG')?.addEventListener('click', () => { const u = prompt('Instagram post URL:'); if (u) insertEmbed('instagram', u); });
+            document.getElementById('embedTT')?.addEventListener('click', () => { const u = prompt('TikTok video URL:'); if (u) insertEmbed('tiktok', u); });
+            document.getElementById('embedImg')?.addEventListener('click', async () => {
+                const url = prompt('Image URL:');
+                if (url && editorInstance) await editorInstance.blocks.insert('image', { file: { url }, caption: '', withBorder: false, withBackground: false, stretched: false });
+            });
+            document.getElementById('embedGallery')?.addEventListener('click', async () => {
+                const { data: imgs } = await supabase.from('gallery').select('*').limit(40);
+                const modal = document.createElement('div');
+                modal.style.position = 'fixed'; modal.style.inset = '0'; modal.style.background = 'rgba(0,0,0,.8)'; modal.style.display = 'flex'; modal.style.alignItems = 'center'; modal.style.justifyContent = 'center'; modal.style.zIndex = '200';
+                modal.innerHTML = `<div style="background:var(--surface); border-radius:var(--radius-lg); max-width:640px; width:90%; max-height:80vh; overflow:auto;"><div style="padding:1rem; border-bottom:1px solid var(--border); display:flex; justify-content:space-between;"><span>Select from Gallery</span><button id="closeModal" style="background:none; border:none; color:var(--text); font-size:1.2rem;">✕</button></div><div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:.75rem; padding:1rem;">${(imgs || []).map(img => `<div data-url="${escapeHtml(img.image_url)}" data-caption="${escapeHtml(img.caption || '')}" style="cursor:pointer;"><img src="${escapeHtml(img.image_url)}" style="width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px;"><div style="font-size:.7rem; padding-top:.2rem;">${escapeHtml(img.caption || '')}</div></div>`).join('') || '<div style="padding:2rem;">No images in gallery</div>'}</div></div>`;
                 document.body.appendChild(modal);
-                modal.querySelector('#closeModal').onclick=()=>modal.remove();
-                modal.querySelectorAll('[data-url]').forEach(el=>el.onclick=async()=>{ await editorInstance.blocks.insert('image',{file:{url:el.dataset.url},caption:el.dataset.caption}); modal.remove(); toast('Image inserted'); });
-            };
+                document.getElementById('closeModal').onclick = () => modal.remove();
+                modal.querySelectorAll('[data-url]').forEach(el => {
+                    el.onclick = async () => {
+                        if (editorInstance) {
+                            await editorInstance.blocks.insert('image', { file: { url: el.dataset.url }, caption: el.dataset.caption });
+                            toast('Image inserted');
+                        }
+                        modal.remove();
+                    };
+                });
+            });
         }
 
-        // GALLERY (ringkas, tetap responsif)
+        // Simple render for other sections (to keep functional)
         async function renderGallery() {
-            let {data}=await supabase.from('gallery').select('*').order('created_at',{ascending:false});
-            document.getElementById('content').innerHTML = `<div class="page-header"><div><h1>Gallery</h1><p>${data?.length||0} images</p></div><div><button class="btn btn-primary" id="openUploadModal">+ Add Images</button></div></div><div id="galleryGrid" class="gallery-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:1rem;"></div>`;
-            const grid=document.getElementById('galleryGrid');
-            if(data?.length) grid.innerHTML=data.map(img=>`<div class="gallery-card" style="background:var(--surface); border-radius:var(--radius-md); overflow:hidden;"><img src="${escapeHtml(img.image_url)}" style="width:100%; aspect-ratio:4/3; object-fit:cover;"><div style="padding:.5rem;"><div contenteditable="true" data-id="${img.id}" class="caption-edit" style="font-size:.8rem;">${escapeHtml(img.caption||'')}</div><button class="btn btn-danger btn-sm delGalBtn" data-id="${img.id}" style="margin-top:.4rem;">Delete</button></div></div>`).join('');
-            else grid.innerHTML='<div class="empty-state">Empty gallery</div>';
-            document.querySelectorAll('.delGalBtn').forEach(b=>b.onclick=async()=>{ if(confirm('Delete?')){ await supabase.from('gallery').delete().eq('id',b.dataset.id); renderGallery(); } });
-            document.querySelectorAll('.caption-edit').forEach(el=>el.addEventListener('blur',async()=>{ await supabase.from('gallery').update({caption:el.textContent.trim()}).eq('id',el.dataset.id); }));
-            document.getElementById('openUploadModal').onclick=()=>{ let url=prompt('Image URL:'); if(url) supabase.from('gallery').insert({image_url:url,caption:''}).then(()=>{ toast('Added'); renderGallery(); }); };
+            const { data } = await supabase.from('gallery').select('*').order('created_at', { ascending: false });
+            document.getElementById('content').innerHTML = `<div class="page-header"><div><h1>Gallery</h1><p>${data?.length || 0} images</p></div><div><button class="btn btn-primary" id="addImageBtn">+ Add Image</button></div></div><div id="galleryGrid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:1rem;"></div>`;
+            const grid = document.getElementById('galleryGrid');
+            if (data?.length) {
+                grid.innerHTML = data.map(img => `<div style="background:var(--surface); border-radius:var(--radius-md); overflow:hidden;"><img src="${escapeHtml(img.image_url)}" style="width:100%; aspect-ratio:4/3; object-fit:cover;"><div style="padding:.5rem;"><div contenteditable="true" data-id="${img.id}" class="captionEdit" style="font-size:.8rem;">${escapeHtml(img.caption || '')}</div><button class="delGalBtn btn btn-danger btn-sm" data-id="${img.id}" style="margin-top:.4rem;">Delete</button></div></div>`).join('');
+                document.querySelectorAll('.captionEdit').forEach(el => el.addEventListener('blur', async () => {
+                    await supabase.from('gallery').update({ caption: el.textContent.trim() }).eq('id', el.dataset.id);
+                }));
+                document.querySelectorAll('.delGalBtn').forEach(btn => btn.onclick = async () => { if (confirm('Delete?')) { await supabase.from('gallery').delete().eq('id', btn.dataset.id); renderGallery(); } });
+            } else grid.innerHTML = '<div class="empty-state">Empty gallery</div>';
+            document.getElementById('addImageBtn').onclick = () => { const url = prompt('Image URL:'); if (url) supabase.from('gallery').insert({ image_url: url, caption: '' }).then(() => { toast('Added'); renderGallery(); }); };
+        }
+        async function renderFootball() { document.getElementById('content').innerHTML = '<div class="page-header"><div><h1>Football Clubs</h1></div></div><div>Coming soon – admin panel ready</div>'; }
+        async function renderF1() { document.getElementById('content').innerHTML = '<div class="page-header"><div><h1>F1 Drivers</h1></div></div><div>Coming soon</div>'; }
+        async function renderWatchlist() { document.getElementById('content').innerHTML = '<div class="page-header"><div><h1>Watchlist</h1></div></div><div>Coming soon</div>'; }
+        async function renderThoughts() { document.getElementById('content').innerHTML = '<div class="page-header"><div><h1>Thoughts</h1></div></div><div>Coming soon</div>'; }
+
+        // Navigation handler
+        async function loadSection(section) {
+            setActiveSection(section);
+            if (section === 'dashboard') await renderDashboard();
+            else if (section === 'blog') await renderBlog();
+            else if (section === 'gallery') await renderGallery();
+            else if (section === 'football') await renderFootball();
+            else if (section === 'f1') await renderF1();
+            else if (section === 'watchlist') await renderWatchlist();
+            else if (section === 'thoughts') await renderThoughts();
         }
 
-        // FOOTBALL CLUBS (simple)
-        async function renderFootball() { let {data}=await supabase.from('football_clubs').select('*').order('sort_order'); document.getElementById('content').innerHTML=`<div class="page-header"><div><h1>Football Clubs</h1></div><div><button class="btn btn-primary" id="newClubBtn">+ New</button></div></div><div id="list"></div>`; const list=document.getElementById('list'); if(data?.length) list.innerHTML=data.map(c=>`<div style="background:var(--surface); padding:1rem; border-radius:var(--radius); margin-bottom:.5rem;"><strong>${escapeHtml(c.name)}</strong> - ${c.league||''}<br><button data-id="${c.id}" class="editClub btn-secondary btn-sm">Edit</button> <button data-id="${c.id}" class="delClub btn-danger btn-sm">Delete</button></div>`).join(''); else list.innerHTML='<div class="empty-state">Empty</div>'; }
-        // F1 DRIVERS (simple)
-        async function renderF1() { let {data}=await supabase.from('f1_drivers').select('*').order('sort_order'); document.getElementById('content').innerHTML=`<div class="page-header"><div><h1>F1 Drivers</h1></div><div><button class="btn btn-primary" id="newDriverBtn">+ New</button></div></div><div id="list"></div>`; const list=document.getElementById('list'); if(data?.length) list.innerHTML=data.map(d=>`<div style="background:var(--surface); padding:1rem; border-radius:var(--radius); margin-bottom:.5rem;"><strong>#${d.number} ${escapeHtml(d.name)}</strong> - ${d.team}<br><button data-id="${d.id}" class="editDriver btn-secondary btn-sm">Edit</button> <button data-id="${d.id}" class="delDriver btn-danger btn-sm">Delete</button></div>`).join(''); else list.innerHTML='<div class="empty-state">Empty</div>'; }
-        // WATCHLIST (simple)
-        async function renderWatchlist() { let {data}=await supabase.from('watchlist').select('*').order('created_at',{ascending:false}); document.getElementById('content').innerHTML=`<div class="page-header"><div><h1>Watchlist</h1></div><div><button class="btn btn-primary" id="newWatchBtn">+ Add</button></div></div><div id="list"></div>`; const list=document.getElementById('list'); if(data?.length) list.innerHTML=data.map(w=>`<div style="background:var(--surface); padding:1rem; border-radius:var(--radius); margin-bottom:.5rem;"><strong>${escapeHtml(w.title)}</strong> (${w.type}) - ${w.status}<br><button data-id="${w.id}" class="editWatch btn-secondary btn-sm">Edit</button> <button data-id="${w.id}" class="delWatch btn-danger btn-sm">Delete</button></div>`).join(''); else list.innerHTML='<div class="empty-state">Empty</div>'; }
-        // THOUGHTS (simple)
-        async function renderThoughts() { let {data}=await supabase.from('thoughts').select('*').order('created_at',{ascending:false}); document.getElementById('content').innerHTML=`<div class="page-header"><div><h1>Thoughts</h1></div><div><button class="btn btn-primary" id="newThoughtBtn">+ New</button></div></div><div id="list"></div>`; const list=document.getElementById('list'); if(data?.length) list.innerHTML=data.map(t=>`<div style="background:var(--surface); padding:1rem; border-radius:var(--radius); margin-bottom:.5rem;"><p>${escapeHtml(t.content?.substring(0,100))}</p><button data-id="${t.id}" class="editThought btn-secondary btn-sm">Edit</button> <button data-id="${t.id}" class="delThought btn-danger btn-sm">Delete</button></div>`).join(''); else list.innerHTML='<div class="empty-state">Empty</div>'; }
+        window.addEventListener('hashchange', () => {
+            const hash = window.location.hash.slice(1);
+            if (sections.includes(hash)) loadSection(hash);
+            else loadSection('dashboard');
+        });
+        document.querySelectorAll('.sidebar-link[data-section]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const section = btn.dataset.section;
+                window.location.hash = section;
+                loadSection(section);
+                if (window.innerWidth <= 860) {
+                    document.getElementById('sidebar').classList.remove('open');
+                    document.getElementById('sidebarOverlay').classList.remove('open');
+                }
+            });
+        });
+        document.getElementById('menuBtn').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('sidebarOverlay').classList.toggle('open');
+        });
+        document.getElementById('sidebarOverlay').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('sidebarOverlay').classList.remove('open');
+        });
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            await supabase.auth.signOut();
+            location.href = '/studio/login';
+        });
 
-        window.addEventListener('hashchange',()=>loadSection(getHashSection()));
-        document.getElementById('menuBtn').addEventListener('click',()=>{ document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('open'); });
-        document.getElementById('sidebarOverlay').addEventListener('click',()=>{ document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('open'); });
-        document.querySelectorAll('.sidebar-link[data-section]').forEach(l=>l.addEventListener('click',()=>{ navigate(l.dataset.section); if(window.innerWidth<=860){ document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('open'); } }));
-        document.getElementById('logoutBtn').addEventListener('click',async()=>{ await supabase.auth.signOut(); location.href='/studio/login'; });
-        await loadSection(getHashSection());
+        // Initial load
+        const initial = window.location.hash.slice(1);
+        if (sections.includes(initial)) await loadSection(initial);
+        else await loadSection('dashboard');
     </script>
 </body>
 </html>
