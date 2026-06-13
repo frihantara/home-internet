@@ -12,9 +12,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- Font Awesome 6 (Free) untuk ikon gaya koran klasik -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -61,19 +58,18 @@
     .meta-item.left { text-align: left; } .meta-item.center { text-align: center; font-weight: bold; font-style: normal; text-transform: uppercase; letter-spacing: 0.15em; } .meta-item.right { text-align: right; }
     @media (max-width: 640px) { .news-meta-bar { font-size: 0.7rem; grid-template-columns: 1fr; gap: 0.25rem; text-align: center; } .meta-item.left, .meta-item.right { text-align: center; } }
 
-    /* STICKY NAV (dengan ikon Font Awesome gaya koran) */
+    /* STICKY NAV (salin persis dari index.html, dengan SVG asli) */
     .sticky-nav-container { position: sticky; top: 0; z-index: 1000; background-color: rgba(252, 251, 247, 0.94); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-bottom: 1px solid #1c1c1a; transition: all .3s cubic-bezier(.16,1,.3,1); }
     .sticky-nav-container.is-scrolled { box-shadow: 0 4px 20px rgba(0,0,0,.05); border-bottom: 2px solid #8b261b; }
     .modern-nav-inner { display: flex; justify-content: center; align-items: center; gap: 1.5rem; padding: 0.75rem 0; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
     .modern-nav-inner::-webkit-scrollbar { display: none; }
-    .nav-tab { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; color: #575752; padding: 0.25rem 0.1rem; position: relative; flex-shrink: 0; display: inline-flex; align-items: center; gap: 0.5rem; background: transparent; border: none; cursor: pointer; transition: all 0.2s; }
-    .nav-tab i { font-size: 0.9rem; opacity: 0.75; transition: opacity 0.2s, transform 0.2s; }
+    .nav-tab { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; color: #575752; padding: 0.25rem 0.1rem; position: relative; flex-shrink: 0; display: inline-flex; align-items: center; gap: 0.4rem; background: none; border: none; cursor: pointer; }
+    .nav-tab svg { width: 14px; height: 14px; opacity: .7; }
     .nav-tab::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background-color: #8b261b; transition: width .3s ease; }
     .nav-tab:hover { color: #8b261b; } 
-    .nav-tab:hover i { opacity: 1; transform: translateY(-1px); }
+    .nav-tab:hover svg { opacity: 1; }
     .nav-tab:hover::after, .nav-tab.active::after { width: 100%; }
     .nav-tab.active { color: #8b261b; }
-    .nav-tab.active i { opacity: 1; }
 
     /* FOOTER (salin dari index.html) */
     .news-footer { border-top: 4px double #1c1c1a; padding: 3rem 0 2.5rem; margin-top: 4rem; }
@@ -85,7 +81,7 @@
     .footer-links a:hover { color: #1c1c1a; text-decoration: underline; }
     .footer-bottom { border-top: 1px solid #e3e0d5; padding-top: 1.5rem; margin-top: 2.5rem; display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: #7c7b72; flex-wrap: wrap; gap: .5rem; }
 
-    /* KONTEN ARTIKEL (prose styling untuk bacaan panjang) */
+    /* KONTEN ARTIKEL (prose styling untuk bacaan panjang, mendukung tabel, embed, gambar) */
     .article-prose {
       font-size: 1.05rem;
       line-height: 1.75;
@@ -176,6 +172,7 @@
       border: 1px solid #e3e0d5;
       padding: 0.3rem 0.8rem;
       border-radius: 40px;
+      text-decoration: none;
     }
     .back-link:hover {
       background-color: #f5f3eb;
@@ -221,24 +218,24 @@
     </div>
   </header>
 
-  <!-- STICKY NAV dengan ikon Font Awesome yang lebih terasa koran -->
+  <!-- STICKY NAV (persis dengan index.html) -->
   <div class="sticky-nav-container" id="sticky-nav">
     <nav class="max-w-6xl mx-auto">
       <div class="modern-nav-inner">
-        <a href="/" class="nav-tab"><i class="fas fa-home"></i> Home</a>
-        <a href="/blog" class="nav-tab"><i class="fas fa-newspaper"></i> Blog</a>
-        <a href="/gallery" class="nav-tab"><i class="fas fa-images"></i> Galeri</a>
-        <a href="/football" class="nav-tab"><i class="fas fa-futbol"></i> Sepak Bola</a>
-        <a href="/f1" class="nav-tab"><i class="fas fa-car"></i> F1</a>
-        <a href="/thoughts" class="nav-tab"><i class="fas fa-pencil-alt"></i> Catatan</a>
-        <a href="https://frihantara.page.gd/about" class="nav-tab"><i class="fas fa-user"></i> Tentang</a>
+        <a href="/" class="nav-tab"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10M9 21h6"/></svg>Home</a>
+        <a href="/blog" class="nav-tab"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>Blog</a>
+        <a href="/gallery" class="nav-tab"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>Galeri</a>
+        <a href="/football" class="nav-tab"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707.707M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Sepak Bola</a>
+        <a href="/f1" class="nav-tab"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>F1</a>
+        <a href="/thoughts" class="nav-tab"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>Catatan</a>
+        <a href="https://frihantara.page.gd/about" class="nav-tab"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>Tentang</a>
       </div>
     </nav>
   </div>
 
   <!-- KONTEN ARTIKEL -->
   <main class="max-w-4xl mx-auto py-8 px-4" id="post-content">
-    <!-- skeleton loading -->
+    <!-- skeleton loading akan diganti oleh JS -->
     <div class="skeleton-post space-y-6">
       <div class="skeleton h-8 w-32 rounded"></div>
       <div class="skeleton h-12 w-3/4 rounded"></div>
@@ -258,18 +255,18 @@
       <div>
         <div class="footer-title">Navigasi Utama</div>
         <ul class="footer-links space-y-2">
-          <li><a href="/"><i class="fas fa-home mr-1"></i> Beranda Utama</a></li>
-          <li><a href="/blog"><i class="fas fa-newspaper mr-1"></i> Arsip Tulisan</a></li>
-          <li><a href="/gallery"><i class="fas fa-images mr-1"></i> Koleksi Galeri</a></li>
-          <li><a href="https://frihantara.page.gd/about"><i class="fas fa-user mr-1"></i> Informasi Penulis</a></li>
+          <li><a href="/">Beranda Utama</a></li>
+          <li><a href="/blog">Arsip Tulisan</a></li>
+          <li><a href="/gallery">Koleksi Galeri</a></li>
+          <li><a href="https://frihantara.page.gd/about">Informasi Penulis</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-title">Kategori Minat</div>
         <ul class="footer-links space-y-2">
-          <li><a href="/football"><i class="fas fa-futbol mr-1"></i> Sepak Bola &amp; Taktik</a></li>
-          <li><a href="/f1"><i class="fas fa-car mr-1"></i> Balap Formula 1</a></li>
-          <li><a href="/thoughts"><i class="fas fa-pencil-alt mr-1"></i> Catatan Singkat</a></li>
+          <li><a href="/football">Sepak Bola &amp; Taktik</a></li>
+          <li><a href="/f1">Balap Formula 1</a></li>
+          <li><a href="/thoughts">Catatan Singkat</a></li>
         </ul>
       </div>
     </div>
@@ -280,40 +277,60 @@
   </footer>
 
   <script type="module">
-    import { SUPABASE_URL, SUPABASE_ANON_KEY } from '/js/config.js';
-    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-
-    // Inisialisasi supabase
-    let supabase = null;
+    // Konfigurasi Supabase dengan fallback jika file config.js tidak ada
+    let SUPABASE_URL = '';
+    let SUPABASE_ANON_KEY = '';
+    
     try {
-      if (SUPABASE_URL && SUPABASE_ANON_KEY) {
-        supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-      } else {
-        console.warn('Supabase credentials missing');
-      }
+      // Coba import dari file konfigurasi (jika ada)
+      const config = await import('/js/config.js');
+      SUPABASE_URL = config.SUPABASE_URL;
+      SUPABASE_ANON_KEY = config.SUPABASE_ANON_KEY;
     } catch (e) {
-      console.warn('Supabase init failed', e);
+      console.warn('File /js/config.js tidak ditemukan. Gunakan fallback environment (jika ada) atau mode demo.');
+      // Bisa juga mengambil dari window.env jika diperlukan, tapi untuk sekarang fallback ke mode demo
     }
 
-    // Helper: format tanggal dan waktu baca
+    // Jika masih kosong, coba ambil dari meta tag atau environment (opsional)
+    // Untuk keperluan demo, kita akan tetap coba inisialisasi supabase hanya jika URL tersedia
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+    let supabase = null;
+    if (SUPABASE_URL && SUPABASE_ANON_KEY) {
+      supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    } else {
+      console.warn('Supabase tidak dikonfigurasi. Halaman akan menampilkan mode demo (artikel tidak tersedia).');
+    }
+
+    // Helper functions
     function formatDateIndonesian(dateStr) {
+      if (!dateStr) return 'Tanggal tidak tersedia';
       const d = new Date(dateStr);
+      if (isNaN(d.getTime())) return 'Tanggal invalid';
       return d.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
     }
 
     function estimateReadingTime(content) {
       if (!content) return '1 menit membaca';
-      const words = content.replace(/<[^>]*>/g, '').split(/\s+/).length;
+      const text = content.replace(/<[^>]*>/g, '');
+      const words = text.trim().split(/\s+/).length;
       const minutes = Math.ceil(words / 200);
-      return minutes > 0 ? `${minutes} menit membaca` : '1 menit membaca';
+      return minutes > 0 ? `${minutes} menit membaca` : '< 1 menit membaca';
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
 
     // Set editorial date & sticky nav scroll
     function setEditorialDate() {
       const hariIni = new Date();
       const formatId = hariIni.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-      document.getElementById('nav-date').textContent = formatId.toUpperCase();
-      document.getElementById('editorial-day').textContent = `Edisi ${hariIni.toLocaleDateString('id-ID', { weekday: 'long' })} / Jakarta`;
+      const navDate = document.getElementById('nav-date');
+      const editorialDay = document.getElementById('editorial-day');
+      if (navDate) navDate.textContent = formatId.toUpperCase();
+      if (editorialDay) editorialDay.textContent = `Edisi ${hariIni.toLocaleDateString('id-ID', { weekday: 'long' })} / Jakarta`;
     }
     setEditorialDate();
 
@@ -323,108 +340,141 @@
       else nav.classList.remove('is-scrolled');
     });
 
-    // Ambil slug dari URL (path: /blog/nama-slug)
-    const slug = window.location.pathname.split('/').pop();
-
-    async function loadPost() {
+    // Ambil slug dari URL
+    const pathParts = window.location.pathname.split('/');
+    const slug = pathParts.pop() || (pathParts.length > 1 ? pathParts[pathParts.length-1] : '');
+    
+    if (!slug) {
+      // Tidak ada slug, tampilkan error
       const container = document.getElementById('post-content');
-      if (!supabase) {
-        container.innerHTML = `<div class="bg-paper-dark p-8 text-center rounded"><p class="text-muted">Tidak dapat terhubung ke database. Periksa konfigurasi Supabase.</p><a href="/blog" class="mt-4 inline-block back-link"><i class="fas fa-arrow-left mr-1"></i> Kembali ke Blog</a></div>`;
-        return;
-      }
-
-      const { data: post, error } = await supabase
-        .from('posts')
-        .select('*')
-        .eq('slug', slug)
-        .eq('status', 'published')
-        .maybeSingle();
-
-      if (error || !post) {
-        container.innerHTML = `
-          <div class="text-center py-16">
-            <h2 class="font-serif text-3xl mb-3">Artikel tidak ditemukan</h2>
-            <p class="text-muted mb-6">Maaf, halaman yang Anda cari tidak tersedia atau belum dipublikasikan.</p>
-            <a href="/blog" class="back-link"><i class="fas fa-arrow-left mr-1"></i> Kembali ke Arsip Blog</a>
-          </div>
-        `;
-        return;
-      }
-
-      // Update judul halaman
-      document.title = `${post.title} — Frihantara`;
-
-      // Hitung reading time
-      const readingTimeText = estimateReadingTime(post.content);
-      const formattedDate = formatDateIndonesian(post.created_at);
-      
-      // Render tags
-      const tagsHtml = post.tags?.length 
-        ? `<div class="flex flex-wrap gap-2 mt-4">${post.tags.map(t => `<span class="post-tag"><i class="fas fa-tag mr-1"></i>#${t}</span>`).join('')}</div>`
-        : '';
-
-      // Konten HTML
-      const safeContent = post.content || '<p>Konten tidak tersedia.</p>';
-
       container.innerHTML = `
-        <article class="max-w-3xl mx-auto">
-          <!-- Back link & kategori -->
-          <div class="flex justify-between items-center mb-6 flex-wrap gap-3">
-            <a href="/blog" class="back-link">
-              <i class="fas fa-arrow-left"></i> Semua Artikel
-            </a>
-            ${post.category ? `<span class="font-mono text-xs uppercase tracking-wider text-accent border border-border-light px-3 py-1"><i class="far fa-folder-open mr-1"></i>${post.category}</span>` : ''}
-          </div>
-
-          <!-- Judul & meta -->
-          <header class="mb-8 border-b border-border-light pb-6">
-            <h1 class="font-serif text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-4">${escapeHtml(post.title)}</h1>
-            ${post.excerpt ? `<p class="text-lg text-muted italic mb-4">${escapeHtml(post.excerpt)}</p>` : ''}
-            <div class="flex flex-wrap gap-4 text-sm font-mono text-light">
-              <span><i class="far fa-calendar-alt mr-1"></i> ${formattedDate}</span>
-              <span><i class="far fa-clock mr-1"></i> ${readingTimeText}</span>
-              ${post.author ? `<span><i class="far fa-user mr-1"></i> ${escapeHtml(post.author)}</span>` : ''}
-            </div>
-            ${tagsHtml}
-          </header>
-
-          <!-- Cover Image jika ada -->
-          ${post.cover_image ? `
-            <figure class="mb-10 -mx-4 md:mx-0">
-              <img src="${escapeHtml(post.cover_image)}" alt="${escapeHtml(post.title)}" class="w-full rounded-xl border border-border-light shadow-sm" loading="lazy">
-              <figcaption class="text-center text-xs text-light mt-2 font-mono"><i class="fas fa-camera mr-1"></i> Sampul artikel · ${formattedDate}</figcaption>
-            </figure>
-          ` : ''}
-
-          <!-- Konten utama dengan dukungan tabel, embed, gambar, dll -->
-          <div class="article-prose">
-            ${safeContent}
-          </div>
-
-          <!-- Footer artikel dengan navigasi kembali -->
-          <footer class="mt-12 pt-8 border-t border-border-light text-center">
-            <a href="/blog" class="back-link text-sm"><i class="fas fa-book-open mr-1"></i> Jelajahi tulisan lainnya</a>
-            <div class="mt-6 text-xs text-light font-mono"><i class="far fa-copyright mr-1"></i> Frihantara — Merawat ingatan melalui kata-kata.</div>
-          </footer>
-        </article>
+        <div class="text-center py-16">
+          <h2 class="font-serif text-3xl mb-3">Artikel tidak ditemukan</h2>
+          <p class="text-muted mb-6">URL artikel tidak valid.</p>
+          <a href="/blog" class="back-link">← Kembali ke Arsip Blog</a>
+        </div>
       `;
+      // Hilangkan loader
+      setTimeout(() => document.getElementById('page-loader')?.classList.add('loaded'), 100);
+    } else {
+      // Load artikel berdasarkan slug
+      (async () => {
+        try {
+          const container = document.getElementById('post-content');
+          
+          // Jika supabase tidak tersedia, tampilkan pesan error
+          if (!supabase) {
+            container.innerHTML = `
+              <div class="bg-paper-dark p-8 text-center rounded">
+                <p class="text-muted">⚠️ Koneksi database tidak tersedia. Pastikan file <code class="bg-border-light px-1">/js/config.js</code> berisi SUPABASE_URL dan SUPABASE_ANON_KEY.</p>
+                <a href="/blog" class="mt-4 inline-block back-link">← Kembali ke Blog</a>
+              </div>
+            `;
+            setTimeout(() => document.getElementById('page-loader')?.classList.add('loaded'), 100);
+            return;
+          }
+
+          const { data: post, error } = await supabase
+            .from('posts')
+            .select('*')
+            .eq('slug', slug)
+            .eq('status', 'published')
+            .maybeSingle();
+
+          if (error || !post) {
+            container.innerHTML = `
+              <div class="text-center py-16">
+                <h2 class="font-serif text-3xl mb-3">Artikel tidak ditemukan</h2>
+                <p class="text-muted mb-6">Maaf, halaman yang Anda cari tidak tersedia atau belum dipublikasikan.</p>
+                <a href="/blog" class="back-link">← Kembali ke Arsip Blog</a>
+              </div>
+            `;
+            setTimeout(() => document.getElementById('page-loader')?.classList.add('loaded'), 100);
+            return;
+          }
+
+          // Update judul halaman
+          document.title = `${post.title} — Frihantara`;
+
+          // Hitung reading time
+          const readingTimeText = estimateReadingTime(post.content);
+          const formattedDate = formatDateIndonesian(post.created_at);
+          
+          // Render tags
+          const tagsHtml = post.tags?.length 
+            ? `<div class="flex flex-wrap gap-2 mt-4">${post.tags.map(t => `<span class="post-tag">#${escapeHtml(t)}</span>`).join('')}</div>`
+            : '';
+
+          // Konten HTML (dari database, aman karena editor terpercaya)
+          const safeContent = post.content || '<p>Konten tidak tersedia.</p>';
+
+          container.innerHTML = `
+            <article class="max-w-3xl mx-auto">
+              <!-- Back link & kategori -->
+              <div class="flex justify-between items-center mb-6 flex-wrap gap-3">
+                <a href="/blog" class="back-link">
+                  ← Semua Artikel
+                </a>
+                ${post.category ? `<span class="font-mono text-xs uppercase tracking-wider text-accent border border-border-light px-3 py-1">${escapeHtml(post.category)}</span>` : ''}
+              </div>
+
+              <!-- Judul & meta -->
+              <header class="mb-8 border-b border-border-light pb-6">
+                <h1 class="font-serif text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-4">${escapeHtml(post.title)}</h1>
+                ${post.excerpt ? `<p class="text-lg text-muted italic mb-4">${escapeHtml(post.excerpt)}</p>` : ''}
+                <div class="flex flex-wrap gap-4 text-sm font-mono text-light">
+                  <span>📅 ${formattedDate}</span>
+                  <span>📖 ${readingTimeText}</span>
+                  ${post.author ? `<span>✍️ ${escapeHtml(post.author)}</span>` : ''}
+                </div>
+                ${tagsHtml}
+              </header>
+
+              <!-- Cover Image jika ada -->
+              ${post.cover_image ? `
+                <figure class="mb-10 -mx-4 md:mx-0">
+                  <img src="${escapeHtml(post.cover_image)}" alt="${escapeHtml(post.title)}" class="w-full rounded-xl border border-border-light shadow-sm" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption class="text-center text-xs text-light mt-2 font-mono">Sampul artikel · ${formattedDate}</figcaption>
+                </figure>
+              ` : ''}
+
+              <!-- Konten utama dengan dukungan tabel, embed, gambar, dll -->
+              <div class="article-prose">
+                ${safeContent}
+              </div>
+
+              <!-- Footer artikel dengan navigasi kembali -->
+              <footer class="mt-12 pt-8 border-t border-border-light text-center">
+                <a href="/blog" class="back-link text-sm">← Jelajahi tulisan lainnya</a>
+                <div class="mt-6 text-xs text-light font-mono">Frihantara — Merawat ingatan melalui kata-kata.</div>
+              </footer>
+            </article>
+          `;
+
+          // Hilangkan loader setelah konten siap
+          setTimeout(() => document.getElementById('page-loader')?.classList.add('loaded'), 100);
+        } catch (err) {
+          console.error('Error loading post:', err);
+          const container = document.getElementById('post-content');
+          container.innerHTML = `
+            <div class="text-center py-16">
+              <h2 class="font-serif text-3xl mb-3">Terjadi kesalahan</h2>
+              <p class="text-muted mb-6">Gagal memuat artikel. Silakan coba lagi nanti.</p>
+              <a href="/blog" class="back-link">← Kembali ke Blog</a>
+            </div>
+          `;
+          setTimeout(() => document.getElementById('page-loader')?.classList.add('loaded'), 100);
+        }
+      })();
     }
 
-    function escapeHtml(str) {
-      if (!str) return '';
-      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
-
-    // Jalankan load post
-    await loadPost();
-
-    // Hilangkan loader setelah halaman siap
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        const loader = document.getElementById('page-loader');
-        if (loader) loader.classList.add('loaded');
-      }, 200);
-    });
+    // Fallback: jika loader tidak hilang dalam 5 detik, paksa hilangkan (anti stuck)
+    setTimeout(() => {
+      const loader = document.getElementById('page-loader');
+      if (loader && !loader.classList.contains('loaded')) {
+        loader.classList.add('loaded');
+      }
+    }, 5000);
   </script>
 </body>
 </html>
