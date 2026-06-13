@@ -7,12 +7,12 @@
   <meta name="description" content="Catatan singkat, pengamatan, dan hal-hal yang layak diingat.">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
-  <!-- Fonts -->
+  <!-- Fonts (persis sama dengan blog.html) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CSS -->
+  <!-- Tailwind CSS (sama persis konfigurasi blog.html) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -33,12 +33,13 @@
     };
   </script>
 
+  <!-- style tambahan untuk halaman thoughts, tetap menggunakan identitas visual yang sama -->
   <style>
     * { box-sizing: border-box; }
     body { background-color: #fcfbf7; color: #1c1c1a; font-family: 'Inter', system-ui, sans-serif; line-height: 1.6; overflow-x: hidden; }
     a { transition: all .2s ease; }
 
-    /* LOADER */
+    /* LOADER (salin persis dari blog.html) */
     #page-loader { position: fixed; inset: 0; z-index: 9999; background: #fcfbf7; display: flex; align-items: center; justify-content: center; transition: opacity .5s ease, visibility .5s ease; }
     #page-loader.loaded { opacity: 0; visibility: hidden; }
     .loader-inner { text-align: center; }
@@ -49,7 +50,54 @@
     @keyframes loaderSlide { 0% { transform: translateX(-100%); } 50% { transform: translateX(150%); } 100% { transform: translateX(150%); } }
     .loader-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: #7c7b72; margin-top: 0.75rem; }
 
-    /* REVEAL ANIMATIONS */
+    /* HEADER (salin persis dari blog.html) */
+    .news-header-top { display: flex; justify-content: space-between; align-items: center; font-size: 0.7rem; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.1em; color: #575752; border-bottom: 1px solid #e3e0d5; padding-bottom: 0.75rem; }
+    .news-brand { font-family: 'Playfair Display', serif; font-size: clamp(2.4rem, 6vw, 3.8rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+    .news-brand span { font-weight: 300; font-style: italic; color: #8b261b; }
+    .news-meta-bar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; font-family: 'Playfair Display', serif; font-size: 0.85rem; font-style: italic; color: #575752; border-top: 4px double #1c1c1a; border-bottom: 4px double #1c1c1a; padding: 0.5rem 0; margin-top: 0.5rem; }
+    .meta-item.left { text-align: left; } .meta-item.center { text-align: center; font-weight: bold; font-style: normal; text-transform: uppercase; letter-spacing: 0.15em; } .meta-item.right { text-align: right; }
+    @media (max-width: 640px) { .news-meta-bar { font-size: 0.7rem; grid-template-columns: 1fr; gap: 0.25rem; text-align: center; } .meta-item.left, .meta-item.right { text-align: center; } }
+
+    /* STICKY NAV (salin persis dari blog.html) */
+    .sticky-nav-container { position: sticky; top: 0; z-index: 1000; background-color: rgba(252, 251, 247, 0.94); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-bottom: 1px solid #1c1c1a; transition: all .3s cubic-bezier(.16,1,.3,1); }
+    .sticky-nav-container.is-scrolled { box-shadow: 0 4px 20px rgba(0,0,0,.05); border-bottom: 2px solid #8b261b; }
+    .modern-nav-inner { display: flex; justify-content: center; align-items: center; gap: 1.5rem; padding: 0.75rem 0; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+    .modern-nav-inner::-webkit-scrollbar { display: none; }
+    .nav-tab { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; color: #575752; padding: 0.25rem 0.1rem; position: relative; flex-shrink: 0; display: inline-flex; align-items: center; gap: 0.4rem; }
+    .nav-tab svg { width: 14px; height: 14px; opacity: .7; }
+    .nav-tab::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background-color: #8b261b; transition: width .3s ease; }
+    .nav-tab:hover { color: #8b261b; } .nav-tab:hover svg { opacity: 1; }
+    .nav-tab:hover::after, .nav-tab.active::after { width: 100%; }
+    .nav-tab.active { color: #8b261b; }
+
+    /* PAGE HERO (sesuai blog.html) */
+    .page-hero { border-bottom: 1px solid #e3e0d5; padding: 2.5rem 0 2rem; margin-bottom: 2.5rem; }
+    .page-hero__eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.2em; color: #8b261b; font-weight: 600; margin-bottom: 0.6rem; }
+    .page-hero__title { font-family: 'Playfair Display', serif; font-size: clamp(2.4rem, 6vw, 3.6rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.05; margin-bottom: 0.8rem; }
+    .page-hero__desc { font-size: 1rem; color: #575752; max-width: 560px; }
+
+    /* TOOLBAR & TAGS (dengan gaya dari blog.html) */
+    .blog-toolbar { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .search-bar { display: flex; align-items: center; gap: 0.5rem; border: 1px solid #e3e0d5; padding: 0.5rem 0.85rem; background: #fcfbf7; }
+    .search-bar svg { width: 16px; height: 16px; color: #7c7b72; flex-shrink: 0; }
+    .search-bar input { border: none; outline: none; background: transparent; font-size: 0.85rem; width: 100%; font-family: 'Inter', sans-serif; color: #1c1c1a; }
+    .blog-categories { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .category-chip { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.4rem 0.9rem; border: 1px solid #e3e0d5; color: #7c7b72; transition: all .2s ease; background: transparent; cursor: pointer; }
+    .category-chip:hover { border-color: #1c1c1a; color: #1c1c1a; }
+    .category-chip.active { background: #1c1c1a; border-color: #1c1c1a; color: #fcfbf7; }
+
+    /* THOUGHTS ENTRY (dengan nuansa yang selaras) */
+    .thought-entry { transition: background 0.2s ease; }
+    .thought-date-day { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 400; color: #7c7b72; line-height: 1; }
+    .inline-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.06em; text-transform: uppercase; color: #c39b34; background: rgba(195,155,52,0.08); padding: 0.2rem 0.6rem; border-radius: 999px; cursor: pointer; transition: all 0.2s; }
+    .inline-tag:hover { background: rgba(195,155,52,0.2); color: #8b261b; }
+
+    /* LOAD MORE (sama dengan blog.html) */
+    .load-more-wrap { text-align: center; margin-top: 2.5rem; }
+    .btn-outline { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.65rem 1.5rem; border: 1px solid #1c1c1a; background: transparent; color: #1c1c1a; transition: all .2s ease; cursor: pointer; }
+    .btn-outline:hover { background: #1c1c1a; color: #fcfbf7; }
+
+    /* REVEAL (sama) */
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
     .reveal.in-view { opacity: 1; transform: translateY(0); }
     .reveal-stagger > * { opacity: 0; transform: translateY(24px); transition: opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1); }
@@ -65,55 +113,20 @@
     .skeleton { background: linear-gradient(90deg, #f2efe4 25%, #e6e2d3 50%, #f2efe4 75%); background-size: 200% 100%; animation: loading 1.5s infinite; border-radius: 4px; }
     @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
-    /* THOUGHTS CUSTOM */
-    .tag-chip {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 0.4rem 0.9rem;
-      border: 1px solid #e3e0d5;
-      color: #7c7b72;
-      transition: all .2s ease;
-      background: transparent;
-      cursor: pointer;
-    }
-    .tag-chip:hover { border-color: #1c1c1a; color: #1c1c1a; }
-    .tag-chip.active { background: #1c1c1a; border-color: #1c1c1a; color: #fcfbf7; }
-
-    .thought-entry {
-      transition: background 0.2s ease;
-    }
-    .thought-date-day {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      font-weight: 400;
-      color: #7c7b72;
-      line-height: 1;
-    }
-    .thought-text a {
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      color: #8b261b;
-    }
-    .inline-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #c39b34;
-      background: rgba(195,155,52,0.08);
-      padding: 0.2rem 0.6rem;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .inline-tag:hover { background: rgba(195,155,52,0.2); color: #8b261b; }
+    /* FOOTER (salin persis dari blog.html) */
+    .news-footer { border-top: 4px double #1c1c1a; padding: 3rem 0 2.5rem; margin-top: 4rem; }
+    .footer-brand { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em; }
+    .footer-brand span { font-style: italic; font-weight: 300; color: #8b261b; }
+    .footer-desc { font-size: 0.85rem; color: #575752; line-height: 1.6; max-width: 380px; }
+    .footer-title { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #8b261b; margin-bottom: 1.1rem; font-weight: bold; }
+    .footer-links a { font-size: 0.85rem; color: #575752; text-decoration: none; }
+    .footer-links a:hover { color: #1c1c1a; text-decoration: underline; }
+    .footer-bottom { border-top: 1px solid #e3e0d5; padding-top: 1.5rem; margin-top: 2.5rem; display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: #7c7b72; flex-wrap: wrap; gap: .5rem; }
   </style>
 </head>
 <body class="px-4">
 
-  <!-- LOADER -->
+  <!-- LOADER (salin persis) -->
   <div id="page-loader">
     <div class="loader-inner">
       <div class="loader-brand">Frihantara<span>.</span></div>
@@ -122,59 +135,59 @@
     </div>
   </div>
 
-  <!-- MASTHEAD (sama persis dengan blog.html) -->
+  <!-- MASTHEAD (salin persis dari blog.html) -->
   <header class="max-w-6xl mx-auto pt-6">
-    <div class="flex justify-between items-center text-[0.7rem] font-mono uppercase tracking-wider text-muted border-b border-border-light pb-3">
+    <div class="news-header-top">
       <div class="flex items-center gap-2"><span>INDONESIA</span><span>•</span><span id="nav-date">2026</span></div>
       <div class="hidden sm:block">EDISI DIGITAL #012</div>
       <div>VOLUME IV</div>
     </div>
-    <a href="/" class="block text-center my-5"><div class="font-serif text-[clamp(2.4rem,6vw,3.8rem)] font-extrabold tracking-tighter leading-none">Frihantara<span class="font-light italic text-accent">.</span></div></a>
-    <div class="grid grid-cols-1 sm:grid-cols-3 items-center font-serif text-sm italic text-muted border-t-4 border-double border-ink border-b-4 py-2 mt-2">
-      <div class="text-left">Terbit secara Periodik</div>
-      <div class="text-center font-sans not-italic uppercase tracking-[0.15em] font-bold">ARSIP CATATAN</div>
-      <div class="text-right" id="editorial-day">Jumat Kliwon</div>
+    <a href="/" class="block text-center my-5"><div class="news-brand">Frihantara<span>.</span></div></a>
+    <div class="news-meta-bar">
+      <div class="meta-item left">Terbit secara Periodik</div>
+      <div class="meta-item center">ARSIP CATATAN</div>
+      <div class="meta-item right" id="editorial-day">Jumat Kliwon</div>
     </div>
   </header>
 
-  <!-- STICKY NAVIGATION -->
-  <div class="sticky top-0 z-[1000] bg-paper/90 backdrop-blur-md border-b border-ink transition-all duration-300" id="sticky-nav">
+  <!-- STICKY NAV (salin persis, dengan active pada Catatan) -->
+  <div class="sticky-nav-container" id="sticky-nav">
     <nav class="max-w-6xl mx-auto">
-      <div class="flex justify-center items-center gap-4 sm:gap-6 overflow-x-auto py-3 whitespace-nowrap scrollbar-none">
-        <a href="/" class="font-mono text-xs sm:text-sm font-medium uppercase tracking-wide text-muted hover:text-accent flex items-center gap-1.5 transition"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10M9 21h6"/></svg>Home</a>
-        <a href="/blog" class="font-mono text-xs sm:text-sm font-medium uppercase tracking-wide text-muted hover:text-accent flex items-center gap-1.5 transition"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>Blog</a>
-        <a href="/gallery" class="font-mono text-xs sm:text-sm font-medium uppercase tracking-wide text-muted hover:text-accent flex items-center gap-1.5 transition"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>Galeri</a>
-        <a href="/football" class="font-mono text-xs sm:text-sm font-medium uppercase tracking-wide text-muted hover:text-accent flex items-center gap-1.5 transition"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707.707M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Sepak Bola</a>
-        <a href="/f1" class="font-mono text-xs sm:text-sm font-medium uppercase tracking-wide text-muted hover:text-accent flex items-center gap-1.5 transition"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>F1</a>
-        <a href="/thoughts" class="font-mono text-xs sm:text-sm font-medium uppercase tracking-wide text-accent border-b-2 border-accent pb-0.5 flex items-center gap-1.5 transition"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>Catatan</a>
-        <a href="https://frihantara.page.gd/about" class="font-mono text-xs sm:text-sm font-medium uppercase tracking-wide text-muted hover:text-accent flex items-center gap-1.5 transition"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>Tentang</a>
+      <div class="modern-nav-inner">
+        <a href="/" class="nav-tab"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10M9 21h6"/></svg>Home</a>
+        <a href="/blog" class="nav-tab"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>Blog</a>
+        <a href="/gallery" class="nav-tab"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>Galeri</a>
+        <a href="/football" class="nav-tab"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707.707M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Sepak Bola</a>
+        <a href="/f1" class="nav-tab"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>F1</a>
+        <a href="/thoughts" class="nav-tab active"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>Catatan</a>
+        <a href="https://frihantara.page.gd/about" class="nav-tab"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>Tentang</a>
       </div>
     </nav>
   </div>
 
-  <main class="max-w-4xl mx-auto pb-12">
-    <!-- HERO -->
-    <header class="border-b border-border-light py-8 mb-8 reveal">
-      <p class="font-mono text-xs uppercase tracking-[0.2em] text-accent font-semibold mb-2">Notes</p>
-      <h1 class="font-serif text-[clamp(2.2rem,6vw,3.4rem)] font-semibold tracking-tighter leading-tight mb-2">Catatan</h1>
-      <p class="text-muted max-w-xl">Catatan singkat, pengamatan, dan hal-hal yang layak diingat.</p>
+  <!-- KONTEN UTAMA (dengan gaya yang konsisten) -->
+  <main class="max-w-4xl mx-auto pb-10">
+    <header class="page-hero reveal">
+      <p class="page-hero__eyebrow">Notes</p>
+      <h1 class="page-hero__title">Catatan</h1>
+      <p class="page-hero__desc">Catatan singkat, pengamatan, dan hal-hal yang layak diingat.</p>
     </header>
 
-    <!-- TOOLBAR -->
+    <!-- Toolbar (mengikuti gaya blog-toolbar) -->
     <section class="mb-8">
-      <div class="flex flex-wrap items-center gap-4 reveal">
-        <div class="flex items-center gap-2 border border-border-light bg-paper px-3 py-2 flex-1 max-w-sm">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-light" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg>
-          <input type="text" id="search-thoughts" class="w-full bg-transparent outline-none text-sm font-sans placeholder:text-light" placeholder="Cari catatan…">
+      <div class="blog-toolbar reveal">
+        <div class="search-bar" style="flex:1; max-width:340px">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg>
+          <input type="text" id="search-thoughts" placeholder="Cari catatan…">
         </div>
       </div>
-      <div id="tags-container" class="flex flex-wrap gap-2 mt-5 reveal"></div>
+      <div class="blog-categories mt-5" id="tags-container"></div>
     </section>
 
-    <!-- TIMELINE -->
-    <section class="mb-12">
+    <!-- Daftar catatan -->
+    <section>
       <div id="thoughts-list" class="divide-y divide-border-light">
-        <!-- skeleton loading akan muncul di sini -->
+        <!-- skeleton loading -->
         <div class="py-5 flex gap-4">
           <div class="skeleton w-[70px] h-14"></div>
           <div class="flex-1 space-y-2"><div class="skeleton h-5 w-full"></div><div class="skeleton h-4 w-3/4"></div></div>
@@ -183,43 +196,39 @@
           <div class="skeleton w-[70px] h-14"></div>
           <div class="flex-1 space-y-2"><div class="skeleton h-5 w-full"></div><div class="skeleton h-4 w-2/3"></div></div>
         </div>
-        <div class="py-5 flex gap-4">
-          <div class="skeleton w-[70px] h-14"></div>
-          <div class="flex-1 space-y-2"><div class="skeleton h-5 w-full"></div><div class="skeleton h-4 w-5/6"></div></div>
-        </div>
       </div>
-      <div id="load-more-wrap" class="text-center mt-8 hidden">
-        <button id="load-more-btn" class="font-mono text-xs uppercase tracking-wider px-5 py-2 border border-ink bg-transparent text-ink hover:bg-ink hover:text-paper transition">Muat lebih banyak</button>
+      <div class="load-more-wrap" id="load-more-wrap" style="display:none">
+        <button class="btn-outline" id="load-more-btn">Muat lebih banyak</button>
       </div>
     </section>
   </main>
 
-  <!-- FOOTER (sama persis dengan blog.html) -->
-  <footer class="border-t-4 border-double border-ink max-w-6xl mx-auto pt-10 pb-8 mt-4">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-6">
+  <!-- FOOTER (salin persis dari blog.html) -->
+  <footer class="news-footer max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-2">
       <div>
-        <div class="font-serif text-3xl font-extrabold tracking-tight">Frihantara<span class="font-light italic text-accent">.</span></div>
-        <p class="text-sm text-muted mt-3 max-w-sm">Sebuah upaya merawat ingatan, mengarsipkan gagasan, dan merayakan ketertarikan lewat media jurnalistik personal. Diproduksi secara mandiri di era digital.</p>
+        <div class="footer-brand">Frihantara<span>.</span></div>
+        <p class="footer-desc mt-3">Sebuah upaya merawat ingatan, mengarsipkan gagasan, dan merayakan ketertarikan lewat media jurnalistik personal. Diproduksi secara mandiri di era digital.</p>
       </div>
       <div>
-        <div class="font-mono text-xs uppercase tracking-wider text-accent font-bold mb-4">Navigasi Utama</div>
-        <ul class="space-y-2 text-sm text-muted">
-          <li><a href="/" class="hover:text-ink">Beranda Utama</a></li>
-          <li><a href="/blog" class="hover:text-ink">Arsip Tulisan</a></li>
-          <li><a href="/gallery" class="hover:text-ink">Koleksi Galeri</a></li>
-          <li><a href="https://frihantara.page.gd/about" class="hover:text-ink">Informasi Penulis</a></li>
+        <div class="footer-title">Navigasi Utama</div>
+        <ul class="footer-links space-y-2">
+          <li><a href="/">Beranda Utama</a></li>
+          <li><a href="/blog">Arsip Tulisan</a></li>
+          <li><a href="/gallery">Koleksi Galeri</a></li>
+          <li><a href="https://frihantara.page.gd/about">Informasi Penulis</a></li>
         </ul>
       </div>
       <div>
-        <div class="font-mono text-xs uppercase tracking-wider text-accent font-bold mb-4">Kategori Minat</div>
-        <ul class="space-y-2 text-sm text-muted">
-          <li><a href="/football" class="hover:text-ink">Sepak Bola &amp; Taktik</a></li>
-          <li><a href="/f1" class="hover:text-ink">Balap Formula 1</a></li>
-          <li><a href="/thoughts" class="hover:text-ink">Catatan Singkat</a></li>
+        <div class="footer-title">Kategori Minat</div>
+        <ul class="footer-links space-y-2">
+          <li><a href="/football">Sepak Bola &amp; Taktik</a></li>
+          <li><a href="/f1">Balap Formula 1</a></li>
+          <li><a href="/thoughts">Catatan Singkat</a></li>
         </ul>
       </div>
     </div>
-    <div class="border-t border-border-light pt-5 mt-4 flex flex-col sm:flex-row justify-between items-center gap-2 font-mono text-[0.65rem] text-light">
+    <div class="footer-bottom">
       <div>© 2026 Frihantara. Seluruh hak cipta dilindungi undang-undang.</div>
       <div>Ditenagai oleh Supabase &amp; Tinta Digital</div>
     </div>
@@ -251,10 +260,10 @@
       };
     }
 
-    // init supabase
-    const supabase = SUPABASE_URL && SUPABASE_ANON_KEY ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+    // Inisialisasi Supabase
+    const supabase = (SUPABASE_URL && SUPABASE_ANON_KEY) ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
-    // DOM elements
+    // Elemen DOM
     const container = document.getElementById('thoughts-list');
     const searchInput = document.getElementById('search-thoughts');
     const tagsContainer = document.getElementById('tags-container');
@@ -266,9 +275,8 @@
     let activeTag = '';
     let searchTerm = '';
     let totalCount = 0;
-    let isLoading = false;
 
-    // Load all unique tags
+    // Load semua tag unik (menggunakan class .blog-categories dan .category-chip)
     async function loadTags() {
       if (!supabase) return;
       const { data, error } = await supabase.from('thoughts').select('tags').not('tags', 'is', null);
@@ -281,16 +289,16 @@
       tagsContainer.innerHTML = '';
       sorted.forEach(tag => {
         const btn = document.createElement('button');
-        btn.className = 'tag-chip';
+        btn.className = 'category-chip';
         btn.textContent = `#${tag}`;
         btn.dataset.tag = tag;
         btn.addEventListener('click', () => {
           if (activeTag === tag) {
             activeTag = '';
-            document.querySelectorAll('.tag-chip').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.category-chip').forEach(c => c.classList.remove('active'));
           } else {
             activeTag = tag;
-            document.querySelectorAll('.tag-chip').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.category-chip').forEach(c => c.classList.remove('active'));
             btn.classList.add('active');
           }
           currentPage = 0;
@@ -302,15 +310,14 @@
 
     async function loadThoughts(reset = false) {
       if (!supabase) {
-        // fallback empty state
         if (reset) container.innerHTML = '<div class="py-10 text-center text-muted">Tidak dapat memuat data. Pastikan Supabase terhubung.</div>';
         return;
       }
       if (reset) {
         currentPage = 0;
         container.innerHTML = '';
-        // show skeleton while loading
-        for (let i = 0; i < 4; i++) {
+        // tampilkan skeleton sementara
+        for (let i = 0; i < 3; i++) {
           const sk = document.createElement('div');
           sk.className = 'py-5 flex gap-4';
           sk.innerHTML = `<div class="skeleton w-[70px] h-14"></div><div class="flex-1 space-y-2"><div class="skeleton h-5 w-full"></div><div class="skeleton h-4 w-3/4"></div></div>`;
@@ -339,7 +346,6 @@
           return;
         }
 
-        // render each thought
         data.forEach(thought => {
           const { day, mon, year } = formatDateThought(thought.created_at);
           const entry = document.createElement('div');
@@ -357,25 +363,25 @@
               ${tagsHtml}
             </div>
           `;
-          // add event listeners to inline tags
+          // event listener untuk inline tag
           entry.querySelectorAll('.inline-tag').forEach(tagEl => {
             tagEl.addEventListener('click', (e) => {
               e.stopPropagation();
               const tagValue = tagEl.getAttribute('data-tag');
-              const targetChip = Array.from(document.querySelectorAll('.tag-chip')).find(chip => chip.dataset.tag === tagValue);
+              const targetChip = Array.from(document.querySelectorAll('.category-chip')).find(chip => chip.dataset.tag === tagValue);
               if (targetChip) {
                 if (activeTag === tagValue) {
                   activeTag = '';
-                  document.querySelectorAll('.tag-chip').forEach(c => c.classList.remove('active'));
+                  document.querySelectorAll('.category-chip').forEach(c => c.classList.remove('active'));
                 } else {
                   activeTag = tagValue;
-                  document.querySelectorAll('.tag-chip').forEach(c => c.classList.remove('active'));
+                  document.querySelectorAll('.category-chip').forEach(c => c.classList.remove('active'));
                   targetChip.classList.add('active');
                 }
                 currentPage = 0;
                 loadThoughts(true);
               } else {
-                // fallback jika tag chip belum ada (seharusnya sudah di loadTags)
+                // fallback
                 activeTag = tagValue;
                 currentPage = 0;
                 loadThoughts(true);
@@ -395,7 +401,7 @@
       }
     }
 
-    // search handler
+    // Event listeners
     if (searchInput) {
       searchInput.addEventListener('input', debounce((e) => {
         searchTerm = e.target.value.trim();
@@ -403,31 +409,26 @@
         loadThoughts(true);
       }, 400));
     }
-
-    // load more
     if (loadMoreBtn) {
-      loadMoreBtn.addEventListener('click', () => {
-        if (!isLoading) loadThoughts(false);
-      });
+      loadMoreBtn.addEventListener('click', () => loadThoughts(false));
     }
 
-    // reveal animation & date
-    function setEditorialDates() {
-      const today = new Date();
-      const formatted = today.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).toUpperCase();
-      document.getElementById('nav-date') && (document.getElementById('nav-date').innerText = formatted);
-      const dayName = today.toLocaleDateString('id-ID', { weekday: 'long' });
-      document.getElementById('editorial-day') && (document.getElementById('editorial-day').innerText = `Edisi ${dayName} / Jakarta`);
+    // Fungsi tanggal & sticky nav (sama dengan blog.html)
+    function setEditorialDate() {
+      const opsi = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const hariIni = new Date();
+      const formatId = hariIni.toLocaleDateString('id-ID', opsi);
+      document.getElementById('nav-date').textContent = formatId.toUpperCase();
+      document.getElementById('editorial-day').textContent = `Edisi ${hariIni.toLocaleDateString('id-ID', { weekday: 'long' })} / Jakarta`;
     }
-    setEditorialDates();
+    setEditorialDate();
 
-    // sticky nav scroll effect
-    const stickyNav = document.getElementById('sticky-nav');
     window.addEventListener('scroll', () => {
-      if (stickyNav) stickyNav.classList.toggle('shadow-md', window.scrollY > 80);
+      const navContainer = document.getElementById('sticky-nav');
+      if (navContainer) navContainer.classList.toggle('is-scrolled', window.scrollY > 80);
     });
 
-    // intersection observer for reveal
+    // Intersection Observer untuk reveal animasi
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -438,15 +439,15 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
 
-    // start
+    // Mulai load data
     if (supabase) {
       loadTags();
       loadThoughts(true);
     } else {
-      container.innerHTML = '<div class="py-12 text-center text-muted">⚠️ Konfigurasi Supabase tidak ditemukan. Tambahkan file /js/config.js dengan SUPABASE_URL dan SUPABASE_ANON_KEY.</div>';
+      container.innerHTML = '<div class="py-12 text-center text-muted">⚠️ Konfigurasi Supabase tidak ditemukan. Pastikan file /js/config.js tersedia.</div>';
     }
 
-    // remove loader after page load
+    // Hilangkan loader setelah halaman siap
     window.addEventListener('load', () => {
       setTimeout(() => document.getElementById('page-loader')?.classList.add('loaded'), 300);
     });
